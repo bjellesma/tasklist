@@ -1,0 +1,4 @@
+/client/node_modules
+/client/bower_components
+/node_modules
+.env
