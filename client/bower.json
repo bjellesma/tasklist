@@ -1,0 +1,9 @@
+{
+  "name": "tasklist",
+  "description": "Simple tasklist web app",
+  "authors": [
+    "William Jellesma <william.jellesma@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bjellesma/tasklist"
+}

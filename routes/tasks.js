@@ -6,8 +6,8 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var dbHostName = "ds113630.mlab.com";
-var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + dbHostName + ':13630/bjellesma-tasklist', ['tasks']);
+console.log(process.env.DBUSERNAME);
+var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks']);
 
 /*
 * function to get all tasks
