@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+//task service is needed because we are connecting to a database
 import { TaskService} from './services/task.service';
 
 @Component({

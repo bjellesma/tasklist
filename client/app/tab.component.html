@@ -1,0 +1,4 @@
+<div class="task-tabs">
+  <!-- code from tab.component.ts -->
+  <span *ngFor="let tab of tabs"><a href="javascript:void(0)" class="tablinks" (click)='openTab(event, tab.Display, tab.Name);'>{{ tab.Display }}</a></span>
+</div>

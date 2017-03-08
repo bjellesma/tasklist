@@ -8,6 +8,7 @@
     <!-- 1. Load libraries -->
      <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="functions.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -20,7 +21,9 @@
   <!-- 3. Display the application -->
   <body>
     <!-- we get my-app from app.component.ts-->
-    <!--Notice loading is replace with the selector from app.component.ts -->
-    <my-app>Loading...</my-app>
+    <!--
+      code in app/app.component.ts
+    -->
+    <my-app>Retreiving Tasks Now</my-app>
   </body>
 </html>

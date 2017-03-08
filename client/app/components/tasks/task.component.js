@@ -63,7 +63,7 @@ TasksComponent = __decorate([
     core_1.Component({
         //in order to use the relative path, we need to include the following line
         moduleId: module.id,
-        selector: 'tasks',
+        selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService])

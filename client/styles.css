@@ -1,0 +1,29 @@
+/* tabs */
+.task-tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+.task-tabs a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+.task-tabs a:hover {
+    background-color: #ddd;
+}
+.task-tabs a:focus, .active {
+    background-color: #ccc;
+}
+.task-tab-content {
+    /* display: none; */
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+/* /tabs */
