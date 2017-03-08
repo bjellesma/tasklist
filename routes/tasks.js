@@ -6,7 +6,6 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-console.log(process.env.DBUSERNAME);
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks']);
 
 /*
