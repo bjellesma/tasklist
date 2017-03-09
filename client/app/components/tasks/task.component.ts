@@ -9,13 +9,13 @@ import {Task} from '../../../Task';
   templateUrl: 'task.component.html'
 })
 export class TasksComponent {
-  tasks:Task[];
+  allTasks:Task[];
   title: string;
   //this refers to the task service dependancy
     constructor(private taskService:TaskService){
       this.taskService.getTasks()
-        .subscribe(tasks => {
-          this.tasks = tasks;
+        .subscribe(allTasks => {
+          this.allTasks = allTasks;
         });
     }
 
@@ -28,19 +28,19 @@ export class TasksComponent {
       //save task to database
       this.taskService.addTask(newTask)
         .subscribe(task => {
-          this.tasks.push(task);
+          this.allTasks.push(task);
           this.title = '';
         })
     }
 
     deleteTask(id){
-      var tasks = this.tasks;
+      var allTasks = this.allTasks;
 
       this.taskService.deleteTask(id).subscribe(data => {
         if(data.n == 1){
-          for(var i = 0; i <tasks.length;i++){
-            if(tasks[i]._id == id){
-              tasks.splice(i, 1);
+          for(var i = 0; i <allTasks.length;i++){
+            if(allTasks[i]._id == id){
+              allTasks.splice(i, 1);
             }
           }
         }

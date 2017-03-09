@@ -17,8 +17,8 @@ var TasksComponent = (function () {
         var _this = this;
         this.taskService = taskService;
         this.taskService.getTasks()
-            .subscribe(function (tasks) {
-            _this.tasks = tasks;
+            .subscribe(function (allTasks) {
+            _this.allTasks = allTasks;
         });
     }
     TasksComponent.prototype.addTask = function (event) {
@@ -31,17 +31,17 @@ var TasksComponent = (function () {
         //save task to database
         this.taskService.addTask(newTask)
             .subscribe(function (task) {
-            _this.tasks.push(task);
+            _this.allTasks.push(task);
             _this.title = '';
         });
     };
     TasksComponent.prototype.deleteTask = function (id) {
-        var tasks = this.tasks;
+        var allTasks = this.allTasks;
         this.taskService.deleteTask(id).subscribe(function (data) {
             if (data.n == 1) {
-                for (var i = 0; i < tasks.length; i++) {
-                    if (tasks[i]._id == id) {
-                        tasks.splice(i, 1);
+                for (var i = 0; i < allTasks.length; i++) {
+                    if (allTasks[i]._id == id) {
+                        allTasks.splice(i, 1);
                     }
                 }
             }
