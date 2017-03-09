@@ -7,6 +7,7 @@ export class TaskService{
   constructor(private http:Http){
     console.log('Task Service Initialized...');
   }
+  //this route is mapped out in routes/tasks.js
   getTasks(){
     //return the tasks page as json
     return this.http.get('http://127.0.0.1:3000/api/tasks')

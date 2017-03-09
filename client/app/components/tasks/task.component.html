@@ -21,7 +21,7 @@
 </div>
 
 <div class="task-list task-tab-content" id="it-tasks">
-  <div *ngFor="let task of tasks">
+  <div *ngFor="let task of itTasks">
     <div class="row">
       <div class="col-md-1">
         <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">

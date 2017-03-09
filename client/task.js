@@ -6,4 +6,4 @@ var Task = (function () {
     return Task;
 }());
 exports.Task = Task;
-//# sourceMappingURL=task.js.map
+//# sourceMappingURL=Task.js.map

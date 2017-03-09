@@ -13,6 +13,7 @@ var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPAS
 */
 router.get('/tasks', function(req, res, next){
   db.tasks.find(function(err, tasks){
+    console.log("tasks" + tasks);
     if(err){
       res.send(err);
     }

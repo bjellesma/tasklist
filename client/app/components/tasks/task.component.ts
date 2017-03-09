@@ -10,11 +10,20 @@ import {Task} from '../../../Task';
 })
 export class TasksComponent {
   allTasks:Task[];
+  itTasks:Task[];
   title: string;
   //this refers to the task service dependancy
     constructor(private taskService:TaskService){
       this.taskService.getTasks()
         .subscribe(allTasks => {
+          var itTasks = [];
+          for(var i = 0; i < allTasks.length; i++){
+            if(allTasks[i].category == 'it'){
+              itTasks.push(allTasks[i]);
+            }
+          }
+          //this.itTasks refers to the itTasks of this class
+          this.itTasks = itTasks;
           this.allTasks = allTasks;
         });
     }

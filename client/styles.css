@@ -26,4 +26,7 @@
     border: 1px solid #ccc;
     border-top: none;
 }
+#all-tasks{
+  display:block;
+}
 /* /tabs */

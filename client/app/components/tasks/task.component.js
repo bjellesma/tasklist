@@ -18,6 +18,14 @@ var TasksComponent = (function () {
         this.taskService = taskService;
         this.taskService.getTasks()
             .subscribe(function (allTasks) {
+            var itTasks = [];
+            for (var i = 0; i < allTasks.length; i++) {
+                if (allTasks[i].category == 'it') {
+                    itTasks.push(allTasks[i]);
+                }
+            }
+            //this.itTasks refers to the itTasks of this class
+            _this.itTasks = itTasks;
             _this.allTasks = allTasks;
         });
     }

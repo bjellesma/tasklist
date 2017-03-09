@@ -1,4 +1,5 @@
 export class Task{
   title: string,
-  isDone: boolean
+  isDone: boolean,
+  category: string
 }
