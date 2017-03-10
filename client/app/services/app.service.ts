@@ -33,3 +33,10 @@ export class TaskService{
       .map(res => res.json());
   }
 }
+
+@Injectable()
+export class TabService{
+  constructor(private http:Http){
+    console.log('Tab Service Initialized...');
+  }
+}

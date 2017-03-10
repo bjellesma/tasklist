@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var task_service_1 = require("../../services/task.service");
+var app_service_1 = require("../../services/app.service");
 var TasksComponent = (function () {
     //this refers to the task service dependancy
     function TasksComponent(taskService) {
@@ -74,7 +74,7 @@ TasksComponent = __decorate([
         selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
-    __metadata("design:paramtypes", [task_service_1.TaskService])
+    __metadata("design:paramtypes", [app_service_1.TaskService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
 //# sourceMappingURL=task.component.js.map

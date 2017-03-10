@@ -46,4 +46,16 @@ TaskService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], TaskService);
 exports.TaskService = TaskService;
+var TabService = (function () {
+    function TabService(http) {
+        this.http = http;
+        console.log('Tab Service Initialized...');
+    }
+    return TabService;
+}());
+TabService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], TabService);
+exports.TabService = TabService;
 //# sourceMappingURL=task.service.js.map

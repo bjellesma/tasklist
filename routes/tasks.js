@@ -6,18 +6,30 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks']);
+var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs']);
 
 /*
 * function to get all tasks
 */
 router.get('/tasks', function(req, res, next){
   db.tasks.find(function(err, tasks){
-    console.log("tasks" + tasks);
     if(err){
       res.send(err);
     }
     res.json(tasks);
+  });
+});
+
+/*
+* function to get all tabs
+*/
+router.get('/tabs', function(req, res, next){
+  db.tabs.find(function(err, tabs){
+    console.log("tabs" + tabs);
+    if(err){
+      res.send(err);
+    }
+    res.json(tabs);
   });
 });
 

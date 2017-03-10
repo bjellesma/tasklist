@@ -12,7 +12,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var app_component_1 = require("./app.component");
-var tab_component_1 = require("./tab.component");
+var tab_component_1 = require("./components/tabs/tab.component");
 var task_component_1 = require("./components/tasks/task.component");
 var AppModule = (function () {
     function AppModule() {

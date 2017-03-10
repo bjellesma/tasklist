@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TabService} from '../../services/app.service';
 
 @Component({
   moduleId: module.id,
@@ -14,6 +15,10 @@ export class TabComponent {
       "Display":"IT",
       "Name":"it-tasks"
     }];
+
+    constructor(private tabService:TabService){
+      console.log(this.tabService);
+    }
 
   openTab(evt, tabDisplay, tabName){
     // Declare all variables
