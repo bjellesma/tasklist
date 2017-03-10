@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {TaskService} from '../../services/app.service';
+import {TabComponent} from '../tabs/tab.component'
+import {TaskService, TabService} from '../../services/app.service';
 import {Task} from '../../../Task';
+import {Tabs} from '../../../Tabs';
 
 @Component({
   //in order to use the relative path, we need to include the following line
@@ -10,24 +12,20 @@ import {Task} from '../../../Task';
 })
 export class TasksComponent {
   allTasks:Task[];
-  itTasks:Task[];
+  categoryTasks:Task[];
   title: string;
   //this refers to the task service dependancy
-    constructor(private taskService:TaskService){
+  //the params in these functions must be declare as providers in app.module.ts
+    constructor(private taskService:TaskService, private tabService:TabService){
       this.taskService.getTasks()
         .subscribe(allTasks => {
-          var itTasks = [];
-          for(var i = 0; i < allTasks.length; i++){
-            if(allTasks[i].category == 'it'){
-              itTasks.push(allTasks[i]);
-            }
-          }
+          var tabs = tabService.getTabs();
+          console.log("Now gett tabs: " + tabs.toString());
+            this.allTasks = allTasks;
+          })
           //this.itTasks refers to the itTasks of this class
-          this.itTasks = itTasks;
-          this.allTasks = allTasks;
-        });
-    }
 
+        }
     addTask(event){
       event.preventDefault();
       var newTask = {

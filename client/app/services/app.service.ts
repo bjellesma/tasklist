@@ -39,4 +39,10 @@ export class TabService{
   constructor(private http:Http){
     console.log('Tab Service Initialized...');
   }
+  //this route is mapped out in routes/tasks.js
+  getTabs(){
+    //return the tasks page as json
+    return this.http.get('http://127.0.0.1:3000/api/tabs')
+      .map(res => res.json());
+  }
 }

@@ -13,16 +13,13 @@ var core_1 = require("@angular/core");
 var app_service_1 = require("../../services/app.service");
 var TabComponent = (function () {
     function TabComponent(tabService) {
+        var _this = this;
         this.tabService = tabService;
-        this.tabs = [{
-                "Display": "All",
-                "Name": "all-tasks"
-            },
-            {
-                "Display": "IT",
-                "Name": "it-tasks"
-            }];
-        console.log(this.tabService);
+        this.tabs = [];
+        this.tabService.getTabs()
+            .subscribe(function (tabs) {
+            _this.tabs = tabs;
+        });
     }
     TabComponent.prototype.openTab = function (evt, tabDisplay, tabName) {
         // Declare all variables

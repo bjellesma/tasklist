@@ -51,6 +51,12 @@ var TabService = (function () {
         this.http = http;
         console.log('Tab Service Initialized...');
     }
+    //this route is mapped out in routes/tasks.js
+    TabService.prototype.getTabs = function () {
+        //return the tasks page as json
+        return this.http.get('http://127.0.0.1:3000/api/tabs')
+            .map(function (res) { return res.json(); });
+    };
     return TabService;
 }());
 TabService = __decorate([
@@ -58,4 +64,4 @@ TabService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], TabService);
 exports.TabService = TabService;
-//# sourceMappingURL=task.service.js.map
+//# sourceMappingURL=app.service.js.map

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TabService} from '../../services/app.service';
+import {Tabs} from '../../../Tabs';
 
 @Component({
   moduleId: module.id,
@@ -7,17 +8,13 @@ import {TabService} from '../../services/app.service';
   templateUrl: 'tab.component.html'
 })
 export class TabComponent {
-  tabs = [{
-      "Display":"All",
-      "Name":"all-tasks"
-    },
-    {
-      "Display":"IT",
-      "Name":"it-tasks"
-    }];
+  tabs = [];
 
     constructor(private tabService:TabService){
-      console.log(this.tabService);
+      this.tabService.getTabs()
+        .subscribe(tabs => {
+          this.tabs = tabs;
+        });
     }
 
   openTab(evt, tabDisplay, tabName){
