@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var task_component_1 = require("../tasks/task.component");
 var app_service_1 = require("../../services/app.service");
 var TabComponent = (function () {
     function TabComponent(tabService) {
@@ -19,7 +20,8 @@ var TabComponent = (function () {
         this.tabService.getTabs()
             .subscribe(function (tabs) {
             _this.tabs = tabs;
-            //console.log("Tabs: " + tabs);
+            //set the category Tasks of the Tasks category
+            task_component_1.TasksComponent.categoryTasks = tabs;
         });
     }
     TabComponent.prototype.openTab = function (evt, tabDisplay, tabName) {

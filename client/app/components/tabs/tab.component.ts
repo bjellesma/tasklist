@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TasksComponent} from '../tasks/task.component'
 import {TabService} from '../../services/app.service';
 import {Tabs} from '../../../Tabs';
 
@@ -15,7 +16,8 @@ export class TabComponent {
       this.tabService.getTabs()
         .subscribe(tabs => {
           this.tabs = tabs;
-          //console.log("Tabs: " + tabs);
+          //set the category Tasks of the Tasks category
+          TasksComponent.categoryTasks = tabs;
         });
     }
 

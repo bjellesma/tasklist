@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 //task service is needed because we are connecting to a database
 var app_service_1 = require("./services/app.service");
-var tab_component_1 = require("./components/tabs/tab.component");
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -20,7 +19,7 @@ AppComponent = __decorate([
         moduleId: module.id,
         selector: 'my-app',
         templateUrl: 'app.component.html',
-        providers: [app_service_1.TaskService, app_service_1.TabService, tab_component_1.TabComponent]
+        providers: [app_service_1.TabService, app_service_1.TaskService]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

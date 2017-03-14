@@ -10,28 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var tab_component_1 = require("../tabs/tab.component");
 var app_service_1 = require("../../services/app.service");
-var TasksComponent = (function () {
+var TasksComponent = TasksComponent_1 = (function () {
     //this refers to the task service dependancy
     //the params in these functions must be declare as providers in app.module.ts
-    function TasksComponent(tabComponent, taskService) {
+    function TasksComponent(taskService) {
         var _this = this;
-        this.tabComponent = tabComponent;
         this.taskService = taskService;
         this.taskService.getTasks()
             .subscribe(function (allTasks) {
-            _this.categoryTasks = tabComponent.tabs;
-            //console.log("");
             _this.allTasks = allTasks;
-            /*for(var i = 0; i < this.allTasks.length; i++){
-              for(var j = 0; j < categories.length; j++){
-                if(this.allTasks[i].category == categories[j][0]){
-                  console.log(this.allTasks[i].title + " is part of " + categories[j][0]);
-                  categories[j][]
-                }
-              }
-            }*/
+            //TasksComponent.categoryTasks is the variable with the information held by tab.component
+            _this.categoryTasks = TasksComponent_1.categoryTasks;
         });
     }
     TasksComponent.prototype.addTask = function (event) {
@@ -72,14 +62,15 @@ var TasksComponent = (function () {
     };
     return TasksComponent;
 }());
-TasksComponent = __decorate([
+TasksComponent = TasksComponent_1 = __decorate([
     core_1.Component({
         //in order to use the relative path, we need to include the following line
         moduleId: module.id,
         selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
-    __metadata("design:paramtypes", [tab_component_1.TabComponent, app_service_1.TaskService])
+    __metadata("design:paramtypes", [app_service_1.TaskService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
+var TasksComponent_1;
 //# sourceMappingURL=task.component.js.map
