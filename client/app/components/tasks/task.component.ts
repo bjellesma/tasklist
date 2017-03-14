@@ -12,18 +12,17 @@ import {Tabs} from '../../../Tabs';
 })
 export class TasksComponent {
   allTasks:Task[];
-  categoryTasks:Task[];
+  categoryTasks:Tabs[];
   title: string;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
-    constructor(private taskService:TaskService, private tabService:TabService){
+    constructor(private taskService:TaskService){
       this.taskService.getTasks()
         .subscribe(allTasks => {
-          var tabs = tabService.getTabs();
-          console.log("Now gett tabs: " + tabs.toString());
+          //console.log("");
             this.allTasks = allTasks;
-          })
-          //this.itTasks refers to the itTasks of this class
+
+          });
 
         }
     addTask(event){
@@ -31,7 +30,7 @@ export class TasksComponent {
       var newTask = {
         title:this.title,
         isDone: false
-      }
+      };
       //save task to database
       this.taskService.addTask(newTask)
         .subscribe(task => {

@@ -19,6 +19,7 @@ var TabComponent = (function () {
         this.tabService.getTabs()
             .subscribe(function (tabs) {
             _this.tabs = tabs;
+            //console.log("Tabs: " + tabs);
         });
     }
     TabComponent.prototype.openTab = function (evt, tabDisplay, tabName) {

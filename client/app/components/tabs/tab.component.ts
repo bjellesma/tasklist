@@ -14,6 +14,7 @@ export class TabComponent {
       this.tabService.getTabs()
         .subscribe(tabs => {
           this.tabs = tabs;
+          //console.log("Tabs: " + tabs);
         });
     }
 
