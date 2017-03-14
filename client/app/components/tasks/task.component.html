@@ -11,6 +11,7 @@
         <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
       </div>
       <div class="col-md-10">
+        <!-- This is an example of interpolation binding in angular -->
         {{task.title}}
       </div>
       <div class="col-md-1">
@@ -20,17 +21,19 @@
   </div>
 </div>
 
-<div class="task-list task-tab-content" id="it-tasks">
-  <div *ngFor="let task of itTasks">
-    <div class="row">
-      <div class="col-md-1">
-        <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
-      </div>
-      <div class="col-md-10">
-        {{task.title}}
-      </div>
-      <div class="col-md-1">
-        <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
+<div *ngFor="let category of categoryTasks">
+  <div class="task-list task-tab-content" id={{category.name}}>
+    <div *ngFor="let task of allTasks">
+      <div *ngIf="task.category == category.name" class="row">
+        <div class="col-md-1">
+          <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
+        </div>
+        <div class="col-md-10">
+          {{task.title}}
+        </div>
+        <div class="col-md-1">
+          <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
+        </div>
       </div>
     </div>
   </div>

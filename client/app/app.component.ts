@@ -7,6 +7,6 @@ import {TabComponent} from './components/tabs/tab.component';
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  providers[TaskService, TabService]
+  providers[TaskService, TabService, TabComponent]
 })
 export class AppComponent { }

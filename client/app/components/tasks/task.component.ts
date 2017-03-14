@@ -16,12 +16,20 @@ export class TasksComponent {
   title: string;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
-    constructor(private taskService:TaskService){
+    constructor(public tabComponent: TabComponent, private taskService:TaskService){
       this.taskService.getTasks()
         .subscribe(allTasks => {
+          this.categoryTasks = tabComponent.tabs;
           //console.log("");
             this.allTasks = allTasks;
-
+            /*for(var i = 0; i < this.allTasks.length; i++){
+              for(var j = 0; j < categories.length; j++){
+                if(this.allTasks[i].category == categories[j][0]){
+                  console.log(this.allTasks[i].title + " is part of " + categories[j][0]);
+                  categories[j][]
+                }
+              }
+            }*/
           });
 
         }

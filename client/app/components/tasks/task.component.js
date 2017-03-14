@@ -10,17 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var tab_component_1 = require("../tabs/tab.component");
 var app_service_1 = require("../../services/app.service");
 var TasksComponent = (function () {
     //this refers to the task service dependancy
     //the params in these functions must be declare as providers in app.module.ts
-    function TasksComponent(taskService) {
+    function TasksComponent(tabComponent, taskService) {
         var _this = this;
+        this.tabComponent = tabComponent;
         this.taskService = taskService;
         this.taskService.getTasks()
             .subscribe(function (allTasks) {
+            _this.categoryTasks = tabComponent.tabs;
             //console.log("");
             _this.allTasks = allTasks;
+            /*for(var i = 0; i < this.allTasks.length; i++){
+              for(var j = 0; j < categories.length; j++){
+                if(this.allTasks[i].category == categories[j][0]){
+                  console.log(this.allTasks[i].title + " is part of " + categories[j][0]);
+                  categories[j][]
+                }
+              }
+            }*/
         });
     }
     TasksComponent.prototype.addTask = function (event) {
@@ -68,7 +79,7 @@ TasksComponent = __decorate([
         selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
-    __metadata("design:paramtypes", [app_service_1.TaskService])
+    __metadata("design:paramtypes", [tab_component_1.TabComponent, app_service_1.TaskService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
 //# sourceMappingURL=task.component.js.map

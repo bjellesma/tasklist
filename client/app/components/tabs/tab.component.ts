@@ -8,6 +8,7 @@ import {Tabs} from '../../../Tabs';
   templateUrl: 'tab.component.html'
 })
 export class TabComponent {
+
   tabs = [];
 
     constructor(private tabService:TabService){
