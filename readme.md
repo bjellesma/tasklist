@@ -15,6 +15,16 @@
 <a name="Quick-Start"><h1>Quick Start</h1></a>
 * Download or clone this repo
 * fill in information in .env-example file and remove "-example" from filename
+  * These variables refer to a mongodb install (I recommend creating a free database on [mlab](https://mlab.com)) and create two collection
+  * tabs
+    * each document should have the following two fields
+      * display - This field will be what you want the name to show up as in the webpage
+      * name - this must be the same as the category document field for the tasks collection
+  * tasks
+    * each document should have the following three fields
+      * title - This field will be how you want the task to be read on the webpage
+      * isDone - This field will be either true or false to indicate if the task is checked off or not
+      * category - This field must be the same as the name document field of the tabs collection
 * Navigate to the directory you just downloaded using the command line or shell
 * Use `npm install` to install the node components
 * Navigate to the client folder
