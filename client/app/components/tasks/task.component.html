@@ -1,33 +1,21 @@
 <form class="well" (submit)="addTask($event)">
   <div class="form-group">
-    <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information">
-    <select>
+    <!-- ngModel must be used to interact with task.component -->
+    <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
+    Category: <select name="category" [(ngModel)]="category">
       <option *ngFor="let category of categoryTasks" value="{{category.name}}">{{category.display}}</option>
     </select>
   </div>
 </form>
 
-<div class="task-list task-tab-content" id="all-tasks">
-  <div *ngFor="let task of allTasks">
-    <div class="row">
-      <div class="col-md-1">
-        <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
-      </div>
-      <div class="col-md-10">
-        <!-- This is an example of interpolation binding in angular -->
-        {{task.title}}
-      </div>
-      <div class="col-md-1">
-        <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
-      </div>
-    </div>
-  </div>
-</div>
 
 <div *ngFor="let category of categoryTasks">
+
   <div class="task-list task-tab-content" id={{category.name}}>
+    <h3>{{category.display}}</h3>
     <div *ngFor="let task of allTasks">
-      <div *ngIf="task.category == category.name" class="row">
+      <div *ngIf="task.category == category.name || category.name == 'all-tasks'" class="row">
+
         <div class="col-md-1">
           <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
         </div>

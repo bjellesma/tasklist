@@ -15,6 +15,7 @@ export class TasksComponent {
   //categoryTasks is static so that it can be accessed and set from tab.component
   static categoryTasks:Tabs[];
   title: string;
+  category: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
     constructor(private taskService:TaskService){
@@ -30,7 +31,8 @@ export class TasksComponent {
       event.preventDefault();
       var newTask = {
         title:this.title,
-        isDone: false
+        isDone: false,
+        category:this.category
       };
       //save task to database
       this.taskService.addTask(newTask)

@@ -1,3 +1,113 @@
+/*Main Menu Navigation*/
+
+#menu {
+    position: relative;
+    display: inline-block;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#menu ul li {
+    float:left;
+}
+
+#menu ul li a {
+    background-color: #333;
+}
+
+#menu ul li a, .menu_dropper {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#menu ul li a:hover, .menu_dropdown:hover {
+    background-color: yellow;
+}
+
+li.menu_dropdown {
+  display: inline-block;
+}
+.menu_dropdown_content {
+    z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.menu_dropdown_content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.menu_dropdown_content a:hover {
+    background-color: #f1f1f1;
+}
+
+.menu_show {display:block;}
+.menu_hide {display:none;}
+
+/* Tab Navigation */
+#nav {
+
+  font-weight: bold;
+  font-size: 0.8em;
+  width: 100%;
+  background: #131313;
+  position: relative;
+  text-align: center;
+  display: none;
+  /*call to mixin */ }
+  @media (min-width: 600px) {
+    #selector_nav {
+      display: block; } }
+
+#nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+ }
+
+#nav ul li {
+  float: left;
+ }
+
+#nav ul li a {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 17px;
+ }
+
+#nav ul li a:hover {
+  color: #fff;
+  background-color: #ddd;
+  text-decoration: underline;
+ }
+
+ #nav ul li a:focus, active
+
+/* /Navigation */
+
 /* tabs */
 .task-tabs {
     overflow: hidden;
