@@ -69,7 +69,6 @@ li.menu_dropdown {
   background: #131313;
   position: relative;
   text-align: center;
-  display: none;
   /*call to mixin */ }
   @media (min-width: 600px) {
     #selector_nav {
