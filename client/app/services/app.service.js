@@ -20,23 +20,23 @@ var TaskService = (function () {
     //this route is mapped out in routes/tasks.js
     TaskService.prototype.getTasks = function () {
         //return the tasks page as json
-        return this.http.get('http://127.0.0.1:3000/api/tasks')
+        return this.http.get('http://172.16.21.54:3000/api/tasks')
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://127.0.0.1:3000/api/task', JSON.stringify(newTask), { headers: headers })
+        return this.http.post('http://172.16.21.54:3000/api/task', JSON.stringify(newTask), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.deleteTask = function (id) {
-        return this.http.delete('http://127.0.0.1:3000/api/task/' + id)
+        return this.http.delete('http://172.16.21.54:3000/api/task/' + id)
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateStatus = function (task) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://127.0.0.1:3000/api/task/' + task._id, JSON.stringify(task), { headers: headers })
+        return this.http.put('http://172.16.21.54:3000/api/task/' + task._id, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return TaskService;
@@ -54,7 +54,7 @@ var TabService = (function () {
     //this route is mapped out in routes/tasks.js
     TabService.prototype.getTabs = function () {
         //return the tasks page as json
-        return this.http.get('http://127.0.0.1:3000/api/tabs')
+        return this.http.get('http://172.16.21.54:3000/api/tabs')
             .map(function (res) { return res.json(); });
     };
     return TabService;

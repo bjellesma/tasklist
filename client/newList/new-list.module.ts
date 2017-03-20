@@ -3,10 +3,10 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms'; //needed to add forms in angular2
-import { NewListComponent} from './app.component';
+import { NewListComponent} from './new-list.component';
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
   declarations: [NewListComponent],
   bootstrap: [NewListComponent]
 })
-export class AppModule { }
+export class NewListModule { }

@@ -6,23 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//all of the ts that we're loading
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var http_1 = require("@angular/http");
-var forms_1 = require("@angular/forms"); //needed to add forms in angular2
-var app_component_1 = require("./app.component");
-var AppModule = (function () {
-    function AppModule() {
+//task service is needed because we are connecting to a database
+var NewListComponent = (function () {
+    function NewListComponent() {
     }
-    return AppModule;
+    return NewListComponent;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.NewListComponent],
-        bootstrap: [app_component_1.NewListComponent]
+NewListComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'new-list',
+        templateUrl: 'new-list.component.html',
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=new-list.module.js.map
+], NewListComponent);
+exports.NewListComponent = NewListComponent;
+//# sourceMappingURL=new-list.component.js.map

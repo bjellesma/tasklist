@@ -14,7 +14,7 @@
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
-      System.import('new-list').catch(function(err){ console.error(err); });
+      System.import('NewList').catch(function(err){ console.error(err); });
     </script>
   </head>
   <!-- 3. Display the application -->
@@ -23,14 +23,9 @@
       <nav id="nav">
         <ul>
           <li><a href="/">Tasklist</a></li>
-          <li><a href="/new-list.html">New ToDo List</a></li>
+          <li><a href="/new-list">New ToDo List</a></li>
         </ul>
       </nav>
-      <h1>Tasklist</h1>
-      <!-- we get my-app from app.component.ts-->
-      <!--
-        code in app/app.component.ts
-      -->
-      <my-app>Retreiving Tasks Now</my-app>
+      <new-list>Getting New Lists</new-list>
   </body>
 </html>

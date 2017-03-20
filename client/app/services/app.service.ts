@@ -10,26 +10,26 @@ export class TaskService{
   //this route is mapped out in routes/tasks.js
   getTasks(){
     //return the tasks page as json
-    return this.http.get('http://127.0.0.1:3000/api/tasks')
+    return this.http.get('http://172.16.21.54:3000/api/tasks')
       .map(res => res.json());
   }
 
   addTask(newTask){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://127.0.0.1:3000/api/task', JSON.stringify(newTask), {headers: headers})
+    return this.http.post('http://172.16.21.54:3000/api/task', JSON.stringify(newTask), {headers: headers})
       .map(res => res.json());
   }
 
   deleteTask(id){
-    return this.http.delete('http://127.0.0.1:3000/api/task/'+id)
+    return this.http.delete('http://172.16.21.54:3000/api/task/'+id)
       .map(res => res.json());
   }
 
   updateStatus(task){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://127.0.0.1:3000/api/task/'+task._id, JSON.stringify(task), {headers: headers})
+    return this.http.put('http://172.16.21.54:3000/api/task/'+task._id, JSON.stringify(task), {headers: headers})
       .map(res => res.json());
   }
 }
@@ -42,7 +42,7 @@ export class TabService{
   //this route is mapped out in routes/tasks.js
   getTabs(){
     //return the tasks page as json
-    return this.http.get('http://127.0.0.1:3000/api/tabs')
+    return this.http.get('http://172.16.21.54:3000/api/tabs')
       .map(res => res.json());
   }
 }
