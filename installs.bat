@@ -1,4 +1,4 @@
-npm install
-bower install
-cd client
-npm install
+call npm install
+call bower install
+call cd client
+call npm install

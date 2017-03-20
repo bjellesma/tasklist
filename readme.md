@@ -26,7 +26,7 @@
       * isDone - This field will be either true or false to indicate if the task is checked off or not
       * category - This field must be the same as the name document field of the tabs collection
 * Navigate to the directory you just downloaded using the command line or shell
-* run `./installs.sh` to install all of the components
+* run `./installs.sh` (linux) or `./installs.bat` (windows) to install all of the components
 * Navigate back to the main directory and run `node server` to start the server
 * Go to 127.0.0.1:3000 in a web browser
 
