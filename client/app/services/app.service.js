@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http"); //to manipulate headers
 require("rxjs/add/operator/map"); //get our requests and then map them
+var env_js_1 = require("/env.js");
 var TaskService = (function () {
     function TaskService(http) {
         this.http = http;
@@ -19,24 +20,25 @@ var TaskService = (function () {
     }
     //this route is mapped out in routes/tasks.js
     TaskService.prototype.getTasks = function () {
+        console.log(env_js_1.getEnvVariables());
         //return the tasks page as json
-        return this.http.get('http://172.16.21.54:3000/api/tasks')
+        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tasks')
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://172.16.21.54:3000/api/task', JSON.stringify(newTask), { headers: headers })
+        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task', JSON.stringify(newTask), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.deleteTask = function (id) {
-        return this.http.delete('http://172.16.21.54:3000/api/task/' + id)
+        return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + id)
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateStatus = function (task) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://172.16.21.54:3000/api/task/' + task._id, JSON.stringify(task), { headers: headers })
+        return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + task._id, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return TaskService;
@@ -54,7 +56,7 @@ var TabService = (function () {
     //this route is mapped out in routes/tasks.js
     TabService.prototype.getTabs = function () {
         //return the tasks page as json
-        return this.http.get('http://172.16.21.54:3000/api/tabs')
+        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tabs')
             .map(function (res) { return res.json(); });
     };
     return TabService;

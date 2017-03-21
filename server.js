@@ -8,6 +8,7 @@ var tasks = require('./routes/tasks');
 var port = 3000;
 
 var app = express(); //main variable
+//require('dotenv').config();
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
