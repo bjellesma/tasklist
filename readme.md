@@ -15,7 +15,8 @@
 <a name="Quick-Start"><h1>Quick Start</h1></a>
 * Download or clone this repo
 * fill in information in .env-example file and remove "-example" from filename
-  * These variables refer to a mongodb install (I recommend creating a free database on [mlab](https://mlab.com)) and create two collection
+  * The API variables refer to the address and port of the server that you will running the server off of (Default values have been given)
+  * The DB variables refer to a mongodb install (I recommend creating a free database on [mlab](https://mlab.com)) and create two collection
   * tabs
     * each document should have the following two fields
       * display - This field will be what you want the name to show up as in the webpage
