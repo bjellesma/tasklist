@@ -1,14 +1,16 @@
-var apiip;
-var workip = '172.16.21.54'
+/*
+* File to get environmental data from the server
+*/
+var apiip, apiport;
 function envCall(){
   $.ajax({
      url: '/env',
+     async: false,
      type: "get",
-     data: '',
-     success: function(apiip){
-         var apiip = apiip;
-         console.log('api' + apiip);
-         return apiip;
+     success: function(data){
+       apiip = data.apiip;
+       apiport = data.apiport
+       //return apiip.apiip;
      }
   });
 }
@@ -16,8 +18,8 @@ module.exports = {
   getEnvVariables: function () {
     envCall();
     var vars = {
-      APIIP: envCall(),
-      APIPORT: '3000'
+      APIIP: apiip,
+      APIPORT: apiport
     }
     return vars;
   },
