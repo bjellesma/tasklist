@@ -10,7 +10,6 @@ export class TaskService{
   }
   //this route is mapped out in routes/tasks.js
   getTasks(){
-    console.log(getEnvVariables())
     //return the tasks page as json
     return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tasks')
       .map(res => res.json());
@@ -45,6 +44,24 @@ export class TabService{
   getTabs(){
     //return the tasks page as json
     return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tabs')
+      .map(res => res.json());
+  }
+  addTab(newTab){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab', JSON.stringify(newTab), {headers: headers})
+      .map(res => res.json());
+  }
+
+  deleteTab(id){
+    return this.http.delete('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab/'+id)
+      .map(res => res.json());
+  }
+
+  updateTab(tab){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab/'+tab._id, JSON.stringify(tab), {headers: headers})
       .map(res => res.json());
   }
 }

@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var tasks = require('./routes/tasks');
 
-var port = 3000;
+var port = process.env.APIPORT;
 
 var app = express(); //main variable
 //require('dotenv').config();
@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index); //we want the slash to be associated with our index route (named above)
 app.use('/api', tasks); //to interact with the api
+app.use('/api', tabs); //to interact with the api
 
 app.listen(port, function(){
   console.log('Server started on port ' + port);

@@ -10,14 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var app_service_1 = require("../app/services/app.service");
 //task service is needed because we are connecting to a database
 var NewListComponent = (function () {
-    function NewListComponent(listService) {
+    function NewListComponent(tabService) {
         var _this = this;
-        this.listService = listService;
-        this.listService.getLists()
-            .subscribe(function (allLists) {
-            _this.allLists = allLists;
+        this.tabService = tabService;
+        this.tabService.getTabs()
+            .subscribe(function (allTabs) {
+            _this.allTabs = allTabs;
         });
     }
     NewListComponent.prototype.addList = function (event) {
@@ -28,10 +29,22 @@ var NewListComponent = (function () {
             name: this.title + '-tasks',
         };
         //save list to database
-        this.listService.addList(newList)
+        this.tabService.addTab(newList)
             .subscribe(function (list) {
-            _this.allLists.push(list);
+            _this.allLists.push(newList);
             _this.title = '';
+        });
+    };
+    NewListComponent.prototype.deleteList = function (id) {
+        var allTasks = this.allTasks;
+        this.tabService.deleteTab(id).subscribe(function (data) {
+            if (data.n == 1) {
+                for (var i = 0; i < allLists.length; i++) {
+                    if (allTasks[i]._id == id) {
+                        allTasks.splice(i, 1);
+                    }
+                }
+            }
         });
     };
     return NewListComponent;
@@ -41,8 +54,9 @@ NewListComponent = __decorate([
         moduleId: module.id,
         selector: 'new-list',
         templateUrl: 'new-list.component.html',
+        providers: [app_service_1.TabService]
     }),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [app_service_1.TabService])
 ], NewListComponent);
 exports.NewListComponent = NewListComponent;
 //# sourceMappingURL=new-list.component.js.map

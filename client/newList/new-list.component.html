@@ -5,3 +5,12 @@
     <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add the name of your new list"><br>
   </div>
 </form>
+<h1>Here are your current lists:</h1>
+<div id="currentLists" *ngFor="let list of allTabs">
+  <div class="col-md-11">
+  {{list.display}}
+  </div>
+  <div class="col-md-1">
+    <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
+  </div>
+</div>
