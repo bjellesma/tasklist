@@ -25,7 +25,6 @@ router.get('/tasks', function(req, res, next){
 */
 router.get('/tabs', function(req, res, next){
   db.tabs.find(function(err, tabs){
-    console.log("tabs" + tabs);
     if(err){
       res.send(err);
     }
@@ -34,7 +33,7 @@ router.get('/tabs', function(req, res, next){
 });
 
 /*
-* function to get all single task
+* function to get single task
 * :id make id a parameter
 * req is the way we get requests
 */
@@ -46,6 +45,21 @@ router.get('/task/:id', function(req, res, next){
     res.json(task);
   });
 });
+
+/*
+* function to get single task
+* :id make id a parameter
+* req is the way we get requests
+*/
+router.get('/tab/:id', function(req, res, next){
+  db.tabs.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
+    if(err){
+      res.send(err);
+    }
+    res.json(tab);
+  });
+});
+
 
 /*
 * save task
