@@ -31,17 +31,17 @@ var NewListComponent = (function () {
         //save list to database
         this.tabService.addTab(newList)
             .subscribe(function (list) {
-            _this.allLists.push(newList);
+            _this.allTabs.push(newList);
             _this.title = '';
         });
     };
     NewListComponent.prototype.deleteList = function (id) {
-        var allTasks = this.allTasks;
+        var allTabs = this.allTabs;
         this.tabService.deleteTab(id).subscribe(function (data) {
             if (data.n == 1) {
-                for (var i = 0; i < allLists.length; i++) {
-                    if (allTasks[i]._id == id) {
-                        allTasks.splice(i, 1);
+                for (var i = 0; i < allTabs.length; i++) {
+                    if (allTabs[i]._id == id) {
+                        allTabs.splice(i, 1);
                     }
                 }
             }

@@ -49,7 +49,7 @@ export class TabService{
   addTab(newTab){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab', JSON.stringify(newTab), {headers: headers})
+    return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-list', JSON.stringify(newTab), {headers: headers})
       .map(res => res.json());
   }
 

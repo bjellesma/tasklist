@@ -61,7 +61,7 @@ var TabService = (function () {
     TabService.prototype.addTab = function (newTab) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab', JSON.stringify(newTab), { headers: headers })
+        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-list', JSON.stringify(newTab), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TabService.prototype.deleteTab = function (id) {

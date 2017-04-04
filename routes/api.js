@@ -85,6 +85,29 @@ router.post('/task', function(req, res, next){
 });
 
 /*
+* save tab
+* :id make id a parameter
+* the post needs to go to new-list because that's where the form is
+*/
+router.post('/new-list', function(req, res, next){
+  var tab = req.body;
+  if(!tab.display){
+    //send a 400 status
+    res.status(400);
+    res.json({
+      "error": "Bad Data"
+    });
+  }else{
+    db.tabs.save(tab, function(err, tab){
+      if(err){
+        res.send(err);
+      }
+      res.json(tab);
+    });
+  }
+});
+
+/*
 * delete task
 */
 router.delete('/task/:id', function(req, res, next){

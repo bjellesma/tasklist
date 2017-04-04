@@ -27,18 +27,18 @@ export class NewListComponent {
     //save list to database
     this.tabService.addTab(newList)
       .subscribe(list => {
-        this.allLists.push(newList);
+        this.allTabs.push(newList);
         this.title = '';
       })
   }
   deleteList(id){
-    var allTasks = this.allTasks;
+    var allTabs = this.allTabs;
 
     this.tabService.deleteTab(id).subscribe(data => {
       if(data.n == 1){
-        for(var i = 0; i <allLists.length;i++){
-          if(allTasks[i]._id == id){
-            allTasks.splice(i, 1);
+        for(var i = 0; i <allTabs.length;i++){
+          if(allTabs[i]._id == id){
+            allTabs.splice(i, 1);
           }
         }
       }
