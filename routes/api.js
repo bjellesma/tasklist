@@ -120,6 +120,18 @@ router.delete('/task/:id', function(req, res, next){
 });
 
 /*
+* delete tab
+*/
+router.delete('/tab/:id', function(req, res, next){
+  db.tabs.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
+    if(err){
+      res.send(err);
+    }
+    res.json(tab);
+  });
+});
+
+/*
 * update task
 */
 router.put('/task/:id', function(req, res, next){
