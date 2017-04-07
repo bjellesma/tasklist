@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 //refer to api.js in the routes folder
 var api = require('./routes/api');
+var users = require('./routes/users');
 
 var port = process.env.APIPORT;
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index); //we want the slash to be associated with our index route (named above)
 app.use('/api', api); //to interact with the api
+app.use('/users', users); //to interact with the api
 //app.use('/api', tabs); //to interact with the api
 
 app.listen(port, function(){
