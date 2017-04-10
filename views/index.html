@@ -16,6 +16,7 @@
     <script src="systemjs.config.js"></script>
     <script>
       System.import('app').catch(function(err){ console.error(err); });
+      System.import('users').catch(function(err){ console.error(err); });
     </script>
   </head>
   <!-- 3. Display the application -->
@@ -32,6 +33,7 @@
       <!--
         code in app/app.component.ts
       -->
+      <users>Retreiving Users Information</users>
       <my-app>Retreiving Tasks Now</my-app>
   </body>
 </html>

@@ -18,5 +18,19 @@ router.get('/', function(req, res, next){
   });
 });
 
+/*
+* function to get single user
+* :id make id a parameter
+* req is the way we get requests
+*/
+router.get('/:id', function(req, res, next){
+  db.users.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
+    if(err){
+      res.send(user);
+    }
+    res.json(user);
+  });
+});
+
 
 module.exports = router; //so that we can access the router from different files

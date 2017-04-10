@@ -4,7 +4,7 @@
  * Adjust as necessary for your application needs.
  */
 (function (global) {
-  
+
   System.config({
     paths: {
       // paths serve as alias
@@ -15,6 +15,7 @@
       // our app is within the app folder
       app: 'app',
       NewList: 'newList',
+      Users: 'users',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
