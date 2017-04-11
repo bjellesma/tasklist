@@ -17,6 +17,8 @@
     <script>
       System.import('app').catch(function(err){ console.error(err); });
       System.import('users').catch(function(err){ console.error(err); });
+      var user = user;
+      console.log("user: " + user);
     </script>
   </head>
   <!-- 3. Display the application -->
@@ -28,7 +30,7 @@
       <!--
         code in app/app.component.ts
       -->
-      {{session.user}}
+
       <users>Retreiving Users Information</users>
       <h1>Tasklist</h1>
       <my-app>Retreiving Tasks Now</my-app>

@@ -10,7 +10,9 @@ import {UsersService} from './users.service';
 })
 export class UsersComponent {
   allUsers:Users[];
+  User:Users[];
   constructor(private UsersService:UsersService){
+    //this.User = UsersService.getUser();
     this.UsersService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;

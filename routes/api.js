@@ -6,12 +6,15 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs']);
+var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs'], ['users']);
 require('dotenv').config();
+//for sessions
+var session = require('client-sessions');
 /*
 * function to get all tasks
 */
 router.get('/tasks', function(req, res, next){
+  console.log(session.user);
   db.tasks.find(function(err, tasks){
     if(err){
       res.send(err);
@@ -43,6 +46,20 @@ router.get('/task/:id', function(req, res, next){
       res.send(err);
     }
     res.json(task);
+  });
+});
+
+/*
+* function to get single user
+* :id make id a parameter
+* req is the way we get requests
+*/
+router.get('/user/:id', function(req, res, next){
+  db.users.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
+    if(err){
+      res.send(err);
+    }
+    res.json(user);
   });
 });
 

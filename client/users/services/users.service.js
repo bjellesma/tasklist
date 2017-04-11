@@ -13,6 +13,8 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http"); //to manipulate headers
 require("rxjs/add/operator/map"); //get our requests and then map them
 var env_js_1 = require("/env.js");
+//for sessions
+var session = require('client-sessions');
 var UsersService = (function () {
     function UsersService(http) {
         this.http = http;
@@ -21,8 +23,12 @@ var UsersService = (function () {
     //this route is mapped out in routes/tasks.js
     UsersService.prototype.getUsers = function () {
         //return the tasks page as json
-        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/users')
+        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/users')
             .map(function (res) { return res.json(); });
+    };
+    UsersService.prototype.getUser = function () {
+        var user = session.user;
+        return user;
     };
     return UsersService;
 }());

@@ -20,8 +20,15 @@ app.use(session({
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['users']);
 
 router.get('/', function(req, res, next){
-  console.log(session.user);
-  res.render('index.html', session.user); //res.send with send anything to the browser while res.render will show a file
+  if(session.user){
+    user = session.user;
+  }else{
+    user = '';
+  }
+  console.log("user: " + user);
+  res.render('index.html', {
+      user: user
+    }); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/login', function(req, res, next){
 

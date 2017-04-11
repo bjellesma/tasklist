@@ -1,7 +1,9 @@
 <nav id="nav">
   <ul>
-    <li>Hello {{user.name}}</li>
     <li><a href="/">Tasklist</a></li>
     <li><a href="/new-list">New ToDo List</a></li>
   </ul>
+  <div *ngFor="let user of allUsers">
+    {{user.name}}
+  </div>
 </nav>
