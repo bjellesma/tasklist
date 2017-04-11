@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'client'))); //our static folder wil
 // Body Parser Middleware
 app.use(bodyParser.json()); //we want to be able to parse json
 app.use(bodyParser.urlencoded({extended: false}));
-
+// /login middleware
 app.use('/', index); //we want the slash to be associated with our index route (named above)
 app.use('/api', api); //to interact with the api
 app.use('/users', users); //to interact with the api

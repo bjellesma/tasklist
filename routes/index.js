@@ -1,13 +1,12 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 var mongojs = require('mongojs');
-
+require('dotenv').config();
 //for sessions
 var session = require('client-sessions');
-require('dotenv').config();
-var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['users']);
 //login middleware
-router.use(session({
+app.use(session({
   cookieName: 'Session',
   //the secret is used to encrypt and decrypt cookies
   secret: process.env.SESSIONSECRET,
@@ -16,11 +15,16 @@ router.use(session({
   //how long the user is able to extend the session if another request is made
   activeDuration: process.env.SESSIONEXTENSION,
 }));
-// /login middleware
+
+
+var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['users']);
+
 router.get('/', function(req, res, next){
-  res.render('index.html'); //res.send with send anything to the browser while res.render will show a file
+  console.log(session.user);
+  res.render('index.html', session.user); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/login', function(req, res, next){
+
   res.render('login.html');
 });
 router.post('/login', function(req, res) {
@@ -29,7 +33,10 @@ router.post('/login', function(req, res) {
       res.send('No user found');
     }else {
       if (req.body.password === user.passwordHash) {
+
+        session.user = user;
         res.send('user was found');
+        console.log(session.user);
       } else {
         res.send('password incorrect');
       }
