@@ -39,6 +39,10 @@
         main: './main.js',
         defaultExtension: 'js'
       },
+      users: {
+        main: './main.js',
+        defaultExtension: 'js'
+      },
       rxjs: {
         defaultExtension: 'js'
       },

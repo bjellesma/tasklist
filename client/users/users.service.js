@@ -10,27 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var users_service_1 = require("./users.service");
-//task service is needed because we are connecting to a database
-var UsersComponent = (function () {
-    function UsersComponent(UsersService) {
-        var _this = this;
-        this.UsersService = UsersService;
-        this.UsersService.getUsers()
-            .subscribe(function (allUsers) {
-            _this.allUsers = allUsers;
-        });
+var http_1 = require("@angular/http"); //to manipulate headers
+require("rxjs/add/operator/map"); //get our requests and then map them
+var env_js_1 = require("/env.js");
+var UsersService = (function () {
+    function UsersService(http) {
+        this.http = http;
+        console.log('Users Service Initialized...');
     }
-    return UsersComponent;
+    //this route is mapped out in routes/tasks.js
+    UsersService.prototype.getUsers = function () {
+        //return the tasks page as json
+        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/users')
+            .map(function (res) { return res.json(); });
+    };
+    return UsersService;
 }());
-UsersComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'users',
-        templateUrl: 'users.component.html',
-        providers: [users_service_1.UsersService]
-    }),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
-], UsersComponent);
-exports.UsersComponent = UsersComponent;
-//# sourceMappingURL=users.component.js.map
+UsersService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], UsersService);
+exports.UsersService = UsersService;
+//# sourceMappingURL=users.service.js.map
