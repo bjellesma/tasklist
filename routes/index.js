@@ -26,14 +26,14 @@ router.get('/login', function(req, res, next){
 router.post('/login', function(req, res) {
   db.users.findOne({ name: req.body.username}, function(err, user) {
     if (!user) {
-      console.log('No user found');
-    } /*else {
-      if (req.body.password === user.password) {
+      res.send('No user found');
+    }else {
+      if (req.body.password === user.passwordHash) {
         res.send('user was found');
       } else {
         res.send('password incorrect');
       }
-    }*/
+    }
   });
 });
 router.get('/new-list', function(req, res, next){
