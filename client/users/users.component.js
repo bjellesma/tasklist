@@ -16,7 +16,7 @@ var UsersComponent = (function () {
     function UsersComponent(UsersService) {
         var _this = this;
         this.UsersService = UsersService;
-        //this.User = UsersService.getUser();
+        this.user = UsersService.getUser();
         this.UsersService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;

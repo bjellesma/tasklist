@@ -16,4 +16,8 @@ export class UsersService{
     return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/users')
       .map(res => res.json());
   }
+  getUser(){
+    var user = getEnvVariables().user;
+    return user;
+  }
 }

@@ -19,19 +19,17 @@ app.use(session({
 
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['users']);
 
-router.get('/', function(req, res, next){
-  if(session.user){
-    user = session.user;
-  }else{
-    user = '';
+function requireLogin (req, res, next) {
+  if (!session.user) {
+    res.redirect('/login');
+  } else {
+    next();
   }
-  console.log("user: " + user);
-  res.render('index.html', {
-      user: user
-    }); //res.send with send anything to the browser while res.render will show a file
+};
+router.get('/', requireLogin, function(req, res, next){
+  res.render('index.html'); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/login', function(req, res, next){
-
   res.render('login.html');
 });
 router.post('/login', function(req, res) {
@@ -40,20 +38,24 @@ router.post('/login', function(req, res) {
       res.send('No user found');
     }else {
       if (req.body.password === user.passwordHash) {
-
+        //set session
         session.user = user;
-        res.send('user was found');
-        console.log(session.user);
+        //redirect user
+        res.redirect("/");
       } else {
         res.send('password incorrect');
       }
     }
   });
 });
-router.get('/new-list', function(req, res, next){
+router.get('/logout', requireLogin, function(req, res) {
+  session = '';
+  res.redirect('/');
+});
+router.get('/new-list', requireLogin, function(req, res, next){
   res.render('new-list.html'); //res.send with send anything to the browser while res.render will show a file
 });
-router.get('/env', function(req, res, next){
+router.get('/env', requireLogin, function(req, res, next){
   res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: session.user});
 });
 

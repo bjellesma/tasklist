@@ -26,6 +26,10 @@ var UsersService = (function () {
         return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/users')
             .map(function (res) { return res.json(); });
     };
+    UsersService.prototype.getUser = function () {
+        var user = env_js_1.getEnvVariables().user;
+        return user;
+    };
     return UsersService;
 }());
 UsersService = __decorate([
