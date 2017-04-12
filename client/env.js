@@ -9,7 +9,8 @@ function envCall(){
      type: "get",
      success: function(data){
        apiip = data.apiip;
-       apiport = data.apiport
+       apiport = data.apiport;
+       user = data.user;
        //return apiip.apiip;
      }
   });
@@ -19,7 +20,8 @@ module.exports = {
     envCall();
     var vars = {
       APIIP: apiip,
-      APIPORT: apiport
+      APIPORT: apiport,
+      user: user
     }
     return vars;
   },
