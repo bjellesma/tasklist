@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {TasksComponent} from '../tasks/task.component'
 import {TabService} from '../../services/app.service';
+import {UsersService} from '../../../users/users.service';
 import {Tabs} from '../../../Tabs';
 
 @Component({
@@ -11,8 +12,10 @@ import {Tabs} from '../../../Tabs';
 export class TabComponent {
 
   tabs = [];
+  user = [];
 
-    constructor(private tabService:TabService){
+    constructor(private tabService:TabService, private userService:UsersService){
+      this.user = userService.getUser();
       this.tabService.getTabs()
         .subscribe(tabs => {
           this.tabs = tabs;

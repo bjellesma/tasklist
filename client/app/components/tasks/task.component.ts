@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {TabComponent} from '../tabs/tab.component'
 import {TaskService, TabService} from '../../services/app.service';
+import {UsersService} from '../../../users/users.service';
 import {Task} from '../../../Task';
 import {Tabs} from '../../../Tabs';
 
@@ -12,18 +13,21 @@ import {Tabs} from '../../../Tabs';
 })
 export class TasksComponent {
   allTasks:Task[];
+  user:Task[];
   //categoryTasks is static so that it can be accessed and set from tab.component
   static categoryTasks:Tabs[];
   title: string;
   category: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
-    constructor(private taskService:TaskService){
+    constructor(private taskService:TaskService, private userService:UsersService){
+      this.user = userService.getUser();
       this.taskService.getTasks()
         .subscribe(allTasks => {
             this.allTasks = allTasks;
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             this.categoryTasks = TasksComponent.categoryTasks;
+
           });
 
         }

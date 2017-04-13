@@ -11,11 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_1 = require("../app/services/app.service");
+var users_service_1 = require("../../../users/users.service");
 //task service is needed because we are connecting to a database
 var NewListComponent = (function () {
-    function NewListComponent(tabService) {
+    function NewListComponent(tabService, userService) {
         var _this = this;
         this.tabService = tabService;
+        this.userService = userService;
+        this.user = [];
+        this.user = userService.getUser();
         this.tabService.getTabs()
             .subscribe(function (allTabs) {
             _this.allTabs = allTabs;
@@ -25,6 +29,7 @@ var NewListComponent = (function () {
         var _this = this;
         event.preventDefault();
         var newList = {
+            user_id: this.user.id,
             display: this.title,
             name: this.title + '-tasks',
         };
@@ -54,9 +59,10 @@ NewListComponent = __decorate([
         moduleId: module.id,
         selector: 'new-list',
         templateUrl: 'new-list.component.html',
-        providers: [app_service_1.TabService]
+        providers: [app_service_1.TabService, users_service_1.UsersService]
     }),
-    __metadata("design:paramtypes", [app_service_1.TabService])
+    __metadata("design:paramtypes", [app_service_1.TabService, typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" && _a || Object])
 ], NewListComponent);
 exports.NewListComponent = NewListComponent;
+var _a;
 //# sourceMappingURL=new-list.component.js.map

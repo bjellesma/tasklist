@@ -8,22 +8,22 @@
   </div>
 </form>
 
-
 <div *ngFor="let category of categoryTasks">
+  <div *ngIf="category.user_id === user._id">
+    <div class="task-list task-tab-content" id={{category.name}}>
+      <h3>{{category.display}}</h3>
+      <div *ngFor="let task of allTasks">
+        <div *ngIf="task.category == category.name || category.name == 'all-tasks'" class="row">
 
-  <div class="task-list task-tab-content" id={{category.name}}>
-    <h3>{{category.display}}</h3>
-    <div *ngFor="let task of allTasks">
-      <div *ngIf="task.category == category.name || category.name == 'all-tasks'" class="row">
-
-        <div class="col-md-1">
-          <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
-        </div>
-        <div class="col-md-10">
-          {{task.title}}
-        </div>
-        <div class="col-md-1">
-          <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
+          <div class="col-md-1">
+            <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
+          </div>
+          <div class="col-md-10">
+            {{task.title}}
+          </div>
+          <div class="col-md-1">
+            <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
+          </div>
         </div>
       </div>
     </div>

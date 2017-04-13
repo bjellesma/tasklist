@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TabService} from '../app/services/app.service';
+import {UsersService} from '../../../users/users.service';
 import {Tabs} from '../../Tabs';
 //task service is needed because we are connecting to a database
 
@@ -7,11 +8,13 @@ import {Tabs} from '../../Tabs';
   moduleId: module.id,
   selector: 'new-list',
   templateUrl: 'new-list.component.html',
-  providers[TabService]
+  providers[TabService, UsersService]
 })
 export class NewListComponent {
   allTabs:Tabs[];
-  constructor(private tabService:TabService){
+  user = [];
+  constructor(private tabService:TabService, private userService:UsersService){
+    this.user = userService.getUser();
     this.tabService.getTabs()
       .subscribe(allTabs => {
           this.allTabs = allTabs;
@@ -21,6 +24,7 @@ export class NewListComponent {
   addList(event){
     event.preventDefault();
     var newList = {
+      user_id:this.user.id,
       display:this.title,
       name: this.title + '-tasks',
     };

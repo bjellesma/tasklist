@@ -10,12 +10,13 @@ import {UsersService} from './users.service';
 })
 export class UsersComponent {
   allUsers:Users[];
-  user:Users[];
+  static user:Users[];
   constructor(private UsersService:UsersService){
     this.user = UsersService.getUser();
     this.UsersService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;
+
         });
       }
 }
