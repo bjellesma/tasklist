@@ -24,7 +24,7 @@ export class NewListComponent {
   addList(event){
     event.preventDefault();
     var newList = {
-      user_id:this.user.id,
+      user_id:this.user._id,
       display:this.title,
       name: this.title + '-tasks',
     };

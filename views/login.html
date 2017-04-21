@@ -1,2 +1,25 @@
-<form method="post">Username <input name="username" type="text"><br>
-  Password <input name="password" type="text"><input type="submit" value="submit"></form>
+<html>
+  <head>
+    <title>Tasklist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+  </head>
+  <!-- 3. Display the application -->
+  <body>
+    <div class="container">
+      <h1>Welcome to Tasklist</h1>
+      <form method="post">Username <input name="username" type="text"><br>
+        Password <input name="password" type="text"><input type="submit" value="submit"></form>
+  </body>
+</html>

@@ -15,11 +15,14 @@ var users_service_1 = require("../../../users/users.service");
 var TasksComponent = TasksComponent_1 = (function () {
     //this refers to the task service dependancy
     //the params in these functions must be declare as providers in app.module.ts
-    function TasksComponent(taskService, userService) {
+    function TasksComponent(taskService, userService, tabService) {
         var _this = this;
         this.taskService = taskService;
         this.userService = userService;
+        this.tabService = tabService;
+        this.tabs = [];
         this.user = userService.getUser();
+        this.tabs = tabService.getTabs();
         this.taskService.getTasks()
             .subscribe(function (allTasks) {
             _this.allTasks = allTasks;
@@ -29,11 +32,12 @@ var TasksComponent = TasksComponent_1 = (function () {
     }
     TasksComponent.prototype.addTask = function (event) {
         var _this = this;
+        //console.log(document.getElementsByClassName("active"));
         event.preventDefault();
         var newTask = {
             title: this.title,
             isDone: false,
-            category: this.category
+            cat_id: this.category
         };
         //save task to database
         this.taskService.addTask(newTask)
@@ -73,7 +77,7 @@ TasksComponent = TasksComponent_1 = __decorate([
         selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
-    __metadata("design:paramtypes", [app_service_1.TaskService, users_service_1.UsersService])
+    __metadata("design:paramtypes", [app_service_1.TaskService, users_service_1.UsersService, app_service_1.TabService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
 var TasksComponent_1;

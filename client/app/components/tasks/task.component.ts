@@ -16,15 +16,18 @@ export class TasksComponent {
   user:Task[];
   //categoryTasks is static so that it can be accessed and set from tab.component
   static categoryTasks:Tabs[];
+  tabs = [];
   title: string;
   category: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
-    constructor(private taskService:TaskService, private userService:UsersService){
+    constructor(private taskService:TaskService, private userService:UsersService, private tabService:TabService){
       this.user = userService.getUser();
+      this.tabs = tabService.getTabs();
       this.taskService.getTasks()
         .subscribe(allTasks => {
             this.allTasks = allTasks;
+
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             this.categoryTasks = TasksComponent.categoryTasks;
 
@@ -32,11 +35,12 @@ export class TasksComponent {
 
         }
     addTask(event){
+      //console.log(document.getElementsByClassName("active"));
       event.preventDefault();
       var newTask = {
         title:this.title,
         isDone: false,
-        category:this.category
+        cat_id:this.category
       };
       //save task to database
       this.taskService.addTask(newTask)
