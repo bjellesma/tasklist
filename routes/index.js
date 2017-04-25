@@ -92,6 +92,29 @@ router.post('/login', function(req, res) {
     }
   });
 });
+router.get('/changePassword', function(req, res, next){
+  res.render('changePassword.html');
+});
+router.post('/changePassword', function(req, res) {
+  db.users.findOne({ name: req.body.username}, function(err, user) {
+    if (!user) {
+      res.send('No user found');
+    }else {
+      if (req.body.password === req.body.verify) {
+        var passwordHash = sha.update(req.body.password).digest('hex');
+        user.passwordHash = passwordHash;
+        db.users.save(user, function(err, user){
+          if(err){
+            res.send(err);
+          }
+        });
+        res.redirect("/login");
+      } else {
+        res.send('passwords do not match');
+      }
+    }
+  });
+});
 router.get('/logout', requireLogin, function(req, res) {
   session = '';
   res.redirect('/');
