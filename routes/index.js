@@ -26,8 +26,44 @@ function requireLogin (req, res, next) {
     next();
   }
 };
+
 router.get('/', requireLogin, function(req, res, next){
   res.render('index.html'); //res.send with send anything to the browser while res.render will show a file
+});
+router.get('/register', function(req, res, next){
+  res.render('register.html'); //res.send with send anything to the browser while res.render will show a file
+});
+router.post('/register', function(req, res) {
+  db.users.findOne({ name: req.body.username}, function(err, user) {
+    if (user) {
+      res.send('Sorry, That username already exists. Please choose another.');
+    }else {
+      if (req.body.username && req.body.password && req.body.verify){
+        if (req.body.password === req.body.verify) {
+          var user = {
+            "name": req.body.username,
+            "passwordHash": req.body.password
+          }
+          //var user = JSON.stringify(userString);
+          //add user
+          db.users.save(user, function(err, user){
+            if(err){
+              res.send(err);
+            }
+            //set session
+            session.user = user;
+            //redirect user
+            res.redirect("/");
+          });
+
+        } else {
+          res.send('password incorrect');
+        }
+      } else {
+        res.send("Sorry, you must fill out every field")
+      }
+    }
+  });
 });
 router.get('/login', function(req, res, next){
   res.render('login.html');
@@ -38,6 +74,8 @@ router.post('/login', function(req, res) {
       res.send('No user found');
     }else {
       if (req.body.password === user.passwordHash) {
+
+
         //set session
         session.user = user;
         //redirect user

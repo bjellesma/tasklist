@@ -64,6 +64,27 @@ router.get('/user/:id', function(req, res, next){
 });
 
 /*
+* new user
+*/
+router.post('/new-user', function(req, res, next){
+  var user = req.body;
+  if(!user.display){
+    //send a 400 status
+    res.status(400);
+    res.json({
+      "error": "Bad Data"
+    });
+  }else{
+    db.users.save(user, function(err, user){
+      if(err){
+        res.send(err);
+      }
+      res.json(user);
+    });
+  }
+});
+
+/*
 * function to get single task
 * :id make id a parameter
 * req is the way we get requests

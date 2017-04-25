@@ -30,6 +30,12 @@ var UsersService = (function () {
         var user = env_js_1.getEnvVariables().user;
         return user;
     };
+    UsersService.prototype.addUser = function (newUser) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return UsersService;
 }());
 UsersService = __decorate([

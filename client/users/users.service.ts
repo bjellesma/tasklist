@@ -20,4 +20,10 @@ export class UsersService{
     var user = getEnvVariables().user;
     return user;
   }
+  addUser(newUser){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+      .map(res => res.json());
+  }
 }
