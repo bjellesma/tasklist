@@ -1,8 +1,11 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
+var crypto = require('crypto');
 var mongojs = require('mongojs');
 require('dotenv').config();
+//for crypto
+var sha = crypto.createHash('sha256');
 //for sessions
 var session = require('client-sessions');
 //login middleware
@@ -40,9 +43,11 @@ router.post('/register', function(req, res) {
     }else {
       if (req.body.username && req.body.password && req.body.verify){
         if (req.body.password === req.body.verify) {
+          //hash password
+          var passwordHash = sha.update(req.body.password).digest('hex');
           var user = {
             "name": req.body.username,
-            "passwordHash": req.body.password
+            "passwordHash": passwordHash
           }
           //var user = JSON.stringify(userString);
           //add user
@@ -73,7 +78,8 @@ router.post('/login', function(req, res) {
     if (!user) {
       res.send('No user found');
     }else {
-      if (req.body.password === user.passwordHash) {
+      var passwordHash = sha.update(req.body.password).digest('hex');
+      if (passwordHash === user.passwordHash) {
 
 
         //set session
