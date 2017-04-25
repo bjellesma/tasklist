@@ -37,6 +37,8 @@ export class TasksComponent {
     addTask(event){
       //console.log(document.getElementsByClassName("active"));
       event.preventDefault();
+      this.category = $("#task-category-id").val();
+      console.log("category" + this.category)
       var newTask = {
         title:this.title,
         isDone: false,

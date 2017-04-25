@@ -34,6 +34,8 @@ var TasksComponent = TasksComponent_1 = (function () {
         var _this = this;
         //console.log(document.getElementsByClassName("active"));
         event.preventDefault();
+        this.category = $("#task-category-id").val();
+        console.log("category" + this.category);
         var newTask = {
             title: this.title,
             isDone: false,

@@ -24,10 +24,10 @@ export class TabComponent {
         });
     }
 
-  openTab(evt, tabDisplay, tabName){
+  openTab(evt, tabDisplay, tabName, cat_id){
     // Declare all variables
     var i, tabcontent, tablinks;
-
+    $("#task-category-id").val(cat_id);
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("task-tab-content");
     for (i = 0; i < tabcontent.length; i++) {

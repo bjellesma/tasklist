@@ -2,9 +2,7 @@
   <div class="form-group">
     <!-- ngModel must be used to interact with task.component -->
     <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
-    Category: <select name="category" [(ngModel)]="category">
-      <option *ngFor="let category of categoryTasks" value="{{category._id}}">{{category.display}}</option>
-    </select>
+    <input type="hidden" id="task-category-id">
   </div>
 </form>
 
