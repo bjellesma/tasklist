@@ -16,6 +16,7 @@
       app: 'app',
       NewList: 'newList',
       Users: 'users',
+      profile: 'profile',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -40,6 +41,10 @@
         defaultExtension: 'js'
       },
       users: {
+        main: './main.js',
+        defaultExtension: 'js'
+      },
+      profile: {
         main: './main.js',
         defaultExtension: 'js'
       },

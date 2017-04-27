@@ -119,6 +119,9 @@ router.get('/logout', requireLogin, function(req, res) {
 router.get('/new-list', requireLogin, function(req, res, next){
   res.render('new-list.html'); //res.send with send anything to the browser while res.render will show a file
 });
+router.get('/profile', requireLogin, function(req, res, next){
+  res.render('profile.html'); //res.send with send anything to the browser while res.render will show a file
+});
 router.get('/env', requireLogin, function(req, res, next){
   res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: session.user});
 });
