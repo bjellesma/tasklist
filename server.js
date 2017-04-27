@@ -1,6 +1,9 @@
 var express = require('express'); //brings in express fron node_modules
 var path = require('path');
 var bodyParser = require('body-parser');
+//for sessions
+var cookieParser = require('cookie-parser')
+var session = require('express-session');
 
 var index = require('./routes/index');
 //refer to api.js in the routes folder
@@ -10,6 +13,14 @@ var users = require('./routes/users');
 var port = process.env.APIPORT;
 
 var app = express(); //main variable
+app.use(cookieParser());
+//login middleware
+app.use(session({
+  secret: process.env.SESSIONSECRET,
+  resave:false,
+  saveUninitialized: true,
+  cookie: { secure: !true }
+}));
 //require('dotenv').config();
 
 //view engine
