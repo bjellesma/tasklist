@@ -14,7 +14,6 @@ var session = require('client-sessions');
 * function to get all tasks
 */
 router.get('/tasks', function(req, res, next){
-  console.log(session.user);
   db.tasks.find(function(err, tasks){
     if(err){
       res.send(err);
@@ -27,7 +26,7 @@ router.get('/tasks', function(req, res, next){
 * function to get all tabs
 */
 router.get('/tabs', function(req, res, next){
-  db.tabs.find(function(err, tabs){
+  db.collection("tabs").find(function(err, tabs){
     if(err){
       res.send(err);
     }
@@ -55,7 +54,7 @@ router.get('/task/:id', function(req, res, next){
 * req is the way we get requests
 */
 router.get('/user/:id', function(req, res, next){
-  db.users.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
+  db.collection("users").findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
     if(err){
       res.send(err);
     }
@@ -75,7 +74,7 @@ router.post('/new-user', function(req, res, next){
       "error": "Bad Data"
     });
   }else{
-    db.users.save(user, function(err, user){
+    db.collection("users").save(user, function(err, user){
       if(err){
         res.send(err);
       }
@@ -90,7 +89,7 @@ router.post('/new-user', function(req, res, next){
 * req is the way we get requests
 */
 router.get('/tab/:id', function(req, res, next){
-  db.tabs.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
+  db.collection('tabs').findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
     if(err){
       res.send(err);
     }
@@ -136,7 +135,7 @@ router.post('/new-list', function(req, res, next){
       "error": "Bad Data"
     });
   }else{
-    db.tabs.save(tab, function(err, tab){
+    db.collection("tabs").save(tab, function(err, tab){
       if(err){
         res.send(err);
       }
@@ -161,7 +160,7 @@ router.delete('/task/:id', function(req, res, next){
 * delete tab
 */
 router.delete('/tab/:id', function(req, res, next){
-  db.tabs.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
+  db.collection("tabs").remove({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
     if(err){
       res.send(err);
     }
