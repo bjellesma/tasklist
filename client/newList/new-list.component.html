@@ -7,10 +7,12 @@
 </form>
 <h1>Here are your current lists:</h1>
 <div id="currentLists" *ngFor="let list of allTabs">
-  <div class="col-md-11">
-  {{list.display}}
-  </div>
-  <div class="col-md-1">
-    <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
+  <div *ngIf="list.user_id == user._id">
+    <div class="col-md-11">
+    {{list.display}}
+    </div>
+    <div class="col-md-1">
+      <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
+    </div>
   </div>
 </div>
