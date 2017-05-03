@@ -19,6 +19,7 @@ export class TasksComponent {
   tabs = [];
   title: string;
   category: null;
+  priority: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
     constructor(private taskService:TaskService, private userService:UsersService, private tabService:TabService){
@@ -42,7 +43,8 @@ export class TasksComponent {
       var newTask = {
         title:this.title,
         isDone: false,
-        cat_id:this.category
+        cat_id:this.category,
+        priority:this.priority
       };
       //save task to database
       this.taskService.addTask(newTask)

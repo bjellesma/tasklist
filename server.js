@@ -19,7 +19,8 @@ app.use(session({
   secret: process.env.SESSIONSECRET,
   resave:false,
   saveUninitialized: true,
-  cookie: { secure: !true }
+  cookie: { secure: !true,
+          }
 }));
 //require('dotenv').config();
 

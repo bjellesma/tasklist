@@ -3,6 +3,11 @@
     <!-- ngModel must be used to interact with task.component -->
     <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
     <input type="hidden" id="task-category-id">
+    <select id="task-priority" [(ngModel)]="priority" name="priority">
+      <option value="low">Low</option>
+      <option value="med" >Medium</option>
+      <option value="high">High</option>
+    </select>
   </div>
 </form>
 
@@ -16,8 +21,11 @@
           <div class="col-md-1">
             <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
           </div>
-          <div class="col-md-10">
+          <div class="col-md-7">
             {{task.title}}
+          </div>
+          <div class="col-md-3">
+            {{task.priority}}
           </div>
           <div class="col-md-1">
             <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">

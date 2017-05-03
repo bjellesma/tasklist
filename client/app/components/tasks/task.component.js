@@ -39,7 +39,8 @@ var TasksComponent = TasksComponent_1 = (function () {
         var newTask = {
             title: this.title,
             isDone: false,
-            cat_id: this.category
+            cat_id: this.category,
+            priority: this.priority
         };
         //save task to database
         this.taskService.addTask(newTask)
