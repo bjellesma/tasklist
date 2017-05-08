@@ -14,55 +14,35 @@
 <div *ngFor="let category of categoryTasks">
   <div *ngIf="category.user_id === user._id">
     <!-- All tasks -->
+    <!--<table>
       <div *ngFor="let task of allTasks">
-        <div *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" class="row">
-          <div class="col-md-1">
-            <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
-          </div>
-          <div class="col-md-7">
-            {{task.title}}
-          </div>
-          <div class="col-md-3">
-            {{task.priority}}
-          </div>
-          <div class="col-md-1">
-            <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
-          </div>
-        </div>
+        <tr *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" class="row">
+          <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
+          <td>{{task.title}}</td>
+          <td>{{task.priority}}</td>
+          <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+        </tr>
       </div>
+    </table>-->
     <!-- Categories -->
     <div class="task-list task-tab-content" id={{category.name}}>
       <h3>{{category.display}}</h3>
-      <div class="row" style="font-weight:bold">
-        <div class="col-md-1">
-          Done?
-        </div>
-        <div class="col-md-7">
-          Title
-        </div>
-        <div class="col-md-3">
-          Priority
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-      <br>
-      <div *ngFor="let task of allTasks">
-        <div *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" class="row">
-          <div class="col-md-1">
-            <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);">
-          </div>
-          <div class="col-md-7">
-            {{task.title}}
-          </div>
-          <div class="col-md-3">
-            {{task.priority}}
-          </div>
-          <div class="col-md-1">
-            <input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger">
-          </div>
-        </div>
-      </div>
+      <table class="table">
+        <tr>
+          <th>Done?</th>
+          <th>Title</th>
+          <th>Priority</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let task of allTasks">
+          <span *ngIf="task.cat_id == category._id || category.name == 'all-tasks'">
+            <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
+            <td>{{task.title}}</td>
+            <td>{{task.priority}}</td>
+            <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+          </span>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
