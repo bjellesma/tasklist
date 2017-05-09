@@ -1,14 +1,16 @@
 <form class="well" (submit)="addTask($event)">
   <div class="form-group">
     <!-- ngModel must be used to interact with task.component -->
-    <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information" disabled="true"><br>
+    <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
     <input type="hidden" id="task-category-id">
     <input type="hidden" id="task-user-id">
-    <select id="task-priority" [(ngModel)]="priority" name="priority">
+    Priority: <select id="task-priority" [(ngModel)]="priority" name="priority">
       <option value="low">Low</option>
       <option value="med" >Medium</option>
       <option value="high">High</option>
     </select>
+    Due Date: <input type="date" id="task-due-entry" [(ngModel)]="dueDate" name="dueDate" class="form-control"><br>
+
   </div>
 </form>
 <!-- All tasks -->
@@ -18,6 +20,7 @@
     <th onclick="sortTable(1)">Title</th>
     <th onclick="sortTable(2)">Priority</th>
     <th onclick="sortTable(3)">Action</th>
+    <th onclick="sortTable(4)">Due Date</th>
   </tr>
   <tbody *ngFor="let task of allTasks">
 
@@ -26,6 +29,7 @@
       <td>{{task.title}}</td>
       <td>{{task.priority}}</td>
       <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+      <td>{{task.due_date}}</td>
     </tr>
   </tbody>
 </table>
@@ -42,6 +46,7 @@
           <th onclick="sortTable(1)">Title</th>
           <th onclick="sortTable(2)">Priority</th>
           <th onclick="sortTable(3)">Action</th>
+          <th onclick="sortTable(4)">Due Date</th>
         </tr>
         <tbody *ngFor="let task of allTasks">
           <tr *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" style="width:100%;">
@@ -49,6 +54,7 @@
             <td>{{task.title}}</td>
             <td>{{task.priority}}</td>
             <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+            <td>{{task.due_date}}</td>
           </tr>
         </tbody>
       </table>

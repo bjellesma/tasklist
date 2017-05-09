@@ -21,6 +21,7 @@ export class TasksComponent {
   category: null;
   userId: null;
   priority: null;
+  dueDate: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
     constructor(private taskService:TaskService, private userService:UsersService, private tabService:TabService){
@@ -46,13 +47,16 @@ export class TasksComponent {
         isDone: false,
         cat_id:this.category,
         user_id:this.userId,
-        priority:this.priority
+        priority:this.priority,
+        due_date:this.dueDate
       };
       //save task to database
       this.taskService.addTask(newTask)
         .subscribe(task => {
           this.allTasks.push(task);
           this.title = '';
+          this.dueDate = '';
+          this.priority = '';
         })
     }
 

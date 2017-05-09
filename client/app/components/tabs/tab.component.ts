@@ -30,9 +30,6 @@ export class TabComponent {
     if($("#all-tasks-table").css("display", "block")){
       $("#all-tasks-table").css("display", "none")
     }
-    if($("#task-text-entry").attr("disabled", "true")){
-      $("#task-text-entry").attr("disabled", "false")
-    }
     $("#task-category-id").val(cat_id);
     $("#task-user-id").val(user_id);
     // Get all elements with class="tabcontent" and hide them

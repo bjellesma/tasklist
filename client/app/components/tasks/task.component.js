@@ -41,13 +41,16 @@ var TasksComponent = TasksComponent_1 = (function () {
             isDone: false,
             cat_id: this.category,
             user_id: this.userId,
-            priority: this.priority
+            priority: this.priority,
+            due_date: this.dueDate
         };
         //save task to database
         this.taskService.addTask(newTask)
             .subscribe(function (task) {
             _this.allTasks.push(task);
             _this.title = '';
+            _this.dueDate = '';
+            _this.priority = '';
         });
     };
     TasksComponent.prototype.deleteTask = function (id) {
