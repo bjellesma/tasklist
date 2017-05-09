@@ -35,11 +35,12 @@ var TasksComponent = TasksComponent_1 = (function () {
         //console.log(document.getElementsByClassName("active"));
         event.preventDefault();
         this.category = $("#task-category-id").val();
-        console.log("category" + this.category);
+        this.userId = $("#task-user-id").val();
         var newTask = {
             title: this.title,
             isDone: false,
             cat_id: this.category,
+            user_id: this.userId,
             priority: this.priority
         };
         //save task to database

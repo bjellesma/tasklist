@@ -19,6 +19,7 @@ export class TasksComponent {
   tabs = [];
   title: string;
   category: null;
+  userId: null;
   priority: null;
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
@@ -39,11 +40,12 @@ export class TasksComponent {
       //console.log(document.getElementsByClassName("active"));
       event.preventDefault();
       this.category = $("#task-category-id").val();
-      console.log("category" + this.category)
+      this.userId = $("#task-user-id").val();
       var newTask = {
         title:this.title,
         isDone: false,
         cat_id:this.category,
+        user_id:this.userId,
         priority:this.priority
       };
       //save task to database

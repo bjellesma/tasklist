@@ -1,8 +1,9 @@
 <form class="well" (submit)="addTask($event)">
   <div class="form-group">
     <!-- ngModel must be used to interact with task.component -->
-    <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
+    <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information" disabled="true"><br>
     <input type="hidden" id="task-category-id">
+    <input type="hidden" id="task-user-id">
     <select id="task-priority" [(ngModel)]="priority" name="priority">
       <option value="low">Low</option>
       <option value="med" >Medium</option>
@@ -10,20 +11,28 @@
     </select>
   </div>
 </form>
+<!-- All tasks -->
+<table style="width:100%;" class="table" id="all-tasks-table">
+  <tr>
+    <th onclick="sortTable(0)">Done?</th>
+    <th onclick="sortTable(1)">Title</th>
+    <th onclick="sortTable(2)">Priority</th>
+    <th onclick="sortTable(3)">Action</th>
+  </tr>
+  <tbody *ngFor="let task of allTasks">
 
+    <tr *ngIf="task.user_id == user._id" class="row">
+      <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
+      <td>{{task.title}}</td>
+      <td>{{task.priority}}</td>
+      <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+    </tr>
+  </tbody>
+</table>
 <div *ngFor="let category of categoryTasks">
   <div *ngIf="category.user_id === user._id">
-    <!-- All tasks -->
-    <!--<table>
-      <div *ngFor="let task of allTasks">
-        <tr *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" class="row">
-          <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
-          <td>{{task.title}}</td>
-          <td>{{task.priority}}</td>
-          <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
-        </tr>
-      </div>
-    </table>-->
+
+
     <!-- Categories -->
     <div class="task-list task-tab-content" id={{category.name}}>
       <h3>{{category.display}}</h3>

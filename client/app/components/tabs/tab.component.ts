@@ -24,10 +24,17 @@ export class TabComponent {
         });
     }
 
-  openTab(evt, tabDisplay, tabName, cat_id){
+  openTab(evt, tabDisplay, tabName, cat_id, user_id){
     // Declare all variables
     var i, tabcontent, tablinks;
+    if($("#all-tasks-table").css("display", "block")){
+      $("#all-tasks-table").css("display", "none")
+    }
+    if($("#task-text-entry").attr("disabled", "true")){
+      $("#task-text-entry").attr("disabled", "false")
+    }
     $("#task-category-id").val(cat_id);
+    $("#task-user-id").val(user_id);
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("task-tab-content");
     for (i = 0; i < tabcontent.length; i++) {

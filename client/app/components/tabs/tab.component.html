@@ -2,7 +2,7 @@
   <!-- code from tab.component.ts -->
   <span *ngFor="let tab of tabs">
     <span *ngIf="tab.user_id === user._id">
-      <a href="javascript:void(0)" class="tablinks" (click)="openTab($event, tab.display, tab.name, tab._id);">{{ tab.display }}</a>
+      <a href="javascript:void(0)" class="tablinks" (click)="openTab($event, tab.display, tab.name, tab._id, user._id);">{{ tab.display }}</a>
     </span>
   </span>
 </div>
