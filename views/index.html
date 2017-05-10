@@ -17,9 +17,10 @@
     <!-- Sort Function -->
 
 <script>
-function sortTable(n) {
+function sortTable(n, id) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable2");
+  table = document.getElementById(id);
+  console.log("table: " + table)
   switching = true;
   //Set the sorting direction to ascending:
   dir = "asc";

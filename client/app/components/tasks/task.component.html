@@ -16,11 +16,11 @@
 <!-- All tasks -->
 <table style="width:100%;" class="table" id="all-tasks-table">
   <tr>
-    <th onclick="sortTable(0)">Done?</th>
-    <th onclick="sortTable(1)">Title</th>
-    <th onclick="sortTable(2)">Priority</th>
-    <th onclick="sortTable(3)">Action</th>
-    <th onclick="sortTable(4)">Due Date</th>
+    <th onclick="sortTable(0, 'all-tasks-table')">Done?</th>
+    <th onclick="sortTable(1, 'all-tasks-table')">Title</th>
+    <th onclick="sortTable(2, 'all-tasks-table')">Priority</th>
+    <th onclick="sortTable(3, 'all-tasks-table')">Action</th>
+    <th onclick="sortTable(4, 'all-tasks-table')">Due Date</th>
   </tr>
   <tbody *ngFor="let task of allTasks">
 
@@ -40,13 +40,13 @@
     <!-- Categories -->
     <div class="task-list task-tab-content" id={{category.name}}>
       <h3>{{category.display}}</h3>
-      <table class="table">
+      <table class="table" id={{category._id}}>
         <tr>
-          <th onclick="sortTable(0)">Done?</th>
-          <th onclick="sortTable(1)">Title</th>
-          <th onclick="sortTable(2)">Priority</th>
-          <th onclick="sortTable(3)">Action</th>
-          <th onclick="sortTable(4)">Due Date</th>
+          <th (click)="sortTable(0, category._id)">Done?</th>
+          <th (click)="sortTable(1, category._id)">Title</th>
+          <th (click)="sortTable(2, category._id)">Priority</th>
+          <th (click)="sortTable(3, category._id)">Action</th>
+          <th (click)="sortTable(4, category._id)">Due Date</th>
         </tr>
         <tbody *ngFor="let task of allTasks">
           <tr *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" style="width:100%;">
