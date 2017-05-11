@@ -14,25 +14,27 @@
   </div>
 </form>
 <!-- All tasks -->
-<table style="width:100%;" class="table" id="all-tasks-table">
-  <tr>
-    <th onclick="sortTable(0, 'all-tasks-table')">Done?</th>
-    <th onclick="sortTable(1, 'all-tasks-table')">Title</th>
-    <th onclick="sortTable(2, 'all-tasks-table')">Priority</th>
-    <th onclick="sortTable(3, 'all-tasks-table')">Action</th>
-    <th onclick="sortTable(4, 'all-tasks-table')">Due Date</th>
-  </tr>
-  <tbody *ngFor="let task of allTasks">
-
-    <tr *ngIf="task.user_id == user._id" class="row">
-      <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
-      <td>{{task.title}}</td>
-      <td>{{task.priority}}</td>
-      <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
-      <td>{{task.due_date}}</td>
+<div>
+  <table class="table" id="all-tasks-table">
+    <tr>
+      <th onclick="sortTable(0, 'all-tasks-table')">Done?</th>
+      <th onclick="sortTable(1, 'all-tasks-table')">Title</th>
+      <th onclick="sortTable(2, 'all-tasks-table')">Priority</th>
+      <th onclick="sortTable(3, 'all-tasks-table')">Action</th>
+      <th onclick="sortTable(4, 'all-tasks-table')">Due Date</th>
     </tr>
-  </tbody>
-</table>
+    <tbody *ngFor="let task of allTasks">
+
+      <tr *ngIf="task.user_id == user._id">
+        <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
+        <td>{{task.title}}</td>
+        <td>{{task.priority}}</td>
+        <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
+        <td>{{task.due_date}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <div *ngFor="let category of categoryTasks">
   <div *ngIf="category.user_id === user._id">
 

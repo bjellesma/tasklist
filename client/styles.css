@@ -139,3 +139,9 @@ li.menu_dropdown {
   display:block;
 }
 /* /tabs */
+
+/* table */
+th:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
