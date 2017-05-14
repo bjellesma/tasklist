@@ -21,24 +21,48 @@ var TaskService = (function () {
     //this route is mapped out in routes/tasks.js
     TaskService.prototype.getTasks = function () {
         //return the tasks page as json
-        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tasks')
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/api/tasks')
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tasks')
+                .map(function (res) { return res.json(); });
+        }
     };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task', JSON.stringify(newTask), { headers: headers })
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + '/api/task', JSON.stringify(newTask), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task', JSON.stringify(newTask), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
     };
     TaskService.prototype.deleteTask = function (id) {
-        return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + id)
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + '/api/task/' + id)
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + id)
+                .map(function (res) { return res.json(); });
+        }
     };
     TaskService.prototype.updateStatus = function (task) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + task._id, JSON.stringify(task), { headers: headers })
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + '/api/task/' + task._id, JSON.stringify(task), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/task/' + task._id, JSON.stringify(task), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
     };
     return TaskService;
 }());
@@ -55,24 +79,48 @@ var TabService = (function () {
     //this route is mapped out in routes/tasks.js
     TabService.prototype.getTabs = function () {
         //return the tasks page as json
-        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tabs')
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/api/tabs')
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tabs')
+                .map(function (res) { return res.json(); });
+        }
     };
     TabService.prototype.addTab = function (newTab) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-list', JSON.stringify(newTab), { headers: headers })
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + '/api/new-list', JSON.stringify(newTab), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-list', JSON.stringify(newTab), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
     };
     TabService.prototype.deleteTab = function (id) {
-        return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + id)
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + '/api/tab/' + id)
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.delete('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + id)
+                .map(function (res) { return res.json(); });
+        }
     };
     TabService.prototype.updateTab = function (tab) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + tab._id, JSON.stringify(tab), { headers: headers })
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + '/api/tab/' + tab._id, JSON.stringify(tab), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + tab._id, JSON.stringify(tab), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
     };
     return TabService;
 }());

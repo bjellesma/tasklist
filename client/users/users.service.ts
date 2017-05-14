@@ -13,8 +13,13 @@ export class UsersService{
   //this route is mapped out in routes/tasks.js
   getUsers(){
     //return the tasks page as json
-    return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/users')
-      .map(res => res.json());
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.get('http://' + getEnvVariables().APIIP + '/users')
+        .map(res => res.json());
+    }else{
+      return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/users')
+        .map(res => res.json());
+      }
   }
   getUser(){
     var user = getEnvVariables().user;
@@ -23,7 +28,12 @@ export class UsersService{
   addUser(newUser){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
-      .map(res => res.json());
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.post('http://' + getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+      }
   }
 }

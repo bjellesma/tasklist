@@ -23,8 +23,14 @@ var UsersService = (function () {
     //this route is mapped out in routes/tasks.js
     UsersService.prototype.getUsers = function () {
         //return the tasks page as json
-        return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/users')
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/users')
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/users')
+                .map(function (res) { return res.json(); });
+        }
     };
     UsersService.prototype.getUser = function () {
         var user = env_js_1.getEnvVariables().user;
@@ -33,8 +39,14 @@ var UsersService = (function () {
     UsersService.prototype.addUser = function (newUser) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
-            .map(function (res) { return res.json(); });
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
     };
     return UsersService;
 }());

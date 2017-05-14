@@ -10,8 +10,9 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 var users = require('./routes/users');
 
-var port = process.env.APIPORT || 8080;
-var ip = process.env.APIIP || process.env.OPENSHIFT_NODEJS_IP;
+var port = process.env.APIPORT;
+var ip = process.env.APIIP;
+var mode = process.env.MODE;
 var app = express(); //main variable
 app.use(cookieParser());
 //login middleware
@@ -42,5 +43,5 @@ app.use('/users', users); //to interact with the api
 //app.use('/api', tabs); //to interact with the api
 
 app.listen(port, function(){
-  console.log('Server started at ' + ip + ' on port ' + port);
+  console.log('Server started at ' + ip + ' on port ' + port + ' using mode ' + mode);
 });

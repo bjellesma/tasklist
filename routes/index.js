@@ -109,7 +109,7 @@ router.get('/user-profile', requireLogin, function(req, res, next){
   res.render('profile.html'); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/env', requireLogin, function(req, res, next){
-  res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: req.session.user});
+  res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: req.session.user, mode: process.env.MODE});
 });
 
 module.exports = router; //so that we can access the router from different files
