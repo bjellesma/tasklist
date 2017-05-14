@@ -11,6 +11,7 @@ function envCall(){
        apiip = data.apiip;
        apiport = data.apiport;
        user = data.user;
+       mode = data.mode;
        //return apiip.apiip;
      }
   });
@@ -21,7 +22,8 @@ module.exports = {
     var vars = {
       APIIP: apiip,
       APIPORT: apiport,
-      user: user
+      user: user,
+      data = mode
     }
     return vars;
   },
