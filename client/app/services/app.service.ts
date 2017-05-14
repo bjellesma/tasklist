@@ -3,10 +3,13 @@ import {Http, Headers} from '@angular/http'; //to manipulate headers
 import 'rxjs/add/operator/map'; //get our requests and then map them
 import {getEnvVariables} from '/env.js';
 
+
 @Injectable()
 export class TaskService{
   constructor(private http:Http){
-    console.log('Task Service Initialized...');
+    if(getEnvVariables().MODE == 'development'){
+      console.log('Task Service Initialized...');
+    }
   }
   //this route is mapped out in routes/tasks.js
   getTasks(){
@@ -58,7 +61,9 @@ export class TaskService{
 @Injectable()
 export class TabService{
   constructor(private http:Http){
-    console.log('Tab Service Initialized...');
+    if(getEnvVariables().MODE == 'development'){
+      console.log('Tab Service Initialized...');
+    }
   }
   //this route is mapped out in routes/tasks.js
   getTabs(){

@@ -6,9 +6,10 @@ import {getEnvVariables} from '/env.js';
 @Injectable()
 export class UsersService{
   constructor(private http:Http){
-    console.log("session: ");
-    console.log(getEnvVariables());
-    console.log('Users Service Initialized...');
+    if(getEnvVariables().MODE == 'development'){
+      console.log(getEnvVariables().MODE);
+      console.log('Users Service Initialized...');
+    }
   }
   //this route is mapped out in routes/tasks.js
   getUsers(){

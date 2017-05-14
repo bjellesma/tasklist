@@ -23,7 +23,7 @@ module.exports = {
       APIIP: apiip,
       APIPORT: apiport,
       user: user,
-      mode: mode
+      MODE: mode
     }
     return vars;
   },

@@ -16,7 +16,9 @@ var env_js_1 = require("/env.js");
 var TaskService = (function () {
     function TaskService(http) {
         this.http = http;
-        console.log('Task Service Initialized...');
+        if (env_js_1.getEnvVariables().MODE == 'development') {
+            console.log('Task Service Initialized...');
+        }
     }
     //this route is mapped out in routes/tasks.js
     TaskService.prototype.getTasks = function () {
@@ -74,7 +76,9 @@ exports.TaskService = TaskService;
 var TabService = (function () {
     function TabService(http) {
         this.http = http;
-        console.log('Tab Service Initialized...');
+        if (env_js_1.getEnvVariables().MODE == 'development') {
+            console.log('Tab Service Initialized...');
+        }
     }
     //this route is mapped out in routes/tasks.js
     TabService.prototype.getTabs = function () {

@@ -16,9 +16,10 @@ var env_js_1 = require("/env.js");
 var UsersService = (function () {
     function UsersService(http) {
         this.http = http;
-        console.log("session: ");
-        console.log(env_js_1.getEnvVariables());
-        console.log('Users Service Initialized...');
+        if (env_js_1.getEnvVariables().MODE == 'development') {
+            console.log(env_js_1.getEnvVariables().MODE);
+            console.log('Users Service Initialized...');
+        }
     }
     //this route is mapped out in routes/tasks.js
     UsersService.prototype.getUsers = function () {
