@@ -4,7 +4,7 @@
     <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
     <input type="hidden" id="task-category-id">
     <input type="hidden" id="task-user-id">
-    Priority: <select id="task-priority" [(ngModel)]="priority" name="priority">
+    Priority: <select id="task-priority" [(ngModel)]="priority" name="priority" value="med">
       <option value="low">Low</option>
       <option value="med" >Medium</option>
       <option value="high">High</option>
@@ -36,7 +36,7 @@
   </table>
 </div>
 <div *ngFor="let category of categoryTasks">
-  <div *ngIf="category.user_id === user._id">
+  <div *ngIf="category.user_id === user._id || category.share_id === user._id">
 
 
     <!-- Categories -->
