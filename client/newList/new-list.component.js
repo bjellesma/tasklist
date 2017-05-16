@@ -52,6 +52,14 @@ var NewListComponent = (function () {
             }
         });
     };
+    NewListComponent.prototype.shareList = function (list) {
+        //use alert to get user_id
+        var user_id = "fred";
+        list.share_id = user_id;
+        this.tabService.updateTab(list).subscribe(function (data) {
+            alert("This list has been shared with " + user_id);
+        });
+    };
     return NewListComponent;
 }());
 NewListComponent = __decorate([

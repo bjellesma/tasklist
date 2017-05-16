@@ -145,6 +145,34 @@ router.post('/new-list', function(req, res, next){
 });
 
 /*
+* update tab
+* :id make id a parameter
+*/
+router.put('/tab/:id', function(req, res, next){
+  var tab = req.body;
+  var udpTab = {}
+  if(tab.share_id){
+    //TODO add share_id to share array
+    udpTab = tab;
+    udpTab.share_id = tab.share_id;
+  }
+  if(!udpTab){
+    //send a 400 status
+    res.status(400);
+    res.json({
+      "error": "Bad Data"
+    });
+  }else{
+    db.collection("tabs").update({_id: mongojs.ObjectId(req.params.id)}, udpTab, {}, function(err, tab){
+      if(err){
+        res.send(err);
+      }
+      res.json(tab);
+    });
+  }
+});
+
+/*
 * delete task
 */
 router.delete('/task/:id', function(req, res, next){
