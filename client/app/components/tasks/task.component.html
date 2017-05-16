@@ -36,9 +36,7 @@
   </table>
 </div>
 <div *ngFor="let category of categoryTasks">
-  <div *ngIf="category.user_id === user._id || category.share_id === user._id">
-
-
+  <div *ngIf="category.user_id === user._id || category.share_id.includes(user._id)">
     <!-- Categories -->
     <div class="task-list task-tab-content" id={{category.name}}>
       <h3>{{category.display}}</h3>
