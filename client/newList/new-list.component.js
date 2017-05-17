@@ -19,7 +19,9 @@ var NewListComponent = (function () {
         this.tabService = tabService;
         this.userService = userService;
         this.user = [];
+        this.allUsers = [];
         this.user = userService.getUser();
+        this.allUsers = userService.getUsers();
         this.tabService.getTabs()
             .subscribe(function (allTabs) {
             _this.allTabs = allTabs;
@@ -51,6 +53,16 @@ var NewListComponent = (function () {
                 }
             }
         });
+    };
+    NewListComponent.prototype.chooseShare = function (list) {
+        var shareList = "<select size='20'>";
+        var n = 0;
+        var users = this.allUsers;
+        for (n = 0; n <= users.length; n++) {
+            shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
+        }
+        shareList += "</select>";
+        $("#shareList").html(shareList + "<button value='share' onclick='shareList(list)'>");
     };
     NewListComponent.prototype.shareList = function (list) {
         //use alert to get user_id

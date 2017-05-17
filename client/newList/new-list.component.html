@@ -12,8 +12,9 @@
     {{list.display}}
     </div>
     <div class="col-md-4">
-      <input type="button" value="Share" (click)="shareList(list);" class="btn btn-danger">
+      <input type="button" value="Share" (click)="chooseShare(list);" class="btn btn-danger">
       <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
     </div>
+    <div id="shareList"></div>
   </div>
 </div>

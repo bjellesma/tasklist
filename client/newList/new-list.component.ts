@@ -13,8 +13,10 @@ import {Tabs} from '../../Tabs';
 export class NewListComponent {
   allTabs:Tabs[];
   user = [];
+  allUsers = [];
   constructor(private tabService:TabService, private userService:UsersService){
     this.user = userService.getUser();
+    this.allUsers = userService.getUsers();
     this.tabService.getTabs()
       .subscribe(allTabs => {
           this.allTabs = allTabs;
@@ -47,6 +49,16 @@ export class NewListComponent {
         }
       }
     });
+  }
+  chooseShare(list){
+    var shareList = "<select size='20'>";
+    var n = 0;
+    var users = this.allUsers;
+    for(n=0;n<=users.length;n++){
+      shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
+    }
+    shareList += "</select>";
+    $("#shareList").html(shareList + "<button value='share' onclick='shareList(list)'>");
   }
   shareList(list){
     //use alert to get user_id
