@@ -149,13 +149,21 @@ router.post('/new-list', function(req, res, next){
 * :id make id a parameter
 */
 router.put('/tab/:id', function(req, res, next){
-  var tab = req.body;
+  var tab = req.body.tab;
+  var updateInfo = req.body.updateInfo
   var udpTab = {}
-  if(tab.share_id){
+  var n = 0;
+  if(updateInfo.share){
     //TODO add share_id to share array
-    //udpTab = tab;
-    udpTab.share_id = tab.share_id;
+    udpTab.share_id = [];
+    for(n=0;n<tab.share_id.length;n++){
+      udpTab.share_id.push(tab.share_id[n])
+    }
+    for(n=0;n<updateInfo.share.length;n++){
+      udpTab.share_id.push(updateInfo.share[n])
+    }
   }
+  console.log(udpTab);
   if(!udpTab){
     //send a 400 status
     res.status(400);

@@ -80,6 +80,17 @@ var TabService = (function () {
             console.log('Tab Service Initialized...');
         }
     }
+    TabService.prototype.getTab = function (id) {
+        //return the tasks page as json
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/api/tab/' + id)
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab' + id)
+                .map(function (res) { return res.json(); });
+        }
+    };
     //this route is mapped out in routes/tasks.js
     TabService.prototype.getTabs = function () {
         //return the tasks page as json
@@ -114,15 +125,15 @@ var TabService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
-    TabService.prototype.updateTab = function (tab) {
+    TabService.prototype.updateTab = function (tab, updateInfo) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         if (env_js_1.getEnvVariables().MODE == 'openshift') {
-            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + '/api/tab/' + tab._id, JSON.stringify(tab), { headers: headers })
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + '/api/tab/' + tab._id, JSON.stringify({ tab: tab, updateInfo: updateInfo }), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + tab._id, JSON.stringify(tab), { headers: headers })
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/tab/' + tab._id, JSON.stringify({ tab: tab, updateInfo: updateInfo }), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
     };

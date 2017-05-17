@@ -65,6 +65,16 @@ export class TabService{
       console.log('Tab Service Initialized...');
     }
   }
+  getTab(id){
+    //return the tasks page as json
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.get('http://' + getEnvVariables().APIIP + '/api/tab/'+id)
+        .map(res => res.json());
+    }else{
+      return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab'+id)
+        .map(res => res.json());
+      }
+  }
   //this route is mapped out in routes/tasks.js
   getTabs(){
     //return the tasks page as json
@@ -98,14 +108,14 @@ export class TabService{
       }
   }
 
-  updateTab(tab){
+  updateTab(tab, updateInfo){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if(getEnvVariables().MODE == 'openshift'){
-      return this.http.put('http://' + getEnvVariables().APIIP + '/api/tab/'+tab._id, JSON.stringify(tab), {headers: headers})
+      return this.http.put('http://' + getEnvVariables().APIIP + '/api/tab/'+tab._id, JSON.stringify({tab: tab, updateInfo: updateInfo}), {headers: headers})
         .map(res => res.json());
     }else{
-      return this.http.put('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab/'+tab._id, JSON.stringify(tab), {headers: headers})
+      return this.http.put('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/tab/'+tab._id, JSON.stringify({tab: tab, updateInfo: updateInfo}), {headers: headers})
         .map(res => res.json());
       }
   }

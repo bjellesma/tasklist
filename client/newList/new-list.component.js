@@ -55,8 +55,7 @@ var NewListComponent = (function () {
     NewListComponent.prototype.shareList = function (list) {
         //use alert to get user_id
         var user_id = "fred";
-        list.share_id = user_id;
-        this.tabService.updateTab(list).subscribe(function (data) {
+        this.tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
             alert("This list has been shared with " + user_id);
         });
     };
