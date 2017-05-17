@@ -153,7 +153,7 @@ router.put('/tab/:id', function(req, res, next){
   var udpTab = {}
   if(tab.share_id){
     //TODO add share_id to share array
-    udpTab = tab;
+    //udpTab = tab;
     udpTab.share_id = tab.share_id;
   }
   if(!udpTab){
@@ -163,11 +163,19 @@ router.put('/tab/:id', function(req, res, next){
       "error": "Bad Data"
     });
   }else{
-    db.collection("tabs").update({_id: mongojs.ObjectId(req.params.id)}, udpTab, {}, function(err, tab){
-      if(err){
-        res.send(err);
-      }
-      res.json(tab);
+    db.collection("tabs").update(
+      {_id: mongojs.ObjectId(req.params.id)},
+      {
+        $set: {
+          share_id: udpTab.share_id
+        }
+      },
+      {},
+      function(err, tab){
+        if(err){
+          res.send(err);
+        }
+        res.json(tab);
     });
   }
 });
