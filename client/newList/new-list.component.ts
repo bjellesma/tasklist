@@ -1,27 +1,26 @@
 import { Component } from '@angular/core';
-import {TabService} from '../app/services/app.service';
-import {UsersService} from '../../../users/users.service';
+import {TabService, UsersService} from '../app/services/app.service';
 import {Tabs} from '../../Tabs';
+import {Users} from '../../Users';
 //task service is needed because we are connecting to a database
 
 @Component({
   moduleId: module.id,
   selector: 'new-list',
   templateUrl: 'new-list.component.html',
-  providers[TabService, UsersService]
+  providers: [TabService, UsersService]
 })
 export class NewListComponent {
   allTabs:Tabs[];
   user = [];
-  allUsers = [];
-  constructor(private tabService:TabService, private userService:UsersService){
+  allUsers:Users[];
+  constructor(private tabService:TabService,){
+    var n = 0;
     this.user = userService.getUser();
-    this.allUsers = userService.getUsers();
     this.tabService.getTabs()
       .subscribe(allTabs => {
           this.allTabs = allTabs;
         });
-
       }
   addList(event){
     event.preventDefault();
@@ -50,11 +49,17 @@ export class NewListComponent {
       }
     });
   }
-  chooseShare(list){
+  chooseShare(list, private userService:UsersService){
     var shareList = "<select size='20'>";
     var n = 0;
-    var users = this.allUsers;
+    var users = {};
+    this.userService.getUsers()
+      .subscribe(users => {
+        this.users = users
+          console.log('all users' + users);
+        });
     for(n=0;n<=users.length;n++){
+      console.log('user:' + users[n])
       shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
     }
     shareList += "</select>";

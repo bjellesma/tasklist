@@ -11,17 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_1 = require("../app/services/app.service");
-var users_service_1 = require("../../../users/users.service");
 //task service is needed because we are connecting to a database
 var NewListComponent = (function () {
-    function NewListComponent(tabService, userService) {
+    function NewListComponent(tabService) {
         var _this = this;
         this.tabService = tabService;
-        this.userService = userService;
         this.user = [];
-        this.allUsers = [];
+        var n = 0;
         this.user = userService.getUser();
-        this.allUsers = userService.getUsers();
         this.tabService.getTabs()
             .subscribe(function (allTabs) {
             _this.allTabs = allTabs;
@@ -54,11 +51,18 @@ var NewListComponent = (function () {
             }
         });
     };
-    NewListComponent.prototype.chooseShare = function (list) {
+    NewListComponent.prototype.chooseShare = function (list, userService) {
+        var _this = this;
         var shareList = "<select size='20'>";
         var n = 0;
-        var users = this.allUsers;
+        var users = {};
+        this.userService.getUsers()
+            .subscribe(function (users) {
+            _this.users = users;
+            console.log('all users' + users);
+        });
         for (n = 0; n <= users.length; n++) {
+            console.log('user:' + users[n]);
             shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
         }
         shareList += "</select>";
@@ -78,10 +82,9 @@ NewListComponent = __decorate([
         moduleId: module.id,
         selector: 'new-list',
         templateUrl: 'new-list.component.html',
-        providers: [app_service_1.TabService, users_service_1.UsersService]
+        providers: [app_service_1.TabService, app_service_1.UsersService]
     }),
-    __metadata("design:paramtypes", [app_service_1.TabService, typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" && _a || Object])
+    __metadata("design:paramtypes", [app_service_1.TabService])
 ], NewListComponent);
 exports.NewListComponent = NewListComponent;
-var _a;
 //# sourceMappingURL=new-list.component.js.map

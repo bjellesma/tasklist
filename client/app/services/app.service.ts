@@ -120,3 +120,44 @@ export class TabService{
       }
   }
 }
+
+@Injectable()
+export class UsersService{
+  constructor(private http:Http){
+    if(getEnvVariables().MODE == 'development'){
+      console.log('Users Service Initialized...');
+    }
+  }
+  //this route is mapped out in routes/tasks.js
+  getUsers(){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //return the tasks page as json
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.get('http://' + getEnvVariables().APIIP + '/api/users')
+        .map(res => res.json());
+    }else{
+
+      return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/users')
+        .map(res => {
+          console.log("user res: " + res);
+          res.json()
+        });
+      }
+  }
+  getUser(){
+    var user = getEnvVariables().user;
+    return user;
+  }
+  addUser(newUser){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.post('http://' + getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+      }
+  }
+}

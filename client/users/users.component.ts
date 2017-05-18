@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UsersService} from './users.service';
+import {UsersService} from '../../app/services/app.service';
 //task service is needed because we are connecting to a database
 
 @Component({
@@ -16,7 +16,7 @@ export class UsersComponent {
     this.UsersService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;
-
+          console.log('all users' + allUsers);
         });
       }
 }

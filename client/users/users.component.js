@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var users_service_1 = require("./users.service");
+var app_service_1 = require("../../app/services/app.service");
 //task service is needed because we are connecting to a database
 var UsersComponent = (function () {
     function UsersComponent(UsersService) {
@@ -20,6 +20,7 @@ var UsersComponent = (function () {
         this.UsersService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
+            console.log('all users' + allUsers);
         });
     }
     return UsersComponent;
@@ -29,9 +30,10 @@ UsersComponent = __decorate([
         moduleId: module.id,
         selector: 'users',
         templateUrl: 'users.component.html',
-        providers: [users_service_1.UsersService]
+        providers: [app_service_1.UsersService]
     }),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.UsersService !== "undefined" && app_service_1.UsersService) === "function" && _a || Object])
 ], UsersComponent);
 exports.UsersComponent = UsersComponent;
+var _a;
 //# sourceMappingURL=users.component.js.map

@@ -144,4 +144,51 @@ TabService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], TabService);
 exports.TabService = TabService;
+var UsersService = (function () {
+    function UsersService(http) {
+        this.http = http;
+        if (env_js_1.getEnvVariables().MODE == 'development') {
+            console.log('Users Service Initialized...');
+        }
+    }
+    //this route is mapped out in routes/tasks.js
+    UsersService.prototype.getUsers = function () {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        //return the tasks page as json
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/api/users')
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/users')
+                .map(function (res) {
+                console.log("user res: " + res);
+                res.json();
+            });
+        }
+    };
+    UsersService.prototype.getUser = function () {
+        var user = env_js_1.getEnvVariables().user;
+        return user;
+    };
+    UsersService.prototype.addUser = function (newUser) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+    };
+    return UsersService;
+}());
+UsersService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], UsersService);
+exports.UsersService = UsersService;
 //# sourceMappingURL=app.service.js.map

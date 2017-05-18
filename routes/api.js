@@ -35,6 +35,19 @@ router.get('/tabs', function(req, res, next){
 });
 
 /*
+* function to get all tabs
+*/
+router.get('/users', function(req, res, next){
+  db.collection("users").find(function(err, users){
+    if(err){
+      res.send(err);
+    }
+    //TODO take out password hashes or store hashes in a different collection
+    res.json(users);
+  });
+});
+
+/*
 * function to get single task
 * :id make id a parameter
 * req is the way we get requests

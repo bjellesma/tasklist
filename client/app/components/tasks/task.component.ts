@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {TabComponent} from '../tabs/tab.component'
-import {TaskService, TabService} from '../../services/app.service';
-import {UsersService} from '../../../users/users.service';
+import {TaskService, TabService, UsersService} from '../../services/app.service';
 import {Task} from '../../../Task';
 import {Tabs} from '../../../Tabs';
 

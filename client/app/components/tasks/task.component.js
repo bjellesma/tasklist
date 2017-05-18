@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_1 = require("../../services/app.service");
-var users_service_1 = require("../../../users/users.service");
 var TasksComponent = TasksComponent_1 = (function () {
     //this refers to the task service dependancy
     //the params in these functions must be declare as providers in app.module.ts
@@ -141,7 +140,7 @@ TasksComponent = TasksComponent_1 = __decorate([
         selector: 'all-tasks',
         templateUrl: 'task.component.html'
     }),
-    __metadata("design:paramtypes", [app_service_1.TaskService, users_service_1.UsersService, app_service_1.TabService])
+    __metadata("design:paramtypes", [app_service_1.TaskService, app_service_1.UsersService, app_service_1.TabService])
 ], TasksComponent);
 exports.TasksComponent = TasksComponent;
 var TasksComponent_1;

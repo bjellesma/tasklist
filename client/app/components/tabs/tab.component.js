@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var task_component_1 = require("../tasks/task.component");
 var app_service_1 = require("../../services/app.service");
-var users_service_1 = require("../../../users/users.service");
 var TabComponent = (function () {
     function TabComponent(tabService, userService) {
         var _this = this;
@@ -58,7 +57,7 @@ TabComponent = __decorate([
         selector: 'task-tabs',
         templateUrl: 'tab.component.html'
     }),
-    __metadata("design:paramtypes", [app_service_1.TabService, users_service_1.UsersService])
+    __metadata("design:paramtypes", [app_service_1.TabService, app_service_1.UsersService])
 ], TabComponent);
 exports.TabComponent = TabComponent;
 //# sourceMappingURL=tab.component.js.map
