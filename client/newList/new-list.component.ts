@@ -55,7 +55,7 @@ export class NewListComponent {
   chooseShare(list){
     var shareList = "<select size='20'>";
     var n = 0;
-    var user_id = this.user._id;
+
     var tabService = this.tabService;
     var users = this.allUsers;
     for(n=0;n<users.length;n++){
@@ -64,8 +64,9 @@ export class NewListComponent {
     }
     shareList += "</select>";
     $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
-    $("#shareListButton").click(function(){
 
+    $("#shareListButton").click(function(){
+      var user_id = $("#shareList").find(":selected").val();
       tabService.updateTab(list, {share: [user_id]}).subscribe(data => {
         alert("This list has been shared with " + user_id);
       });

@@ -58,7 +58,6 @@ var NewListComponent = (function () {
     NewListComponent.prototype.chooseShare = function (list) {
         var shareList = "<select size='20'>";
         var n = 0;
-        var user_id = this.user._id;
         var tabService = this.tabService;
         var users = this.allUsers;
         for (n = 0; n < users.length; n++) {
@@ -68,6 +67,7 @@ var NewListComponent = (function () {
         shareList += "</select>";
         $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
         $("#shareListButton").click(function () {
+            var user_id = $("#shareList").find(":selected").val();
             tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
                 alert("This list has been shared with " + user_id);
             });
