@@ -14,12 +14,15 @@ export class NewListComponent {
   allTabs:Tabs[];
   user = [];
   allUsers:Users[];
-  constructor(private tabService:TabService,){
-    var n = 0;
+  constructor(private tabService:TabService, private userService:UsersService){
     this.user = userService.getUser();
     this.tabService.getTabs()
       .subscribe(allTabs => {
           this.allTabs = allTabs;
+        });
+    this.userService.getUsers()
+      .subscribe(allUsers => {
+          this.allUsers = allUsers;
         });
       }
   addList(event){
@@ -49,27 +52,24 @@ export class NewListComponent {
       }
     });
   }
-  chooseShare(list, private userService:UsersService){
+  chooseShare(list){
     var shareList = "<select size='20'>";
     var n = 0;
-    var users = {};
-    this.userService.getUsers()
-      .subscribe(users => {
-        this.users = users
-          console.log('all users' + users);
-        });
-    for(n=0;n<=users.length;n++){
+    var user_id = this.user._id;
+    var tabService = this.tabService;
+    var users = this.allUsers;
+    for(n=0;n<users.length;n++){
       console.log('user:' + users[n])
       shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
     }
     shareList += "</select>";
-    $("#shareList").html(shareList + "<button value='share' onclick='shareList(list)'>");
-  }
-  shareList(list){
-    //use alert to get user_id
-    var user_id = "fred";
-    this.tabService.updateTab(list, {share: [user_id]}).subscribe(data => {
-      alert("This list has been shared with " + user_id);
+    $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
+    $("#shareListButton").click(function(){
+
+      tabService.updateTab(list, {share: [user_id]}).subscribe(data => {
+        alert("This list has been shared with " + user_id);
+      });
     });
   }
+
 }

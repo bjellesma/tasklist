@@ -162,10 +162,7 @@ var UsersService = (function () {
         }
         else {
             return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/users')
-                .map(function (res) {
-                console.log("user res: " + res);
-                res.json();
-            });
+                .map(function (res) { return res.json(); });
         }
     };
     UsersService.prototype.getUser = function () {

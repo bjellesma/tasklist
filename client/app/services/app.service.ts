@@ -139,10 +139,8 @@ export class UsersService{
     }else{
 
       return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/users')
-        .map(res => {
-          console.log("user res: " + res);
-          res.json()
-        });
+      //res.json contains the json we're looking for
+        .map(res => res.json());
       }
   }
   getUser(){

@@ -13,15 +13,19 @@ var core_1 = require("@angular/core");
 var app_service_1 = require("../app/services/app.service");
 //task service is needed because we are connecting to a database
 var NewListComponent = (function () {
-    function NewListComponent(tabService) {
+    function NewListComponent(tabService, userService) {
         var _this = this;
         this.tabService = tabService;
+        this.userService = userService;
         this.user = [];
-        var n = 0;
         this.user = userService.getUser();
         this.tabService.getTabs()
             .subscribe(function (allTabs) {
             _this.allTabs = allTabs;
+        });
+        this.userService.getUsers()
+            .subscribe(function (allUsers) {
+            _this.allUsers = allUsers;
         });
     }
     NewListComponent.prototype.addList = function (event) {
@@ -51,28 +55,22 @@ var NewListComponent = (function () {
             }
         });
     };
-    NewListComponent.prototype.chooseShare = function (list, userService) {
-        var _this = this;
+    NewListComponent.prototype.chooseShare = function (list) {
         var shareList = "<select size='20'>";
         var n = 0;
-        var users = {};
-        this.userService.getUsers()
-            .subscribe(function (users) {
-            _this.users = users;
-            console.log('all users' + users);
-        });
-        for (n = 0; n <= users.length; n++) {
+        var user_id = this.user._id;
+        var tabService = this.tabService;
+        var users = this.allUsers;
+        for (n = 0; n < users.length; n++) {
             console.log('user:' + users[n]);
             shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
         }
         shareList += "</select>";
-        $("#shareList").html(shareList + "<button value='share' onclick='shareList(list)'>");
-    };
-    NewListComponent.prototype.shareList = function (list) {
-        //use alert to get user_id
-        var user_id = "fred";
-        this.tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
-            alert("This list has been shared with " + user_id);
+        $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
+        $("#shareListButton").click(function () {
+            tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
+                alert("This list has been shared with " + user_id);
+            });
         });
     };
     return NewListComponent;
@@ -84,7 +82,7 @@ NewListComponent = __decorate([
         templateUrl: 'new-list.component.html',
         providers: [app_service_1.TabService, app_service_1.UsersService]
     }),
-    __metadata("design:paramtypes", [app_service_1.TabService])
+    __metadata("design:paramtypes", [app_service_1.TabService, app_service_1.UsersService])
 ], NewListComponent);
 exports.NewListComponent = NewListComponent;
 //# sourceMappingURL=new-list.component.js.map

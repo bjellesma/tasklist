@@ -170,9 +170,11 @@ router.put('/tab/:id', function(req, res, next){
     //TODO add share_id to share array
     udpTab.share_id = [];
     for(n=0;n<tab.share_id.length;n++){
+      console.log("This was previously on the tab: " + tab.share_id[n]);
       udpTab.share_id.push(tab.share_id[n])
     }
     for(n=0;n<updateInfo.share.length;n++){
+      console.log("This will be on the tab: " + updateInfo.share[n]);
       udpTab.share_id.push(updateInfo.share[n])
     }
   }
