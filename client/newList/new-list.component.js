@@ -58,18 +58,22 @@ var NewListComponent = (function () {
     NewListComponent.prototype.chooseShare = function (list) {
         var shareList = "<select size='20'>";
         var n = 0;
+        var curTab = list._id;
         var tabService = this.tabService;
         var users = this.allUsers;
+        //TODO get tab from db based on id
+        //TODO get shares from tab
+        //TODO if any options are equal to what is here, we won't include when we grab the list of users
         for (n = 0; n < users.length; n++) {
-            console.log('user:' + users[n]);
             shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
         }
         shareList += "</select>";
         $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
         $("#shareListButton").click(function () {
             var user_id = $("#shareList").find(":selected").val();
+            var userName = $("#shareList").find(":selected").text();
             tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
-                alert("This list has been shared with " + user_id);
+                alert("This list has been shared with " + userName);
             });
         });
     };

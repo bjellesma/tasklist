@@ -10,10 +10,18 @@ var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPAS
 require('dotenv').config();
 //for sessions
 var session = require('client-sessions');
+
+function requireLogin (req, res, next) {
+  if (!req.session.user) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+};
 /*
 * function to get all tasks
 */
-router.get('/tasks', function(req, res, next){
+router.get('/tasks', requireLogin, function(req, res, next){
   db.tasks.find(function(err, tasks){
     if(err){
       res.send(err);
@@ -25,7 +33,7 @@ router.get('/tasks', function(req, res, next){
 /*
 * function to get all tabs
 */
-router.get('/tabs', function(req, res, next){
+router.get('/tabs', requireLogin, function(req, res, next){
   db.collection("tabs").find(function(err, tabs){
     if(err){
       res.send(err);
@@ -37,8 +45,8 @@ router.get('/tabs', function(req, res, next){
 /*
 * function to get all tabs
 */
-router.get('/users', function(req, res, next){
-  db.collection("users").find(function(err, users){
+router.get('/users', requireLogin, function(req, res, next){
+  db.collection("users").find({}, {passwordHash: 0}, function(err, users){
     if(err){
       res.send(err);
     }
@@ -52,7 +60,7 @@ router.get('/users', function(req, res, next){
 * :id make id a parameter
 * req is the way we get requests
 */
-router.get('/task/:id', function(req, res, next){
+router.get('/task/:id', requireLogin, function(req, res, next){
   db.tasks.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, task){
     if(err){
       res.send(err);
@@ -101,7 +109,7 @@ router.post('/new-user', function(req, res, next){
 * :id make id a parameter
 * req is the way we get requests
 */
-router.get('/tab/:id', function(req, res, next){
+router.get('/tab/:id', requireLogin, function(req, res, next){
   db.collection('tabs').findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
     if(err){
       res.send(err);
@@ -115,7 +123,7 @@ router.get('/tab/:id', function(req, res, next){
 * save task
 * :id make id a parameter
 */
-router.post('/task', function(req, res, next){
+router.post('/task', requireLogin, function(req, res, next){
   var task = req.body;
   //we use task.isDone + '' to make it a string
   if(!task.title || !(task.isDone + '')){
@@ -139,7 +147,7 @@ router.post('/task', function(req, res, next){
 * :id make id a parameter
 * the post needs to go to new-list because that's where the form is
 */
-router.post('/new-list', function(req, res, next){
+router.post('/new-list', requireLogin, function(req, res, next){
   var tab = req.body;
   if(!tab.display){
     //send a 400 status
@@ -161,7 +169,7 @@ router.post('/new-list', function(req, res, next){
 * update tab
 * :id make id a parameter
 */
-router.put('/tab/:id', function(req, res, next){
+router.put('/tab/:id', requireLogin, function(req, res, next){
   var tab = req.body.tab;
   var updateInfo = req.body.updateInfo
   var udpTab = {}
@@ -170,15 +178,12 @@ router.put('/tab/:id', function(req, res, next){
     //TODO add share_id to share array
     udpTab.share_id = [];
     for(n=0;n<tab.share_id.length;n++){
-      console.log("This was previously on the tab: " + tab.share_id[n]);
       udpTab.share_id.push(tab.share_id[n])
     }
     for(n=0;n<updateInfo.share.length;n++){
-      console.log("This will be on the tab: " + updateInfo.share[n]);
       udpTab.share_id.push(updateInfo.share[n])
     }
   }
-  console.log(udpTab);
   if(!udpTab){
     //send a 400 status
     res.status(400);
@@ -206,7 +211,7 @@ router.put('/tab/:id', function(req, res, next){
 /*
 * delete task
 */
-router.delete('/task/:id', function(req, res, next){
+router.delete('/task/:id', requireLogin, function(req, res, next){
   db.tasks.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, task){
     if(err){
       res.send(err);
@@ -218,7 +223,7 @@ router.delete('/task/:id', function(req, res, next){
 /*
 * delete tab
 */
-router.delete('/tab/:id', function(req, res, next){
+router.delete('/tab/:id', requireLogin, function(req, res, next){
   db.collection("tabs").remove({_id: mongojs.ObjectId(req.params.id)}, function(err, tab){
     if(err){
       res.send(err);
@@ -230,7 +235,7 @@ router.delete('/tab/:id', function(req, res, next){
 /*
 * update task
 */
-router.put('/task/:id', function(req, res, next){
+router.put('/task/:id', requireLogin, function(req, res, next){
   var task = req.body;
   var updtask = {};
 
