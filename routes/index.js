@@ -60,15 +60,15 @@ router.get('/login', function(req, res, next){
   req.session.success = null;
 });
 router.post('/login', function(req, res) {
-  
+
   db.users.findOne({ name: req.body.username}, function(err, user) {
+
     if (!user) {
       req.errors.login = "Username and/or Password is incorrect";
       res.redirect('/login');
     }else {
       var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
       if (passwordHash === user.passwordHash) {
-
         //set session
         req.session.user = user;
         //redirect user

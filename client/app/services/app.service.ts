@@ -141,10 +141,9 @@ export class UsersService{
         .map(res => res.json());
     }else{
 
-      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', {}, {headers: headers})
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', JSON.stringify(login), {headers: headers})
         .map(res => {
-          console.log('here')
-          res.json()
+          console.log(res);
         });
       }
   }

@@ -19,6 +19,8 @@ export class LoginComponent {
       password:password
     };
     //save task to database
-    this.userService.login(login);
+    this.userService.login(login).subscribe(data => {
+      console.log(data);
+    });
   }
 }

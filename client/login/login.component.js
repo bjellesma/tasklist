@@ -23,7 +23,9 @@ var LoginComponent = (function () {
             password: password
         };
         //save task to database
-        this.userService.login(login);
+        this.userService.login(login).subscribe(function (data) {
+            console.log(data);
+        });
     };
     return LoginComponent;
 }());

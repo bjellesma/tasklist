@@ -162,10 +162,9 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', {}, { headers: headers })
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', JSON.stringify(login), { headers: headers })
                 .map(function (res) {
-                console.log('here');
-                res.json();
+                console.log(res);
             });
         }
     };
