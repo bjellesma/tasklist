@@ -3,13 +3,11 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms'; //needed to add forms in angular2
-import { AppComponent} from './app.component';
-import { TabComponent} from './components/tabs/tab.component';
-import {TasksComponent} from './components/tasks/task.component';
+import {LoginComponent} from './login.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
-  declarations: [AppComponent, TasksComponent, TabComponent],
-  bootstrap: [AppComponent]
+  declarations: [LoginComponent],
+  bootstrap: [LoginComponent]
 })
-export class AppModule { }
+export class LoginModule { }

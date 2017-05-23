@@ -165,6 +165,10 @@ router.post('/new-list', requireLogin, function(req, res, next){
   }
 });
 
+router.post('/test', function(req, res, next){
+  res.send('here');
+});
+
 /*
 * update tab
 * :id make id a parameter

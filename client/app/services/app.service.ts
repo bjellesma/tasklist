@@ -123,10 +123,30 @@ export class TabService{
 
 @Injectable()
 export class UsersService{
+  APIIP = getEnvVariables().APIIP;
+  APIPORT = getEnvVariables().APIPORT;
+  MODE = getEnvVariables().MODE;
   constructor(private http:Http){
+
     if(getEnvVariables().MODE == 'development'){
       console.log('Users Service Initialized...');
     }
+  }
+  login(login){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    if(this.MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/login', JSON.stringify(login), {headers: headers})
+        .map(res => res.json());
+    }else{
+
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', {}, {headers: headers})
+        .map(res => {
+          console.log('here')
+          res.json()
+        });
+      }
   }
   //this route is mapped out in routes/tasks.js
   getUsers(){
@@ -134,11 +154,11 @@ export class UsersService{
     headers.append('Content-Type', 'application/json');
     //return the tasks page as json
     if(getEnvVariables().MODE == 'openshift'){
-      return this.http.get('http://' + getEnvVariables().APIIP + '/api/users')
+      return this.http.get('http://' + this.APIIP + '/api/users')
         .map(res => res.json());
     }else{
 
-      return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/users')
+      return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
       //res.json contains the json we're looking for
         .map(res => res.json());
       }
@@ -151,10 +171,10 @@ export class UsersService{
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if(getEnvVariables().MODE == 'openshift'){
-      return this.http.post('http://' + getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+      return this.http.post('http://' + this.APIIP + '/api/new-user', JSON.stringify(newUser), {headers: headers})
         .map(res => res.json());
     }else{
-      return this.http.post('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/new-user', JSON.stringify(newUser), {headers: headers})
         .map(res => res.json());
       }
   }

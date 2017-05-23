@@ -20,6 +20,7 @@ module.exports = {
   getEnvVariables: function () {
     envCall();
     var vars = {
+      
       APIIP: apiip,
       APIPORT: apiport,
       user: user,

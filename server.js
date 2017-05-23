@@ -3,7 +3,8 @@ var express = require('express'); //brings in express fron node_modules
 var path = require('path');
 var bodyParser = require('body-parser');
 //for sessions
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
+var expressValidator = require('express-validator');
 var session = require('express-session');
 
 var index = require('./routes/index');
@@ -14,15 +15,8 @@ var port = process.env.APIPORT;
 var ip = process.env.APIIP;
 var mode = process.env.MODE;
 var app = express(); //main variable
-app.use(cookieParser());
-//login middleware
-app.use(session({
-  secret: process.env.SESSIONSECRET,
-  resave:false,
-  saveUninitialized: true,
-  cookie: { secure: !true,
-          }
-}));
+
+
 //require('dotenv').config();
 
 //view engine
@@ -36,7 +30,19 @@ app.use(express.static(path.join(__dirname, 'client'))); //our static folder wil
 // Body Parser Middleware
 app.use(bodyParser.json()); //we want to be able to parse json
 app.use(bodyParser.urlencoded({extended: false}));
-// /login middleware
+app.use(cookieParser());
+// Validator middleware
+app.use(expressValidator());
+//login middleware
+//TODO need session store for express-session
+app.use(session({
+  secret: process.env.SESSIONSECRET,
+  resave:false,
+  saveUninitialized: true,
+  cookie: {
+            secure: !true,
+          }
+}));
 app.use('/', index); //we want the slash to be associated with our index route (named above)
 app.use('/api', api); //to interact with the api
 

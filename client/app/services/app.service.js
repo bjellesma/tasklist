@@ -147,21 +147,39 @@ exports.TabService = TabService;
 var UsersService = (function () {
     function UsersService(http) {
         this.http = http;
+        this.APIIP = env_js_1.getEnvVariables().APIIP;
+        this.APIPORT = env_js_1.getEnvVariables().APIPORT;
+        this.MODE = env_js_1.getEnvVariables().MODE;
         if (env_js_1.getEnvVariables().MODE == 'development') {
             console.log('Users Service Initialized...');
         }
     }
+    UsersService.prototype.login = function (login) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        if (this.MODE == 'openshift') {
+            return this.http.post('http://' + this.APIIP + '/login', JSON.stringify(login), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', {}, { headers: headers })
+                .map(function (res) {
+                console.log('here');
+                res.json();
+            });
+        }
+    };
     //this route is mapped out in routes/tasks.js
     UsersService.prototype.getUsers = function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         //return the tasks page as json
         if (env_js_1.getEnvVariables().MODE == 'openshift') {
-            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + '/api/users')
+            return this.http.get('http://' + this.APIIP + '/api/users')
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.get('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/users')
+            return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
                 .map(function (res) { return res.json(); });
         }
     };
@@ -173,11 +191,11 @@ var UsersService = (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         if (env_js_1.getEnvVariables().MODE == 'openshift') {
-            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+            return this.http.post('http://' + this.APIIP + '/api/new-user', JSON.stringify(newUser), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/new-user', JSON.stringify(newUser), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
     };

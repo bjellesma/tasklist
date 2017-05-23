@@ -54,12 +54,17 @@ router.post('/register', function(req, res) {
   });
 });
 router.get('/login', function(req, res, next){
-  res.render('login.html');
+  res.render('login.html', {success: false, errors: req.session.errors});
+  //reset errors
+  req.session.errors = null;
+  req.session.success = null;
 });
 router.post('/login', function(req, res) {
+  
   db.users.findOne({ name: req.body.username}, function(err, user) {
     if (!user) {
-      res.send('No user found');
+      req.errors.login = "Username and/or Password is incorrect";
+      res.redirect('/login');
     }else {
       var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
       if (passwordHash === user.passwordHash) {
@@ -69,7 +74,8 @@ router.post('/login', function(req, res) {
         //redirect user
         res.redirect("/");
       } else {
-        res.send('password incorrect');
+        req.errors.login = "Username and/or Password is incorrect";
+        res.redirect('/login');
       }
     }
   });
@@ -108,7 +114,7 @@ router.get('/new-list', requireLogin, function(req, res, next){
 router.get('/user-profile', requireLogin, function(req, res, next){
   res.render('profile.html'); //res.send with send anything to the browser while res.render will show a file
 });
-router.get('/env', requireLogin, function(req, res, next){
+router.get('/env', function(req, res, next){
   res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: req.session.user, mode: process.env.MODE});
 });
 
