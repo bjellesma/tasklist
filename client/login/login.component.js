@@ -24,7 +24,10 @@ var LoginComponent = (function () {
         };
         //save task to database
         this.userService.login(login).subscribe(function (data) {
-            console.log(data);
+            data = JSON.parse(data);
+            if (data.success == true) {
+                window.location.replace('/');
+            }
         });
     };
     return LoginComponent;

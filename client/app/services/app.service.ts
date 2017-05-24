@@ -142,9 +142,7 @@ export class UsersService{
     }else{
 
       return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', JSON.stringify(login), {headers: headers})
-        .map(res => {
-          console.log(res);
-        });
+        .map(res => res.json());
       }
   }
   //this route is mapped out in routes/tasks.js
@@ -156,10 +154,11 @@ export class UsersService{
       return this.http.get('http://' + this.APIIP + '/api/users')
         .map(res => res.json());
     }else{
-
       return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
-      //res.json contains the json we're looking for
-        .map(res => res.json());
+        .map(res => {
+          console.log("res: " + res);
+          res.json()
+        });
       }
   }
   getUser(){

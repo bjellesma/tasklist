@@ -163,9 +163,7 @@ var UsersService = (function () {
         }
         else {
             return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', JSON.stringify(login), { headers: headers })
-                .map(function (res) {
-                console.log(res);
-            });
+                .map(function (res) { return res.json(); });
         }
     };
     //this route is mapped out in routes/tasks.js
@@ -179,7 +177,10 @@ var UsersService = (function () {
         }
         else {
             return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
-                .map(function (res) { return res.json(); });
+                .map(function (res) {
+                console.log("res: " + res);
+                res.json();
+            });
         }
     };
     UsersService.prototype.getUser = function () {

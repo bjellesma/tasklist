@@ -20,7 +20,10 @@ export class LoginComponent {
     };
     //save task to database
     this.userService.login(login).subscribe(data => {
-      console.log(data);
+      data = JSON.parse(data);
+      if(data.success == true){
+        window.location.replace('/');
+      }
     });
   }
 }
