@@ -17,40 +17,50 @@ router.get('/', requireLogin, function(req, res, next){
   res.render('index.html'); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/register', function(req, res, next){
-  res.render('register.html'); //res.send with send anything to the browser while res.render will show a file
+  res.render('register.html', {success: false, errors: req.session.errors});
+  req.session.errors = null;
+  req.session.success = null;
 });
 router.post('/register', function(req, res) {
-  db.users.findOne({ name: req.body.username}, function(err, user) {
+  //default is false
+  var success = false, response = {}, errors = [];
+  db.collection("users").findOne({ name: req.body.username}, function(err, user) {
     if (user) {
-      res.send('Sorry, That username already exists. Please choose another.');
+      success = false;
+      errors.push("Sorry, That username already exists. Please choose another");
     }else {
-      if (req.body.username && req.body.password && req.body.verify){
-        if (req.body.password === req.body.verify) {
+      if (req.body.username && req.body.password && req.body.verifyPassword){
+        if (req.body.password === req.body.verifyPassword) {
           //hash password
           var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
-          var user = {
+          var newUser = {
             "name": req.body.username,
             "passwordHash": passwordHash
           }
           //var user = JSON.stringify(userString);
           //add user
-          db.users.save(user, function(err, user){
+          db.collection("users").save(newUser, function(err, user){
             if(err){
-              res.send(err);
+              success = false;
+              errors.push(err);
             }
-            //set session
+            success = true;
             req.session.user = user;
-            //redirect user
-            res.redirect("/");
           });
-
         } else {
-          res.send('password incorrect');
+          success = false;
+          errors.push('Sorry, Passwords do not match');
         }
       } else {
-        res.send("Sorry, you must fill out every field")
+        success = false;
+        errors.push("Sorry, you must fill out every field")
       }
     }
+    response = {
+      "success": success,
+      "errors": errors
+    }
+    res.json(JSON.stringify(response));
   });
 });
 router.get('/login', function(req, res, next){

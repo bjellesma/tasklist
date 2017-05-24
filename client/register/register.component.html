@@ -1,0 +1,13 @@
+<h1>Welcome to Tasklist</h1>
+<span *ngIf="success == false">
+  <span class="error" *ngFor="let error of errors">{{error}}</span>
+</span>
+<form class="well" (submit)="register($event)">
+  <div class="form-group">
+    Username <input name="username" id="username" type="text"><br>
+    Password <input name="password" id="password" type="password"><br>
+    Verify Password <input name="verifyPassword" id="verifyPassword" type="password"><br>
+    <input type="submit" value="Login"><br>
+  </div>
+</form>
+<i><a href="/login"><button type="button">Back to login</button></a></i>

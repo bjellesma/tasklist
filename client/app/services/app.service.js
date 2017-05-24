@@ -166,6 +166,18 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    UsersService.prototype.register = function (newUser) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        if (this.MODE == 'openshift') {
+            return this.http.post('http://' + this.APIIP + '/register', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/register', JSON.stringify(newUser), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+    };
     //this route is mapped out in routes/tasks.js
     UsersService.prototype.getUsers = function () {
         var headers = new http_1.Headers();

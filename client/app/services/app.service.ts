@@ -145,6 +145,19 @@ export class UsersService{
         .map(res => res.json());
       }
   }
+  register(newUser){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    if(this.MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/register', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+    }else{
+
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/register', JSON.stringify(newUser), {headers: headers})
+        .map(res => res.json());
+      }
+  }
   //this route is mapped out in routes/tasks.js
   getUsers(){
     var headers = new Headers();
