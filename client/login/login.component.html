@@ -1,6 +1,6 @@
 <h1>Welcome to Tasklist</h1>
-<span *ngIf="errors != null">
-  {{errors}}
+<span *ngIf="success == false">
+  <span class="error" *ngFor="let error of errors">{{error}}</span>
 </span>
 <form class="well" (submit)="login($event)">
   <div class="form-group">

@@ -14,8 +14,11 @@ var app_service_js_1 = require("../app/services/app.service.js");
 var LoginComponent = (function () {
     function LoginComponent(userService) {
         this.userService = userService;
+        this.success = null;
+        this.errors = null;
     }
     LoginComponent.prototype.login = function (event) {
+        var _this = this;
         var username = $("#username").val();
         var password = $("#password").val();
         var login = {
@@ -26,7 +29,12 @@ var LoginComponent = (function () {
         this.userService.login(login).subscribe(function (data) {
             data = JSON.parse(data);
             if (data.success == true) {
+                //redirect to homepage
                 window.location.replace('/');
+            }
+            else {
+                _this.success = data.success;
+                _this.errors = data.errors;
             }
         });
     };

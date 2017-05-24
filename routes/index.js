@@ -60,28 +60,29 @@ router.get('/login', function(req, res, next){
   req.session.success = null;
 });
 router.post('/login', function(req, res, next) {
-  //default is false
-  var success = false, response = {};
-  db.users.findOne({ name: req.body.username}, function(err, user) {
 
+  //default is false
+  var success = false, response = {}, errors = [];
+  db.users.findOne({ name: req.body.username}, function(err, user) {
     if (!user) {
-      req.errors.login = "Username and/or Password is incorrect";
+      success = false;
+      errors.push("Username and/or Password is incorrect");
     }else {
       var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
       if (passwordHash === user.passwordHash) {
         //set session
         success = true;
         req.session.user = user;
-        response = {
-          "success": success
-        }
-        //redirect user
-        res.json(JSON.stringify(response));
       } else {
-        req.errors.login = "Username and/or Password is incorrect";
-        res.redirect('/login');
+        success = false;
+        errors.push("Username and/or Password is incorrect");
       }
     }
+    response = {
+      "success": success,
+      "errors": errors
+    }
+    res.json(JSON.stringify(response));
   });
 });
 router.get('/changePassword', function(req, res, next){

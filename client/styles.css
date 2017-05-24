@@ -145,3 +145,7 @@ th:hover {
   background-color: #d3d3d3;
   cursor: pointer;
 }
+
+.error {
+  color:red;
+}

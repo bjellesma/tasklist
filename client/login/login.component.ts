@@ -8,6 +8,8 @@ import {UsersService} from '../app/services/app.service.js';
   providers: [UsersService]
 })
 export class LoginComponent {
+  success = null;
+  errors = null;
   constructor(private userService:UsersService){
 
       }
@@ -22,7 +24,11 @@ export class LoginComponent {
     this.userService.login(login).subscribe(data => {
       data = JSON.parse(data);
       if(data.success == true){
+        //redirect to homepage
         window.location.replace('/');
+      }else{
+        this.success = data.success
+        this.errors = data.errors
       }
     });
   }
