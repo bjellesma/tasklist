@@ -127,7 +127,6 @@ export class UsersService{
   APIPORT = getEnvVariables().APIPORT;
   MODE = getEnvVariables().MODE;
   constructor(private http:Http){
-
     if(getEnvVariables().MODE == 'development'){
       console.log('Users Service Initialized...');
     }
@@ -135,12 +134,10 @@ export class UsersService{
   login(login){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
     if(this.MODE == 'openshift'){
       return this.http.post('http://' + this.APIIP + '/login', JSON.stringify(login), {headers: headers})
         .map(res => res.json());
     }else{
-
       return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/login', JSON.stringify(login), {headers: headers})
         .map(res => res.json());
       }
@@ -148,12 +145,10 @@ export class UsersService{
   register(newUser){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
     if(this.MODE == 'openshift'){
       return this.http.post('http://' + this.APIIP + '/register', JSON.stringify(newUser), {headers: headers})
         .map(res => res.json());
     }else{
-
       return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/register', JSON.stringify(newUser), {headers: headers})
         .map(res => res.json());
       }

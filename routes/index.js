@@ -44,9 +44,9 @@ router.post('/register', function(req, res) {
               success = false;
               errors.push(err);
             }
-            success = true;
-            req.session.user = user;
           });
+          success = true;
+          req.session.user = user;
         } else {
           success = false;
           errors.push('Sorry, Passwords do not match');
