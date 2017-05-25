@@ -19,6 +19,7 @@
       profile: 'profile',
       login: '',
       register: '',
+      forgotPassword: '',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -55,6 +56,10 @@
         defaultExtension: 'js'
       },
       register: {
+        main: './main.js',
+        defaultExtension: 'js'
+      },
+      forgotPassword: {
         main: './main.js',
         defaultExtension: 'js'
       },

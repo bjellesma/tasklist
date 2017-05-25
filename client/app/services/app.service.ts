@@ -153,6 +153,17 @@ export class UsersService{
         .map(res => res.json());
       }
   }
+  resetPassword(resetPassword){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if(this.MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/resetPassword', JSON.stringify(resetPassword), {headers: headers})
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/resetPassword', JSON.stringify(resetPassword), {headers: headers})
+        .map(res => res.json());
+      }
+  }
   //this route is mapped out in routes/tasks.js
   getUsers(){
     var headers = new Headers();

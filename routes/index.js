@@ -95,27 +95,46 @@ router.post('/login', function(req, res, next) {
     res.json(JSON.stringify(response));
   });
 });
-router.get('/changePassword', function(req, res, next){
-  res.render('changePassword.html');
+router.get('/forgotPassword', function(req, res, next){
+  res.render('forgotPassword.html', {success: false, errors: req.session.errors});
+  req.session.errors = null;
+  req.session.success = null;
 });
-router.post('/changePassword', function(req, res) {
+//NOTE: the reason that this route is called resetPassword is so that we can reuse it later on
+router.post('/resetPassword', function(req, res) {
+  var success = false, response = {}, errors = [];
   db.users.findOne({ name: req.body.username}, function(err, user) {
     if (!user) {
-      res.send('No user found');
+      success = false;
+      errors.push("Sorry, we did not find a user by that name");
     }else {
-      if (req.body.password === req.body.verify) {
-        var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
-        user.passwordHash = passwordHash;
-        db.users.save(user, function(err, user){
-          if(err){
-            res.send(err);
-          }
-        });
-        res.redirect("/login");
+      if (req.body.username && req.body.password && req.body.verifyPassword){
+        if (req.body.password === req.body.verifyPassword) {
+          //hash the new password and save it to the database
+          var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
+          user.passwordHash = passwordHash;
+          db.collection("users").save(user, function(err, user){
+            if(err){
+              success = false;
+              errors.push(err);
+            }
+          });
+          success = true;
+          req.session.user = user;
+        } else {
+          success = false;
+          errors.push('Sorry, Passwords do not match');
+        }
       } else {
-        res.send('passwords do not match');
+        success = false;
+        errors.push("Sorry, you must fill out every field")
       }
     }
+    response = {
+      "success": success,
+      "errors": errors
+    }
+    res.json(JSON.stringify(response));
   });
 });
 router.get('/logout', requireLogin, function(req, res) {
