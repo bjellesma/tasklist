@@ -16,12 +16,40 @@ var ProfileComponent = (function () {
     function ProfileComponent(UsersService) {
         var _this = this;
         this.UsersService = UsersService;
+        this.Picture = {
+            url: '',
+            caption: ''
+        };
         this.user = UsersService.getUser();
         this.UsersService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
         });
+        if (!this.user.profilePicture || this.user.profilePicture == '') {
+            this.Picture.url = '/images/profile.png';
+            this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
+        }
     }
+    ProfileComponent.prototype.addPicture = function (event) {
+        var _this = this;
+        var picture = {
+            userid: this.user._id,
+            url: '/images/profile.png',
+            caption: 'Hmm, our guess is that you do not look like this.'
+        };
+        //save task to database
+        this.userService.addPicture(picture).subscribe(function (data) {
+            data = JSON.parse(data);
+            if (data.success == true) {
+                //redirect to homepage
+                Picture = data.picture;
+            }
+            else {
+                _this.success = data.success;
+                _this.errors = data.errors;
+            }
+        });
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([

@@ -164,6 +164,17 @@ export class UsersService{
         .map(res => res.json());
       }
   }
+  addPicture(picture){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if(this.MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(picture), {headers: headers})
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(picture), {headers: headers})
+        .map(res => res.json());
+      }
+  }
   //this route is mapped out in routes/tasks.js
   getUsers(){
     var headers = new Headers();

@@ -104,6 +104,49 @@ router.post('/new-user', function(req, res, next){
   }
 });
 
+router.post('/addPicture', function(req, res) {
+  //default is false
+  var success = false, response = {}, errors = [];
+  db.collection("users").findOne({ name: req.body._id}, function(err, user) {
+    if (!user) {
+      success = false;
+      errors.push("An error has occured and no user has been found. Please contact your systems administrator.");
+    }else {
+      if (req.body.username && req.body.password && req.body.verifyPassword){
+        if (req.body.password === req.body.verifyPassword) {
+          //hash password
+          var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
+          var newUser = {
+            "name": req.body.username,
+            "passwordHash": passwordHash
+          }
+          //var user = JSON.stringify(userString);
+          //add user
+          db.collection("users").save(newUser, function(err, user){
+            if(err){
+              success = false;
+              errors.push(err);
+            }
+          });
+          success = true;
+          req.session.user = user;
+        } else {
+          success = false;
+          errors.push('Sorry, Passwords do not match');
+        }
+      } else {
+        success = false;
+        errors.push("Sorry, you must fill out every field")
+      }
+    }
+    response = {
+      "success": success,
+      "errors": errors
+    }
+    res.json(JSON.stringify(response));
+  });
+});
+
 /*
 * function to get single task
 * :id make id a parameter
