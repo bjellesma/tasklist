@@ -223,6 +223,10 @@ var UsersService = (function () {
         var user = env_js_1.getEnvVariables().user;
         return user;
     };
+    UsersService.prototype.getPictureURLbyID = function (id) {
+        var url = env_js_1.getEnvVariables().user.picture.url;
+        return url;
+    };
     UsersService.prototype.addUser = function (newUser) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');

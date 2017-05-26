@@ -17,15 +17,17 @@
 <div>
   <table class="table" id="all-tasks-table">
     <tr>
-      <th onclick="sortTable(0, 'all-tasks-table')">Done?</th>
-      <th onclick="sortTable(1, 'all-tasks-table')">Title</th>
-      <th onclick="sortTable(2, 'all-tasks-table')">Priority</th>
-      <th onclick="sortTable(3, 'all-tasks-table')">Action</th>
-      <th onclick="sortTable(4, 'all-tasks-table')">Due Date</th>
+      <th onclick="sortTable(0, 'all-tasks-table')">User</th>
+      <th onclick="sortTable(1, 'all-tasks-table')">Done?</th>
+      <th onclick="sortTable(2, 'all-tasks-table')">Title</th>
+      <th onclick="sortTable(3, 'all-tasks-table')">Priority</th>
+      <th onclick="sortTable(4, 'all-tasks-table')">Action</th>
+      <th onclick="sortTable(5, 'all-tasks-table')">Due Date</th>
     </tr>
     <tbody *ngFor="let task of allTasks">
 
       <tr *ngIf="task.user_id == user._id">
+        <td><img src="{{task.pictureurl}}" alt="" width="32px" height="32px"></td>
         <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
         <td>{{task.title}}</td>
         <td>{{task.priority}}</td>

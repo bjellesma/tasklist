@@ -195,6 +195,10 @@ export class UsersService{
     var user = getEnvVariables().user;
     return user;
   }
+  getPictureURLbyID(id){
+    var url = getEnvVariables().user.picture.url;
+    return url;
+  }
   addUser(newUser){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

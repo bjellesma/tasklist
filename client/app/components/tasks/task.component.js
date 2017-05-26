@@ -20,11 +20,15 @@ var TasksComponent = TasksComponent_1 = (function () {
         this.userService = userService;
         this.tabService = tabService;
         this.tabs = [];
+        var n = 0;
         this.user = userService.getUser();
         this.tabs = tabService.getTabs();
         this.taskService.getTasks()
             .subscribe(function (allTasks) {
             _this.allTasks = allTasks;
+            for (n = 0; n < allTasks.length; n++) {
+                allTasks[n].pictureurl = _this.userService.getPictureURLbyID(allTasks[n].userid);
+            }
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             _this.categoryTasks = TasksComponent_1.categoryTasks;
         });

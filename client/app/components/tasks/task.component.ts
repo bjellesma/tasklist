@@ -24,12 +24,15 @@ export class TasksComponent {
   //this refers to the task service dependancy
   //the params in these functions must be declare as providers in app.module.ts
     constructor(private taskService:TaskService, private userService:UsersService, private tabService:TabService){
+      var n = 0;
       this.user = userService.getUser();
       this.tabs = tabService.getTabs();
       this.taskService.getTasks()
         .subscribe(allTasks => {
             this.allTasks = allTasks;
-
+            for(n=0; n < allTasks.length; n++){
+              allTasks[n].pictureurl = this.userService.getPictureURLbyID(allTasks[n].userid);
+            }
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             this.categoryTasks = TasksComponent.categoryTasks;
 
