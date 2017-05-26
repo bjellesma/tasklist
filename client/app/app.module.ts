@@ -5,11 +5,12 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms'; //needed to add forms in angular2
 import { AppComponent} from './app.component';
 import { TabComponent} from './components/tabs/tab.component';
+import { NewListComponent} from './components/tabs/new-list.component';
 import {TasksComponent} from './components/tasks/task.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule ],
-  declarations: [AppComponent, TasksComponent, TabComponent],
+  declarations: [AppComponent, TasksComponent, TabComponent, NewListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

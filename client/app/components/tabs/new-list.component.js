@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var app_service_1 = require("../app/services/app.service");
+var app_service_1 = require("../../services/app.service");
 //task service is needed because we are connecting to a database
 var NewListComponent = (function () {
     function NewListComponent(tabService, userService) {
@@ -18,6 +18,7 @@ var NewListComponent = (function () {
         this.tabService = tabService;
         this.userService = userService;
         this.user = [];
+        this.allUsers = [];
         this.user = userService.getUser();
         this.tabService.getTabs()
             .subscribe(function (allTabs) {

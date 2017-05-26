@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {TabService, UsersService} from '../app/services/app.service';
-import {Tabs} from '../../Tabs';
-import {Users} from '../../Users';
+import {TabService, UsersService} from '../../services/app.service';
+import {Tabs} from '../../../Tabs';
 //task service is needed because we are connecting to a database
 
 @Component({
@@ -13,7 +12,7 @@ import {Users} from '../../Users';
 export class NewListComponent {
   allTabs:Tabs[];
   user = [];
-  allUsers:Users[];
+  allUsers = [];
   constructor(private tabService:TabService, private userService:UsersService){
     this.user = userService.getUser();
     this.tabService.getTabs()

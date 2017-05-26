@@ -23,6 +23,30 @@ export class TabComponent {
         });
     }
 
+    createTab(event){
+      $("#tabCreation").css("display", "block");
+      $("#tabCreation").html("<form class='well' (submit)='addList($event)'><div class='form-group'><input type='text' [(ngModel)]='title' name='title' class='form-control' placeholder='Add the name of your new list'><br></div></form>");
+    }
+    addTab(event){
+      //console.log(document.getElementsByClassName("active"));
+      event.preventDefault();
+      this.category = $("#task-category-id").val();
+      tabName = $("#tabName").val();
+      var tab = {
+        title:this.title,
+        isDone: false,
+        cat_id:this.category,
+        user_id:this.userId,
+        priority:this.priority,
+        due_date:this.dueDate
+      };
+      //save task to database
+      this.tabService.addTask(newTask)
+        .subscribe(task => {
+          this.tabs.push(tab);
+        })
+    }
+
   openTab(evt, tabDisplay, tabName, cat_id, user_id){
     // Declare all variables
     var i, tabcontent, tablinks;
