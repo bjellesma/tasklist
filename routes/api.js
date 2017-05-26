@@ -105,35 +105,33 @@ router.post('/new-user', function(req, res, next){
 });
 
 router.post('/addPicture', function(req, res) {
-  //default is false
   var success = false, response = {}, errors = [];
   db.collection("users").findOne({ name: req.body._id}, function(err, user) {
     if (!user) {
       success = false;
-      errors.push("An error has occured and no user has been found. Please contact your systems administrator.");
+      errors.push("Your ID was not found in the database. Please alert support")
     }else {
-      if (req.body.username && req.body.password && req.body.verifyPassword){
-        if (req.body.password === req.body.verifyPassword) {
-          //hash password
-          var passwordHash = require('crypto').createHash('sha256').update(req.body.password).digest('hex');
-          var newUser = {
-            "name": req.body.username,
-            "passwordHash": passwordHash
-          }
-          //var user = JSON.stringify(userString);
-          //add user
-          db.collection("users").save(newUser, function(err, user){
-            if(err){
-              success = false;
-              errors.push(err);
-            }
-          });
-          success = true;
-          req.session.user = user;
-        } else {
-          success = false;
-          errors.push('Sorry, Passwords do not match');
+      if (req.body.userid && req.body.url && req.body.caption){
+        var userid = req.body.userid;
+        var url = req.body.url;
+        var caption = req.body.caption;
+        var picture = {
+          "url": url,
+          "caption": caption
         }
+        db.collection("users").update(
+          {_id: mongojs.ObjectId(userid)},
+          {
+            $set: {
+              picture: picture
+            }
+          },
+          {},
+          function(err, picture){
+            if(err){
+              res.send(err);
+            }
+        });
       } else {
         success = false;
         errors.push("Sorry, you must fill out every field")
@@ -141,7 +139,8 @@ router.post('/addPicture', function(req, res) {
     }
     response = {
       "success": success,
-      "errors": errors
+      "errors": errors,
+      "picture": picture
     }
     res.json(JSON.stringify(response));
   });

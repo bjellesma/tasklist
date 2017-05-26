@@ -13,28 +13,34 @@ var core_1 = require("@angular/core");
 var app_service_1 = require("../../app/services/app.service");
 //task service is needed because we are connecting to a database
 var ProfileComponent = (function () {
-    function ProfileComponent(UsersService) {
+    function ProfileComponent(userService) {
         var _this = this;
-        this.UsersService = UsersService;
+        this.userService = userService;
+        this.success = null;
+        this.errors = null;
         this.Picture = {
             url: '',
             caption: ''
         };
-        this.user = UsersService.getUser();
-        this.UsersService.getUsers()
+        this.user = userService.getUser();
+        this.userService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
         });
-        if (!this.user.profilePicture || this.user.profilePicture == '') {
+        if (!this.user.picture || this.user.picture == '') {
             this.Picture.url = '/images/profile.png';
             this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
+        }
+        else {
+            this.Picture.url = this.user.picture.url;
+            this.Picture.caption = this.user.picture.caption;
         }
     }
     ProfileComponent.prototype.addPicture = function (event) {
         var _this = this;
         var picture = {
             userid: this.user._id,
-            url: '/images/profile.png',
+            url: '/images/profile2.png',
             caption: 'Hmm, our guess is that you do not look like this.'
         };
         //save task to database
@@ -42,7 +48,7 @@ var ProfileComponent = (function () {
             data = JSON.parse(data);
             if (data.success == true) {
                 //redirect to homepage
-                Picture = data.picture;
+                _this.Picture = data.picture;
             }
             else {
                 _this.success = data.success;
