@@ -142,9 +142,6 @@ router.get('/logout', requireLogin, function(req, res) {
   res.redirect('/login');
 });
 //NOTE /profile will automatically redirect to /profile
-router.get('/new-list', requireLogin, function(req, res, next){
-  res.render('new-list.html'); //res.send with send anything to the browser while res.render will show a file
-});
 router.get('/user-profile', requireLogin, function(req, res, next){
   res.render('profile.html'); //res.send with send anything to the browser while res.render will show a file
 });

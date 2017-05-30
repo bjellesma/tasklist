@@ -1,20 +1,22 @@
-<form class="well" (submit)="addTask($event)">
-  <div class="form-group">
-    <!-- ngModel must be used to interact with task.component -->
-    <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
-    <input type="hidden" id="task-category-id">
-    <input type="hidden" id="task-user-id">
-    Priority: <select id="task-priority" [(ngModel)]="priority" name="priority" value="med">
-      <option value="low">Low</option>
-      <option value="med" >Medium</option>
-      <option value="high">High</option>
-    </select>
-    Due Date: <input type="date" id="task-due-entry" [(ngModel)]="dueDate" name="dueDate" class="form-control"><br>
+<div id="task-entry">
+  <form class="well" (submit)="addTask($event)">
+    <div class="form-group">
+      <!-- ngModel must be used to interact with task.component -->
+      <input type="text" id="task-text-entry" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task Information"><br>
+      <input type="hidden" id="task-category-id">
+      <input type="hidden" id="task-user-id">
+      Priority: <select id="task-priority" [(ngModel)]="priority" name="priority" value="med">
+        <option value="low">Low</option>
+        <option value="med" >Medium</option>
+        <option value="high">High</option>
+      </select>
+      Due Date: <input type="date" id="task-due-entry" [(ngModel)]="dueDate" name="dueDate" class="form-control"><br>
 
-  </div>
-</form>
+    </div>
+  </form>
+</div>
 <!-- All tasks -->
-<div>
+<div class="task-tab-content">
   <table class="table" id="all-tasks-table">
     <tr>
       <th onclick="sortTable(0, 'all-tasks-table')">User</th>

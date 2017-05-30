@@ -28,30 +28,65 @@ var TabComponent = (function () {
         });
     }
     TabComponent.prototype.createTab = function (event) {
+        $(".task-tab-content").css("display", "none");
+        $("#task-entry").css("display", "none");
         $("#tabCreation").css("display", "block");
-        $("#tabCreation").html("<form class='well' (submit)='addList($event)'><div class='form-group'><input type='text' [(ngModel)]='title' name='title' class='form-control' placeholder='Add the name of your new list'><br></div></form>");
     };
     TabComponent.prototype.addTab = function (event) {
         var _this = this;
-        //console.log(document.getElementsByClassName("active"));
         event.preventDefault();
-        this.category = $("#task-category-id").val();
-        tabName = $("#tabName").val();
-        var tab = {
-            title: this.title,
-            isDone: false,
-            cat_id: this.category,
-            user_id: this.userId,
-            priority: this.priority,
-            due_date: this.dueDate
+        var newList = {
+            user_id: this.user._id,
+            display: this.title,
+            name: this.title + '-tasks',
         };
-        //save task to database
-        this.tabService.addTask(newTask)
-            .subscribe(function (task) {
-            _this.tabs.push(tab);
+        //save list to database
+        this.tabService.addTab(newList)
+            .subscribe(function (list) {
+            _this.tabs.push(newList);
+            _this.title = '';
+        });
+    };
+    TabComponent.prototype.deleteList = function (id) {
+        var allTabs = this.allTabs;
+        this.tabService.deleteTab(id).subscribe(function (data) {
+            if (data.n == 1) {
+                for (var i = 0; i < allTabs.length; i++) {
+                    if (allTabs[i]._id == id) {
+                        allTabs.splice(i, 1);
+                    }
+                }
+            }
+        });
+    };
+    TabComponent.prototype.chooseShare = function (list) {
+        var shareList = "<select size='20'>";
+        var n = 0;
+        var curTab = list._id;
+        var tabService = this.tabService;
+        var users = this.allUsers;
+        //TODO get tab from db based on id
+        //TODO get shares from tab
+        //TODO if any options are equal to what is here, we won't include when we grab the list of users
+        for (n = 0; n < users.length; n++) {
+            shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
+        }
+        shareList += "</select>";
+        $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
+        $("#shareListButton").click(function () {
+            var user_id = $("#shareList").find(":selected").val();
+            var userName = $("#shareList").find(":selected").text();
+            tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
+                alert("This list has been shared with " + userName);
+            });
         });
     };
     TabComponent.prototype.openTab = function (evt, tabDisplay, tabName, cat_id, user_id) {
+        //display task entry form again if it was disabled
+        $("#task-entry").css("display", "block");
+        $(".task-tab-content").css("display", "block");
+        //hide tab creation if it was enabled
+        $("#tabCreation").css("display", "none");
         // Declare all variables
         var i, tabcontent, tablinks;
         if ($("#all-tasks-table").css("display", "block")) {

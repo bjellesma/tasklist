@@ -14,7 +14,6 @@
     map: {
       // our app is within the app folder
       app: 'app',
-      NewList: 'newList',
       Users: 'users',
       profile: 'profile',
       login: '',
@@ -36,10 +35,6 @@
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
       app: {
-        main: './main.js',
-        defaultExtension: 'js'
-      },
-      newList: {
         main: './main.js',
         defaultExtension: 'js'
       },

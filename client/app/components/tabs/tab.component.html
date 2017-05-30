@@ -6,6 +6,27 @@
       <a href="javascript:void(0)" class="tablinks" (click)="openTab($event, tab.display, tab.name, tab._id, user._id);">{{ tab.display }}</a>
     </span>
   </span>
-  <span><button type="button" class="btn btn-danger" (click)="createTab($event);">New Tab</button></span>
+  <span>
+    <button type="button" class="btn btn-danger" (click)="createTab($event);">Edit Tabs</button>
+  </span>
 </div>
-<div id="tabCreation" style="display:none"></div>
+<div id="tabCreation" style="display:none">
+  <form class='well' (submit)='addTab($event)'>
+    <div class='form-group'>
+      <input type='text' [(ngModel)]='title' name='title' class='form-control' placeholder='Add the name of your new list'><br>
+    </div>
+  </form>
+  <h1>Here are your current lists:</h1>
+  <div id="currentLists" *ngFor="let list of tabs">
+    <div *ngIf="list.user_id == user._id">
+      <div class="col-md-11">
+      {{list.display}}
+      </div>
+      <div class="col-md-4">
+        <input type="button" id="chooseShareButton" value="Share" (click)="chooseShare(list);" class="btn btn-danger">
+        <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
+      </div>
+      <div id="shareList"></div>
+    </div>
+  </div>
+</div>
