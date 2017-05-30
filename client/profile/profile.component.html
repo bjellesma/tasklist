@@ -2,4 +2,11 @@ Username: {{user.name}}<br>
 <span>Profile Picture</span><br>
 <img src={{Picture.url}}><br>
 <span>{{Picture.caption}}</span>
-<button (click)="addPicture($event)">Change</button>
+<button (click)="addPicture($event)">Change</button><br>
+<form class="well" (submit)="changePassword($event)">
+  <div class="form-group">
+    <!-- ngModel must be used to interact with task.component -->
+    <input type="password" id="change-password-text-entry" [(ngModel)]="newPassword" name="newPassword" class="form-control" placeholder="Change Password"><br>
+    <input type="password" id="verify-password-text-entry" [(ngModel)]="verifyPassword" name="verifyPassword" class="form-control" placeholder="Verify Password"><br>
+  </div>
+</form>

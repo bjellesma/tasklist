@@ -49,4 +49,26 @@ export class ProfileComponent {
         }
       });
     }
+    changePassword(event){
+      event.preventDefault();
+      var newPassword = this.newPassword;
+      var verifyPassword = this.verifyPassword;
+      var resetPassword = {
+        username: this.user.name,
+        password: newPassword,
+        verifyPassword: verifyPassword
+      };
+      this.userService.resetPassword(resetPassword).subscribe(data => {
+        data = JSON.parse(data);
+        if(data.success == true){
+          console.log("success");
+          this.newPassword = ''
+          this.verifyPassword = ''
+        }else{
+          console.log("failure");
+          this.success = data.success
+          this.errors = data.errors
+        }
+      });
+    }
 }

@@ -56,6 +56,30 @@ var ProfileComponent = (function () {
             }
         });
     };
+    ProfileComponent.prototype.changePassword = function (event) {
+        var _this = this;
+        event.preventDefault();
+        var newPassword = this.newPassword;
+        var verifyPassword = this.verifyPassword;
+        var resetPassword = {
+            username: this.user.name,
+            password: newPassword,
+            verifyPassword: verifyPassword
+        };
+        this.userService.resetPassword(resetPassword).subscribe(function (data) {
+            data = JSON.parse(data);
+            if (data.success == true) {
+                console.log("success");
+                _this.newPassword = '';
+                _this.verifyPassword = '';
+            }
+            else {
+                console.log("failure");
+                _this.success = data.success;
+                _this.errors = data.errors;
+            }
+        });
+    };
     return ProfileComponent;
 }());
 ProfileComponent = __decorate([
