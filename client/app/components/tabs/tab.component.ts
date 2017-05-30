@@ -41,6 +41,7 @@ export class TabComponent {
           this.tabs.push(newList);
           this.title = '';
         })
+      window.location.reload();
     }
     deleteList(id){
       var allTabs = this.allTabs;

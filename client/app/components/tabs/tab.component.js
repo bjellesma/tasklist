@@ -46,6 +46,7 @@ var TabComponent = (function () {
             _this.tabs.push(newList);
             _this.title = '';
         });
+        window.location.reload();
     };
     TabComponent.prototype.deleteList = function (id) {
         var allTabs = this.allTabs;
