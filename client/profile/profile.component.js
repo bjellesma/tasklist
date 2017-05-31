@@ -17,7 +17,13 @@ var ProfileComponent = (function () {
         var _this = this;
         this.userService = userService;
         this.success = null;
-        this.errors = null;
+        this.errors = {
+            changePassword: [],
+            addPicture: []
+        };
+        this.successMessage = {
+            changePassword: ''
+        };
         this.Picture = {
             url: '',
             caption: ''
@@ -52,15 +58,15 @@ var ProfileComponent = (function () {
             }
             else {
                 _this.success = data.success;
-                _this.errors = data.errors;
+                _this.errors.addPicture = data.errors;
             }
         });
     };
     ProfileComponent.prototype.changePassword = function (event) {
         var _this = this;
         event.preventDefault();
-        var newPassword = this.newPassword;
-        var verifyPassword = this.verifyPassword;
+        var newPassword = $("#change-password-text-entry").val();
+        var verifyPassword = $("#verify-password-text-entry").val();
         var resetPassword = {
             username: this.user.name,
             password: newPassword,
@@ -69,14 +75,14 @@ var ProfileComponent = (function () {
         this.userService.resetPassword(resetPassword).subscribe(function (data) {
             data = JSON.parse(data);
             if (data.success == true) {
-                console.log("success");
-                _this.newPassword = '';
-                _this.verifyPassword = '';
+                $("#change-password-text-entry").val('');
+                $("#verify-password-text-entry").val('');
+                _this.success = data.success;
+                _this.successMessage.changePassword = "You have successfully changed your password!";
             }
             else {
-                console.log("failure");
                 _this.success = data.success;
-                _this.errors = data.errors;
+                _this.errors.changePassword = data.errors;
             }
         });
     };

@@ -1,12 +1,31 @@
+
 Username: {{user.name}}<br>
-<span>Profile Picture</span><br>
-<img src={{Picture.url}}><br>
-<span>{{Picture.caption}}</span>
-<button (click)="addPicture($event)">Change</button><br>
+<form class="well">
+  <div class="form-group">
+    <span *ngIf="success == false">
+      <span class="error" *ngFor="let error of errors.addPicture">{{error}}</span>
+    </span><br>
+    <span *ngIf="success == true">
+      <span class="success"> {{successMessage.changePassword}}</span>
+    </span>
+    <span>Profile Picture</span><br>
+    <img src={{Picture.url}}><br>
+    <span>{{Picture.caption}}</span>
+    <button (click)="addPicture($event)">Change</button><br>
+  </div>
+</form>
 <form class="well" (submit)="changePassword($event)">
   <div class="form-group">
+    <h3>Change Password</h3>
+    <span *ngIf="success == false">
+      <span class="error" *ngFor="let error of errors.changePassword">{{error}}</span>
+    </span><br>
+    <span *ngIf="success == true">
+      <span class="success"> {{successMessage.changePassword}}</span>
+    </span>
     <!-- ngModel must be used to interact with task.component -->
-    <input type="password" id="change-password-text-entry" [(ngModel)]="newPassword" name="newPassword" class="form-control" placeholder="Change Password"><br>
-    <input type="password" id="verify-password-text-entry" [(ngModel)]="verifyPassword" name="verifyPassword" class="form-control" placeholder="Verify Password"><br>
+    <input type="password" id="change-password-text-entry" name="newPassword" class="form-control" placeholder="New Password"><br>
+    <input type="password" id="verify-password-text-entry" name="verifyPassword" class="form-control" placeholder="Verify Password"><br>
+    <input type="submit" value="Change Password"><br>
   </div>
 </form>

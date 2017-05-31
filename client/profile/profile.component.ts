@@ -11,7 +11,13 @@ import {UsersService} from '../../app/services/app.service';
 export class ProfileComponent {
   static user:Users[];
   success = null;
-  errors = null;
+  errors = {
+    changePassword:[],
+    addPicture[]
+  };
+  successMessage = {
+    changePassword:''
+  };
   Picture = {
     url:'',
     caption:''
@@ -45,14 +51,14 @@ export class ProfileComponent {
           this.Picture = data.picture
         }else{
           this.success = data.success
-          this.errors = data.errors
+          this.errors.addPicture = data.errors
         }
       });
     }
     changePassword(event){
       event.preventDefault();
-      var newPassword = this.newPassword;
-      var verifyPassword = this.verifyPassword;
+      var newPassword = $("#change-password-text-entry").val();
+      var verifyPassword = $("#verify-password-text-entry").val();
       var resetPassword = {
         username: this.user.name,
         password: newPassword,
@@ -61,13 +67,13 @@ export class ProfileComponent {
       this.userService.resetPassword(resetPassword).subscribe(data => {
         data = JSON.parse(data);
         if(data.success == true){
-          console.log("success");
-          this.newPassword = ''
-          this.verifyPassword = ''
+          $("#change-password-text-entry").val('')
+          $("#verify-password-text-entry").val('');
+          this.success = data.success;
+          this.successMessage.changePassword = "You have successfully changed your password!";
         }else{
-          console.log("failure");
-          this.success = data.success
-          this.errors = data.errors
+          this.success = data.success;
+          this.errors.changePassword = data.errors;
         }
       });
     }

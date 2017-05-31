@@ -146,6 +146,11 @@ th:hover {
   cursor: pointer;
 }
 
+/* flash messages */
 .error {
   color:red;
+}
+
+.success {
+  color:green;
 }
