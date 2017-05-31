@@ -142,5 +142,10 @@ export class TasksComponent {
         }
       }
     }
+    editTask(event){
+      var originElem = $(event.currentTarget);
+      var originValue = $(event.currentTarget).html();
+      originElem.html("<input value='"+originValue+"'>");
+    }
 
   }

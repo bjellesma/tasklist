@@ -135,6 +135,11 @@ var TasksComponent = TasksComponent_1 = (function () {
             }
         }
     };
+    TasksComponent.prototype.editTask = function (event) {
+        var originElem = $(event.currentTarget);
+        var originValue = $(event.currentTarget).html();
+        originElem.html("<input value='" + originValue + "'>");
+    };
     return TasksComponent;
 }());
 TasksComponent = TasksComponent_1 = __decorate([
