@@ -66,6 +66,18 @@ var TaskService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    TaskService.prototype.editTaskTitle = function (task) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + '/api/editTaskTitle', JSON.stringify(task), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.put('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().APIPORT + '/api/editTaskTitle', JSON.stringify(task), { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+    };
     return TaskService;
 }());
 TaskService = __decorate([

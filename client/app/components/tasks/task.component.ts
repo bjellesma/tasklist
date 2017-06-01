@@ -142,10 +142,24 @@ export class TasksComponent {
         }
       }
     }
-    editTask(event){
+    editTask(id, event){
+      var taskID = id;
       var originElem = $(event.currentTarget);
       var originValue = $(event.currentTarget).html();
-      originElem.html("<input value='"+originValue+"'>");
+      originElem.html("<input class='editable' style='width:100%' value='"+originValue+"'>").keyup(function(e){
+        if(e.keyCode == 13){
+          var newVal = $(".editable").val().trim();
+          var task = {
+            _id:taskID,
+            title: newVal
+          };
+
+
+        }
+        this.taskService.editTaskTitle(task).subscribe( data => {
+          originElem.html(newVal);
+        })
+      });
     }
 
   }

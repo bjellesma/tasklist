@@ -56,6 +56,17 @@ export class TaskService{
         .map(res => res.json());
       }
   }
+  editTaskTitle(task){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.put('http://' + getEnvVariables().APIIP + '/api/editTaskTitle', JSON.stringify(task), {headers: headers})
+        .map(res => res.json());
+    }else{
+      return this.http.put('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/editTaskTitle', JSON.stringify(task), {headers: headers})
+        .map(res => res.json());
+      }
+  }
 }
 
 @Injectable()

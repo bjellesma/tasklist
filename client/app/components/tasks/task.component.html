@@ -55,7 +55,7 @@
         <tbody *ngFor="let task of allTasks">
           <tr *ngIf="task.cat_id == category._id || category.name == 'all-tasks'" style="width:100%;">
             <td><input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task);"></td>
-            <td (dblclick)="editTask($event);">{{task.title}}</td>
+            <td (dblclick)="editTask(task._id, $event);">{{task.title}}</td>
             <td>{{task.priority}}</td>
             <td><input type="button" value="Delete" (click)="deleteTask(task._id);" class="btn btn-danger"></td>
             <td>{{task.due_date}}</td>

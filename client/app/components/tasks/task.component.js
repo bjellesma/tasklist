@@ -135,10 +135,22 @@ var TasksComponent = TasksComponent_1 = (function () {
             }
         }
     };
-    TasksComponent.prototype.editTask = function (event) {
+    TasksComponent.prototype.editTask = function (id, event) {
+        var taskID = id;
         var originElem = $(event.currentTarget);
         var originValue = $(event.currentTarget).html();
-        originElem.html("<input value='" + originValue + "'>");
+        originElem.html("<input class='editable' style='width:100%' value='" + originValue + "'>").keyup(function (e) {
+            if (e.keyCode == 13) {
+                var newVal = $(".editable").val().trim();
+                var task = {
+                    _id: taskID,
+                    title: newVal
+                };
+            }
+            this.taskService.editTaskTitle(task).subscribe(function (data) {
+                originElem.html(newVal);
+            });
+        });
     };
     return TasksComponent;
 }());

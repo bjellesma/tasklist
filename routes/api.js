@@ -307,4 +307,21 @@ router.put('/task/:id', requireLogin, function(req, res, next){
     });
   }
 });
+router.put('/editTaskTitle', requireLogin, function(req, res, next){
+  var task = req.body;
+  db.collections("tasks").update(
+    {_id: mongojs.ObjectId(task._id)},
+    {
+      $set: {
+          title: task.title
+      }
+    },
+    {},
+    function(err, task){
+      if(err){
+        res.send(err);
+      }
+      res.json(task);
+    });
+});
 module.exports = router; //so that we can access the router from different files
