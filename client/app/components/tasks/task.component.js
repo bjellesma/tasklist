@@ -137,6 +137,7 @@ var TasksComponent = TasksComponent_1 = (function () {
     };
     TasksComponent.prototype.editTask = function (id, event) {
         var taskID = id;
+        var taskservice = this.taskService;
         var originElem = $(event.currentTarget);
         var originValue = $(event.currentTarget).html();
         originElem.html("<input class='editable' style='width:100%' value='" + originValue + "'>").keyup(function (e) {
@@ -146,10 +147,11 @@ var TasksComponent = TasksComponent_1 = (function () {
                     _id: taskID,
                     title: newVal
                 };
+                console.log("taskservice: " + taskservice);
+                taskservice.editTaskTitle(task).subscribe(function (data) {
+                    originElem.html(newVal);
+                });
             }
-            this.taskService.editTaskTitle(task).subscribe(function (data) {
-                originElem.html(newVal);
-            });
         });
     };
     return TasksComponent;

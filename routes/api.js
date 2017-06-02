@@ -309,7 +309,7 @@ router.put('/task/:id', requireLogin, function(req, res, next){
 });
 router.put('/editTaskTitle', requireLogin, function(req, res, next){
   var task = req.body;
-  db.collections("tasks").update(
+  db.collection("tasks").update(
     {_id: mongojs.ObjectId(task._id)},
     {
       $set: {

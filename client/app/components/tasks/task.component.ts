@@ -144,6 +144,7 @@ export class TasksComponent {
     }
     editTask(id, event){
       var taskID = id;
+      var taskservice = this.taskService;
       var originElem = $(event.currentTarget);
       var originValue = $(event.currentTarget).html();
       originElem.html("<input class='editable' style='width:100%' value='"+originValue+"'>").keyup(function(e){
@@ -153,12 +154,11 @@ export class TasksComponent {
             _id:taskID,
             title: newVal
           };
-
-
+          console.log("taskservice: " + taskservice);
+          taskservice.editTaskTitle(task).subscribe( data => {
+            originElem.html(newVal);
+          });
         }
-        this.taskService.editTaskTitle(task).subscribe( data => {
-          originElem.html(newVal);
-        })
       });
     }
 
