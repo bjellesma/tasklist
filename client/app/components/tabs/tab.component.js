@@ -49,12 +49,12 @@ var TabComponent = (function () {
         window.location.reload();
     };
     TabComponent.prototype.deleteList = function (id) {
-        var allTabs = this.allTabs;
+        var tabs = this.tabs;
         this.tabService.deleteTab(id).subscribe(function (data) {
             if (data.n == 1) {
-                for (var i = 0; i < allTabs.length; i++) {
-                    if (allTabs[i]._id == id) {
-                        allTabs.splice(i, 1);
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i]._id == id) {
+                        tabs.splice(i, 1);
                     }
                 }
             }
