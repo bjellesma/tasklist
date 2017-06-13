@@ -12,9 +12,15 @@ export class TabComponent {
 
   tabs = [];
   user = [];
+  allUsers = [];
 
     constructor(private tabService:TabService, private userService:UsersService){
       this.user = userService.getUser();
+      this.userService.getUsers()
+        .subscribe(users => {
+          this.allUsers = users;
+        })
+      console.log("all users: " + this.allUsers[0])
       this.tabService.getTabs()
         .subscribe(tabs => {
           this.tabs = tabs;

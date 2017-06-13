@@ -196,10 +196,7 @@ export class UsersService{
         .map(res => res.json());
     }else{
       return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
-        .map(res => {
-          console.log("res: " + res);
-          res.json()
-        });
+        .map(res => res.json());
       }
   }
   getUser(){

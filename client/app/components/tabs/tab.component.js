@@ -19,7 +19,13 @@ var TabComponent = (function () {
         this.userService = userService;
         this.tabs = [];
         this.user = [];
+        this.allUsers = [];
         this.user = userService.getUser();
+        this.userService.getUsers()
+            .subscribe(function (users) {
+            _this.allUsers = users;
+        });
+        console.log("all users: " + this.allUsers[0]);
         this.tabService.getTabs()
             .subscribe(function (tabs) {
             _this.tabs = tabs;

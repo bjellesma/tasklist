@@ -225,10 +225,7 @@ var UsersService = (function () {
         }
         else {
             return this.http.get('http://' + this.APIIP + ':' + this.APIPORT + '/api/users')
-                .map(function (res) {
-                console.log("res: " + res);
-                res.json();
-            });
+                .map(function (res) { return res.json(); });
         }
     };
     UsersService.prototype.getUser = function () {
