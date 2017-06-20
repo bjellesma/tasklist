@@ -16,13 +16,18 @@ var ip = process.env.APIIP;
 var mode = process.env.MODE;
 var app = express(); //main variable
 
-
+//favicon
+//github/expressjs/serve-favicon
+var favicon = require('serve-favicon');
+app.use(favicon(path.join(__dirname, 'client/icon', 'favicon.ico')));
 //require('dotenv').config();
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); //ejs is our templating system
 app.engine('html', require('ejs').renderFile); //to be able to use html files with our engine
+
+
 
 //static folder
 app.use(express.static(path.join(__dirname, 'client'))); //our static folder will contain all of our angular files

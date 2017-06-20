@@ -25,7 +25,6 @@ var TabComponent = (function () {
             .subscribe(function (users) {
             _this.allUsers = users;
         });
-        console.log("all users: " + this.allUsers[0]);
         this.tabService.getTabs()
             .subscribe(function (tabs) {
             _this.tabs = tabs;

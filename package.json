@@ -18,7 +18,8 @@
     "express-session": "^1.15.2",
     "express-validator": "^3.2.0",
     "mongojs": "^2.4.0",
-    "ng-pipes": "^0.1.2"
+    "ng-pipes": "^0.1.2",
+    "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
     "angular-filter": "^0.5.16"

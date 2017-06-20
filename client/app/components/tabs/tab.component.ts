@@ -20,7 +20,6 @@ export class TabComponent {
         .subscribe(users => {
           this.allUsers = users;
         })
-      console.log("all users: " + this.allUsers[0])
       this.tabService.getTabs()
         .subscribe(tabs => {
           this.tabs = tabs;
