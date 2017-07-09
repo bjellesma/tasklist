@@ -46,6 +46,7 @@ var ProfileComponent = (function () {
         var _this = this;
         var picture = {
             userid: this.user._id,
+            //TODO this will be the url of the new profile picture
             url: '/images/profile2.png',
             caption: 'Hmm, our guess is that you do not look like this.'
         };
@@ -83,6 +84,8 @@ var ProfileComponent = (function () {
             else {
                 _this.success = data.success;
                 _this.errors.changePassword = data.errors;
+                $("#change-password-text-entry").val('');
+                $("#verify-password-text-entry").val('');
             }
         });
     };

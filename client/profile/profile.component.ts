@@ -40,6 +40,7 @@ export class ProfileComponent {
     addPicture(event){
       var picture = {
         userid:this.user._id,
+        //TODO this will be the url of the new profile picture
         url:'/images/profile2.png',
         caption:'Hmm, our guess is that you do not look like this.'
       };
@@ -74,6 +75,8 @@ export class ProfileComponent {
         }else{
           this.success = data.success;
           this.errors.changePassword = data.errors;
+          $("#change-password-text-entry").val('')
+          $("#verify-password-text-entry").val('');
         }
       });
     }

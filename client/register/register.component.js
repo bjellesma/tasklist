@@ -37,6 +37,8 @@ var RegisterComponent = (function () {
             else {
                 _this.success = data.success;
                 _this.errors = data.errors;
+                $("#password").val('');
+                $("#verifyPassword").val('');
             }
         });
     };
