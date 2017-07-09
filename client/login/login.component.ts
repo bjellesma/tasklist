@@ -30,7 +30,7 @@ export class LoginComponent {
       }else{
         this.success = data.success
         this.errors = data.errors
-        
+        $("#password").val('');
       }
     });
   }
