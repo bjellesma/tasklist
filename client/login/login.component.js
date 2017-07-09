@@ -28,6 +28,7 @@ var LoginComponent = (function () {
         //save task to database
         this.userService.login(login).subscribe(function (data) {
             data = JSON.parse(data);
+            //if login is successful
             if (data.success == true) {
                 //redirect to homepage
                 window.location.replace('/');

@@ -23,12 +23,14 @@ export class LoginComponent {
     //save task to database
     this.userService.login(login).subscribe(data => {
       data = JSON.parse(data);
+      //if login is successful
       if(data.success == true){
         //redirect to homepage
         window.location.replace('/');
       }else{
         this.success = data.success
         this.errors = data.errors
+        
       }
     });
   }
