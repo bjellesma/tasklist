@@ -38,7 +38,33 @@ export class ProfileComponent {
       }
     }
     addPicture(event){
-      var picture = {
+      var userId = $("#userId").val();
+      let fileList: FileList = event.target.files;
+      if(fileList.length > 0) {
+          let file: File = fileList[0];
+          let formData:FormData = new FormData();
+          formData.append('uploadFile', file, file.name);
+          //let headers = new Headers();
+          //headers.append('Content-Type', 'multipart/form-data');
+          //headers.append('Accept', 'application/json');
+          //let options = new RequestOptions({ headers: headers });
+          var pictureData = {
+            formData: formData,
+            userId: userId
+          }
+          this.userService.addPicture(pictureData).subscribe(data => {
+            data = JSON.parse(data);
+            if(data.success == true){
+              //redirect to homepage
+              this.Picture = data.picture
+            }else{
+              this.success = data.success
+              this.errors.addPicture = data.errors
+            }
+          }
+        }
+      console.log(this.Picture);
+      /*var picture = {
         userid:this.user._id,
         //TODO this will be the url of the new profile picture
         url:'/images/profile2.png',
@@ -54,7 +80,7 @@ export class ProfileComponent {
           this.success = data.success
           this.errors.addPicture = data.errors
         }
-      });
+      });*/
     }
     changePassword(event){
       event.preventDefault();

@@ -1,6 +1,7 @@
 
 Username: {{user.name}}<br>
 <form class="well">
+  <input type="hidden" name="userId" value="{{user._id}}">
   <div class="form-group">
     <span *ngIf="success == false">
       <span class="error" *ngFor="let error of errors.addPicture">{{error}}</span>
@@ -11,7 +12,8 @@ Username: {{user.name}}<br>
     <span>Profile Picture</span><br>
     <img src={{Picture.url}}><br>
     <span>{{Picture.caption}}</span>
-    <button (click)="addPicture($event)">Change</button><br>
+    <input (change)="addPicture($event)" type="file" name="changeProfilePictureFileInput" id="changeProfilePictureFileInput" accept="image/*">
+    <!--<button>Change</button><br>-->
   </div>
 </form>
 <form class="well" (submit)="changePassword($event)">

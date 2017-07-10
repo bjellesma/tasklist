@@ -105,15 +105,18 @@ router.post('/new-user', function(req, res, next){
 });
 
 router.post('/addPicture', function(req, res) {
-  var success = false, response = {}, errors = [];
-  db.collection("users").findOne({ name: req.body._id}, function(err, user) {
+  console.log("url call");
+  var success = false, response = {}, errors = [], picture = '';
+  var userId = req.body.pictureData.userId;
+  var formData = req.body.pictureData.formData;
+  db.collection("users").findOne({ name: userId}, function(err, user) {
     if (!user) {
       success = false;
       errors.push("Your ID was not found in the database. Please alert support")
     }else {
-      if (req.body.userid && req.body.url && req.body.caption){
-        var userid = req.body.userid;
-        var url = req.body.url;
+      if (userId && formData){
+        console.log("profile picture: " + formData + " user id: " + userId);
+        /*var url = req.body.url;
         var caption = req.body.caption;
         var picture = {
           "url": url,
@@ -131,7 +134,7 @@ router.post('/addPicture', function(req, res) {
             if(err){
               res.send(err);
             }
-        });
+        });*/
       } else {
         success = false;
         errors.push("Sorry, you must fill out every field")

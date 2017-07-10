@@ -44,24 +44,50 @@ var ProfileComponent = (function () {
     }
     ProfileComponent.prototype.addPicture = function (event) {
         var _this = this;
-        var picture = {
-            userid: this.user._id,
-            //TODO this will be the url of the new profile picture
-            url: '/images/profile2.png',
-            caption: 'Hmm, our guess is that you do not look like this.'
+        var userId = $("#userId").val();
+        var fileList = event.target.files;
+        if (fileList.length > 0) {
+            var file = fileList[0];
+            var formData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            //let headers = new Headers();
+            //headers.append('Content-Type', 'multipart/form-data');
+            //headers.append('Accept', 'application/json');
+            //let options = new RequestOptions({ headers: headers });
+            var pictureData = {
+                formData: formData,
+                userId: userId
+            };
+            this.userService.addPicture(pictureData).subscribe(function (data) {
+                data = JSON.parse(data);
+                if (data.success == true) {
+                    //redirect to homepage
+                    _this.Picture = data.picture;
+                }
+                else {
+                    _this.success = data.success;
+                    _this.errors.addPicture = data.errors;
+                }
+            });
+        }
+        console.log(this.Picture);
+        /*var picture = {
+          userid:this.user._id,
+          //TODO this will be the url of the new profile picture
+          url:'/images/profile2.png',
+          caption:'Hmm, our guess is that you do not look like this.'
         };
         //save task to database
-        this.userService.addPicture(picture).subscribe(function (data) {
-            data = JSON.parse(data);
-            if (data.success == true) {
-                //redirect to homepage
-                _this.Picture = data.picture;
-            }
-            else {
-                _this.success = data.success;
-                _this.errors.addPicture = data.errors;
-            }
-        });
+        this.userService.addPicture(picture).subscribe(data => {
+          data = JSON.parse(data);
+          if(data.success == true){
+            //redirect to homepage
+            this.Picture = data.picture
+          }else{
+            this.success = data.success
+            this.errors.addPicture = data.errors
+          }
+        });*/
     };
     ProfileComponent.prototype.changePassword = function (event) {
         var _this = this;

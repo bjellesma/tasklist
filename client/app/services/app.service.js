@@ -202,15 +202,15 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
-    UsersService.prototype.addPicture = function (picture) {
+    UsersService.prototype.addPicture = function (pictureData) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         if (this.MODE == 'openshift') {
-            return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(picture), { headers: headers })
+            return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(pictureData), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(picture), { headers: headers })
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(pictureData), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
     };
