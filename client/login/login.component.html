@@ -2,11 +2,13 @@
 <span *ngIf="success == false">
   <span class="error" *ngFor="let error of errors">{{error}}</span>
 </span>
-<form class="well" (submit)="login($event)">
-  <div class="form-group col-md-6">
-    <label>Username</label> <input name="username" id="username" type="text" class="form-control">
-    <label>Password</label> <input name="password" id="password" type="password" class="form-control">
-    <input class="btn btn-primary" type="submit" value="Login"><br>
+<form (submit)="login($event)">
+  <div class="col-md-12">
+    <div class="form-group col-md-6">
+      <label>Username</label> <input name="username" id="username" type="text" class="form-control">
+      <label>Password</label> <input name="password" id="password" type="password" class="form-control">
+      <input class="btn btn-primary" type="submit" value="Login"><br>
+    </div>
   </div>
 </form>
 <small><a href="/register">Register</a> or <a href="/forgotPassword">Forgot Password</a></small>
