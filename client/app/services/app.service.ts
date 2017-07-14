@@ -176,14 +176,12 @@ export class UsersService{
       }
   }
   addPicture(pictureData){
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     if(this.MODE == 'openshift'){
       return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(pictureData), {headers: headers})
         .map(res => res.json());
     }else{
-      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(pictureData), {headers: headers})
-        .map(res => res.json());
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', pictureData)
+        .map((res:any) => res);
       }
   }
   //this route is mapped out in routes/tasks.js

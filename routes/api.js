@@ -6,6 +6,10 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
+var multer  = require('multer')
+    var upload = multer({ //multer settings
+                    dest: 'images/'
+                }).single('changeProfilePictureFileInput');
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs'], ['users']);
 require('dotenv').config();
 //for sessions
@@ -104,18 +108,42 @@ router.post('/new-user', function(req, res, next){
   }
 });
 
-router.post('/addPicture', function(req, res) {
-  console.log("url call");
+router.post('/addPicture', function(req, res, next) {
+  //req.file is now the file
+  var path = ''
+  var formData = req.file
   var success = false, response = {}, errors = [], picture = '';
-  var userId = req.body.pictureData.userId;
-  var formData = req.body.pictureData.formData;
-  db.collection("users").findOne({ name: userId}, function(err, user) {
+  upload(req, res, function (err) {
+	    if (err) {
+	      // An error occurred when uploading
+	      console.log(err);
+	      return res.status(422).send("an Error occured")
+	    }
+	    path = req.file;
+	    console.log(path);
+  });
+  //var userId = req.body.userId;
+  /*console.log("formData" + formData.path)
+  db.collection("users").findOne({ _id: mongojs.ObjectId(userId)}, function(err, user) {
     if (!user) {
       success = false;
       errors.push("Your ID was not found in the database. Please alert support")
     }else {
-      if (userId && formData){
-        console.log("profile picture: " + formData + " user id: " + userId);
+      if (userId && file){
+        upload(req,res,function(err){
+            if(err){
+                 errors.push("An error occured uploading the file. Please alert support")
+            }
+            path = req.file.path
+            res.send('Your upload is now completed for' + path);
+        })*/
+        /*
+        fs.rename(file.webkitRelativePath, file.name, (err)=>{
+           if(err) console.log(err)
+           else console.log('File saved')
+        })
+        */
+        //console.log("profile picture: " + formData + " user id: " + userId);
         /*var url = req.body.url;
         var caption = req.body.caption;
         var picture = {
@@ -135,7 +163,7 @@ router.post('/addPicture', function(req, res) {
               res.send(err);
             }
         });*/
-      } else {
+      /*} else {
         success = false;
         errors.push("Sorry, you must fill out every field")
       }
@@ -146,7 +174,7 @@ router.post('/addPicture', function(req, res) {
       "picture": picture
     }
     res.json(JSON.stringify(response));
-  });
+  });*/
 });
 
 /*

@@ -203,15 +203,13 @@ var UsersService = (function () {
         }
     };
     UsersService.prototype.addPicture = function (pictureData) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
         if (this.MODE == 'openshift') {
             return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(pictureData), { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(pictureData), { headers: headers })
-                .map(function (res) { return res.json(); });
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', pictureData)
+                .map(function (res) { return res; });
         }
     };
     //this route is mapped out in routes/tasks.js

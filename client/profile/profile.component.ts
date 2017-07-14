@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, Input  } from '@angular/core';
 import {UsersService} from '../../app/services/app.service';
-//task service is needed because we are connecting to a database
-
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/map";
+//TODO change url var to use env
+const URL = 'http://192.167.1.15:3000/api/upload';
 @Component({
   moduleId: module.id,
   selector: 'user-profile',
@@ -22,7 +24,7 @@ export class ProfileComponent {
     url:'',
     caption:''
   };
-  constructor(private userService:UsersService){
+  constructor(private userService:UsersService, private el: ElementRef){
     this.user = userService.getUser();
     this.userService.getUsers()
       .subscribe(allUsers => {
@@ -39,28 +41,32 @@ export class ProfileComponent {
     }
     addPicture(event){
       var userId = $("#userId").val();
-      let fileList: FileList = event.target.files;
-      if(fileList.length > 0) {
-          let file: File = fileList[0];
-          let formData:FormData = new FormData();
-          formData.append('uploadFile', file, file.name);
-          //let headers = new Headers();
-          //headers.append('Content-Type', 'multipart/form-data');
-          //headers.append('Accept', 'application/json');
-          //let options = new RequestOptions({ headers: headers });
-          var pictureData = {
-            formData: formData,
-            userId: userId
-          }
-          this.userService.addPicture(pictureData).subscribe(data => {
-            data = JSON.parse(data);
-            if(data.success == true){
-              //redirect to homepage
-              this.Picture = data.picture
-            }else{
-              this.success = data.success
-              this.errors.addPicture = data.errors
-            }
+      let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#changeProfilePictureFileInput');
+    //get the total amount of files attached to the file input.
+    let fileCount: number = inputEl.files.length;
+        let formData = new FormData();
+        if(fileCount > 0){
+          formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
+        }
+
+        //let headers = new Headers();
+        //headers.append('Content-Type', 'multipart/form-data');
+        //headers.append('Accept', 'application/json');
+        //let options = new RequestOptions({ headers: headers });
+        /*var pictureData = {
+          formData: formData,
+          userId: userId
+        }*/
+        var pictureData = formData
+        console.log("formdata: " + pictureData)
+        this.userService.addPicture(formData).subscribe(data => {
+          data = JSON.parse(data);
+          if(data.success == true){
+            //redirect to homepage
+            this.Picture = data.picture
+          }else{
+            this.success = data.success
+            this.errors.addPicture = data.errors
           }
         }
       console.log(this.Picture);
