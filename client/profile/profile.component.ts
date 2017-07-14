@@ -47,6 +47,7 @@ export class ProfileComponent {
         let formData = new FormData();
         if(fileCount > 0){
           formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
+          formData.append('userId', userId)
         }
 
         //let headers = new Headers();
@@ -57,8 +58,6 @@ export class ProfileComponent {
           formData: formData,
           userId: userId
         }*/
-        var pictureData = formData
-        console.log("formdata: " + pictureData)
         this.userService.addPicture(formData).subscribe(data => {
           data = JSON.parse(data);
           if(data.success == true){

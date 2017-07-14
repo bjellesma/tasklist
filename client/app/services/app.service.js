@@ -202,13 +202,13 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
-    UsersService.prototype.addPicture = function (pictureData) {
+    UsersService.prototype.addPicture = function (formData) {
         if (this.MODE == 'openshift') {
-            return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(pictureData), { headers: headers })
+            return this.http.post('http://' + this.APIIP + '/api/addPicture', formData)
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', pictureData)
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
                 .map(function (res) { return res; });
         }
     };

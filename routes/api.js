@@ -119,8 +119,10 @@ router.post('/addPicture', function(req, res, next) {
 	      console.log(err);
 	      return res.status(422).send("an Error occured")
 	    }
-	    path = req.file;
-	    console.log(path);
+	    path = req.file.path;
+	    console.log("path: " + path);
+      body = req.body.userId;
+	    console.log("body: " + body);
   });
   //var userId = req.body.userId;
   /*console.log("formData" + formData.path)

@@ -55,6 +55,7 @@ var ProfileComponent = (function () {
         var formData = new FormData();
         if (fileCount > 0) {
             formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
+            formData.append('userId', userId);
         }
         //let headers = new Headers();
         //headers.append('Content-Type', 'multipart/form-data');
@@ -64,8 +65,6 @@ var ProfileComponent = (function () {
           formData: formData,
           userId: userId
         }*/
-        var pictureData = formData;
-        console.log("formdata: " + pictureData);
         this.userService.addPicture(formData).subscribe(function (data) {
             data = JSON.parse(data);
             if (data.success == true) {

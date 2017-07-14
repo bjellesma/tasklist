@@ -175,12 +175,12 @@ export class UsersService{
         .map(res => res.json());
       }
   }
-  addPicture(pictureData){
+  addPicture(formData){
     if(this.MODE == 'openshift'){
-      return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(pictureData), {headers: headers})
+      return this.http.post('http://' + this.APIIP + '/api/addPicture', formData)
         .map(res => res.json());
     }else{
-      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', pictureData)
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
         .map((res:any) => res);
       }
   }
