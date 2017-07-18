@@ -111,49 +111,36 @@ router.post('/new-user', function(req, res, next){
 router.post('/addPicture', function(req, res, next) {
   //req.file is now the file
   var path = ''
+  var userId = ''
   var formData = req.file
   var success = false, response = {}, errors = [], picture = '';
+
   upload(req, res, function (err) {
+
 	    if (err) {
 	      // An error occurred when uploading
 	      console.log(err);
 	      return res.status(422).send("an Error occured")
 	    }
 	    path = req.file.path;
-	    console.log("path: " + path);
-      body = req.body.userId;
-	    console.log("body: " + body);
+      userId = req.body.userId;
+
   });
-  //var userId = req.body.userId;
-  /*console.log("formData" + formData.path)
-  db.collection("users").findOne({ _id: mongojs.ObjectId(userId)}, function(err, user) {
-    if (!user) {
+  db.collection("users").findOne({_id: mongojs.ObjectId(req.body.userId)}, function(err, user){
+    console.log('id: ' + req.body.userId)
+    if (err) {
+      console.log("user not found")
       success = false;
       errors.push("Your ID was not found in the database. Please alert support")
     }else {
-      if (userId && file){
-        upload(req,res,function(err){
-            if(err){
-                 errors.push("An error occured uploading the file. Please alert support")
-            }
-            path = req.file.path
-            res.send('Your upload is now completed for' + path);
-        })*/
-        /*
-        fs.rename(file.webkitRelativePath, file.name, (err)=>{
-           if(err) console.log(err)
-           else console.log('File saved')
-        })
-        */
-        //console.log("profile picture: " + formData + " user id: " + userId);
-        /*var url = req.body.url;
-        var caption = req.body.caption;
+      console.log('user' + user)
+      if (userId && path){
         var picture = {
-          "url": url,
-          "caption": caption
+          "url": path
         }
+
         db.collection("users").update(
-          {_id: mongojs.ObjectId(userid)},
+          {_id: mongojs.ObjectId(req.body.userId)},
           {
             $set: {
               picture: picture
@@ -164,8 +151,8 @@ router.post('/addPicture', function(req, res, next) {
             if(err){
               res.send(err);
             }
-        });*/
-      /*} else {
+        });
+      } else {
         success = false;
         errors.push("Sorry, you must fill out every field")
       }
@@ -176,7 +163,7 @@ router.post('/addPicture', function(req, res, next) {
       "picture": picture
     }
     res.json(JSON.stringify(response));
-  });*/
+  });
 });
 
 /*
