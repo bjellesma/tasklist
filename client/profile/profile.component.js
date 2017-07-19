@@ -13,8 +13,6 @@ var core_1 = require("@angular/core");
 var app_service_1 = require("../../app/services/app.service");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/map");
-//TODO change url var to use env
-var URL = 'http://192.167.1.15:3000/api/upload';
 var ProfileComponent = (function () {
     function ProfileComponent(userService, el) {
         var _this = this;

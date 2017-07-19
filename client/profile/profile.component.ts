@@ -2,8 +2,6 @@ import { Component, OnInit, ElementRef, Input  } from '@angular/core';
 import {UsersService} from '../../app/services/app.service';
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
-//TODO change url var to use env
-const URL = 'http://192.167.1.15:3000/api/upload';
 @Component({
   moduleId: module.id,
   selector: 'user-profile',

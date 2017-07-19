@@ -8,7 +8,7 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var multer  = require('multer')
     var upload = multer({ //multer settings
-                    dest: 'images/'
+                    dest: 'client/images/'
                 }).single('changeProfilePictureFileInput');
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs'], ['users']);
 require('dotenv').config();
@@ -122,9 +122,16 @@ router.post('/addPicture', function(req, res, next) {
 	      console.log(err);
 	      return res.status(422).send("an Error occured")
 	    }
-	    path = req.file.path;
+	    var pathArray = req.file.path.split('\\');
       userId = req.body.userId;
-
+      //skip first word
+      console.log('path: ' + pathArray.join('/'))
+      for(var i=1; i < pathArray.length; i++){
+        path += pathArray[i]
+        if(i+1 < pathArray.length){
+          path += '/'
+        }
+      }
   });
   db.collection("users").findOne({_id: mongojs.ObjectId(req.body.userId)}, function(err, user){
     console.log('id: ' + req.body.userId)
