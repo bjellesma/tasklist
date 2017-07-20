@@ -181,7 +181,7 @@ export class UsersService{
         .map(res => res.json());
     }else{
       return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
-        .map((res:any) => res);
+        .map((res) => res.json());
       }
   }
   //this route is mapped out in routes/tasks.js

@@ -111,8 +111,9 @@ router.post('/new-user', function(req, res, next){
 router.post('/addPicture', function(req, res, next) {
   //req.file is now the file
   var path = ''
-  var userId = ''
+  var userId = '';
   var formData = req.file
+
   var success = false, response = {}, errors = [], picture = '';
 
   upload(req, res, function (err) {
@@ -122,8 +123,8 @@ router.post('/addPicture', function(req, res, next) {
 	      console.log(err);
 	      return res.status(422).send("an Error occured")
 	    }
-	    var pathArray = req.file.path.split('\\');
       userId = req.body.userId;
+      var pathArray = req.file.path.split('\\');
       //skip first word
       console.log('path: ' + pathArray.join('/'))
       for(var i=1; i < pathArray.length; i++){
@@ -132,15 +133,8 @@ router.post('/addPicture', function(req, res, next) {
           path += '/'
         }
       }
-  });
-  db.collection("users").findOne({_id: mongojs.ObjectId(req.body.userId)}, function(err, user){
-    console.log('id: ' + req.body.userId)
-    if (err) {
-      console.log("user not found")
-      success = false;
-      errors.push("Your ID was not found in the database. Please alert support")
-    }else {
-      console.log('user' + user)
+      console.log('user' + userId)
+      console.log('path' + path)
       if (userId && path){
         var picture = {
           "url": path
@@ -159,17 +153,18 @@ router.post('/addPicture', function(req, res, next) {
               res.send(err);
             }
         });
+        success = true;
       } else {
         success = false;
         errors.push("Sorry, you must fill out every field")
       }
-    }
-    response = {
+    dataResponse = {
       "success": success,
       "errors": errors,
       "picture": picture
     }
-    res.json(JSON.stringify(response));
+    console.log('success: ' + dataResponse.success + ' errors: ' + dataResponse.errors + ' picture: ' + dataResponse.picture)
+    res.json(dataResponse);
   });
 });
 

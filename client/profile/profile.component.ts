@@ -57,7 +57,9 @@ export class ProfileComponent {
           userId: userId
         }*/
         this.userService.addPicture(formData).subscribe(data => {
-          data = JSON.parse(data);
+          data = data;
+          console.log('data: ' + data)
+          console.log('success' + data.success );
           if(data.success == true){
             //redirect to homepage
             this.Picture = data.picture
@@ -66,7 +68,7 @@ export class ProfileComponent {
             this.errors.addPicture = data.errors
           }
         }
-      console.log(this.Picture);
+
       /*var picture = {
         userid:this.user._id,
         //TODO this will be the url of the new profile picture

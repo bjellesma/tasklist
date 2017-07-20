@@ -209,7 +209,7 @@ var UsersService = (function () {
         }
         else {
             return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
-                .map(function (res) { return res; });
+                .map(function (res) { return res.json(); });
         }
     };
     //this route is mapped out in routes/tasks.js
