@@ -24,27 +24,26 @@ var ProfileComponent = (function () {
             addPicture: []
         };
         this.successMessage = {
-            changePassword: ''
-        };
-        this.Picture = {
-            url: '',
-            caption: ''
+            changePassword: '',
+            addPicture: ''
         };
         this.user = userService.getUser();
         //used to get updated picture if needed
         this.userService.getUserById(this.user._id)
             .subscribe(function (user) {
-            _this.Picture = user.picture;
+            _this.user.picture = user.picture;
+            //if the user has no picture uploaded
+            if (!user.picture || user.picture.url == '') {
+                _this.user.picture = {
+                    url: 'images/profile.png',
+                    caption: 'Hmm, our guess is that you do not look like this.'
+                };
+            }
         });
         this.userService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
         });
-        //if the user has no picture uploaded
-        if (!this.user.picture || this.user.picture.url == '') {
-            this.Picture.url = 'images/profile.png';
-            this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-        }
     }
     ProfileComponent.prototype.addPicture = function (event) {
         var _this = this;
@@ -71,7 +70,7 @@ var ProfileComponent = (function () {
             console.log('success' + data.success);
             if (data.success == true) {
                 //redirect to homepage
-                _this.Picture = data.picture;
+                _this.user.picture = data.picture;
                 //reload page
                 window.location.reload();
             }

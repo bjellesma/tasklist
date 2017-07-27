@@ -17,29 +17,29 @@ export class ProfileComponent {
     addPicture[]
   };
   successMessage = {
-    changePassword:''
-  };
-  Picture = {
-    url:'',
-    caption:''
+    changePassword:'',
+    addPicture:''
   };
   constructor(private userService:UsersService, private el: ElementRef){
     this.user = userService.getUser();
     //used to get updated picture if needed
     this.userService.getUserById(this.user._id)
       .subscribe(user => {
-        this.Picture = user.picture;
+        this.user.picture = user.picture;
+        //if the user has no picture uploaded
+        if(!user.picture || user.picture.url == ''){
+          this.user.picture = {
+            url: 'images/profile.png',
+            caption: 'Hmm, our guess is that you do not look like this.'
+          }
+        }
       });
     this.userService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;
 
         });
-      //if the user has no picture uploaded
-      if(!this.user.picture || this.user.picture.url == ''){
-        this.Picture.url = 'images/profile.png';
-        this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-      }
+
     }
     addPicture(event){
       var userId = $("#userId").val();
@@ -66,7 +66,7 @@ export class ProfileComponent {
           console.log('success' + data.success );
           if(data.success == true){
             //redirect to homepage
-            this.Picture = data.picture
+            this.user.picture = data.picture
             //reload page
             window.location.reload();
           }else{
