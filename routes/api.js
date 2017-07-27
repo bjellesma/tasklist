@@ -6,6 +6,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
+var fs = require('fs');
 var multer  = require('multer')
     var upload = multer({ //multer settings
                     dest: 'client/images/'
@@ -88,20 +89,6 @@ router.post('/user/:id', function(req, res, next){
 });
 
 /*
-* function to get picture of single user
-* :id make id a parameter
-* req is the way we get requests
-*/
-router.get('/user/:id/picture', function(req, res, next){
-  db.collection("users").findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
-    if(err){
-      res.send(err);
-    }
-    res.json(user.picture);
-  });
-});
-
-/*
 * new user
 */
 router.post('/new-user', function(req, res, next){
@@ -139,21 +126,31 @@ router.post('/addPicture', function(req, res, next) {
 	    }
       userId = req.body.userId;
       var pathArray = req.file.path.split('\\');
-      //skip first word
-      console.log('path: ' + pathArray.join('/'))
+      //skip first word in url
       for(var i=1; i < pathArray.length; i++){
         path += pathArray[i]
         if(i+1 < pathArray.length){
           path += '/'
         }
       }
-      console.log('user' + userId)
-      console.log('path' + path)
       if (userId && path){
         var picture = {
           "url": path
         }
+        //delete old profile picture
+        db.collection("users").findOne({_id: mongojs.ObjectId(req.body.userId)}, function(err, user){
+          if(err){
+            res.send(err);
+          }
+          if(user.picture && user.picture.url != ''){
+            fs.unlink('client/'+user.picture.url, (err) => {
+              if (err) throw err;
+              console.log('successfully deleted ' + user.picture.url);
+            });
+          }
+        });
 
+        //insert new image
         db.collection("users").update(
           {_id: mongojs.ObjectId(req.body.userId)},
           {
@@ -168,6 +165,7 @@ router.post('/addPicture', function(req, res, next) {
             }
         });
         success = true;
+
       } else {
         success = false;
         errors.push("Sorry, you must fill out every field")
@@ -177,7 +175,6 @@ router.post('/addPicture', function(req, res, next) {
       "errors": errors,
       "picture": picture
     }
-    console.log('success: ' + dataResponse.success + ' errors: ' + dataResponse.errors + ' picture: ' + dataResponse.picture)
     res.json(dataResponse);
   });
 });

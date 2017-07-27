@@ -31,17 +31,19 @@ var ProfileComponent = (function () {
             caption: ''
         };
         this.user = userService.getUser();
+        //used to get updated picture if needed
+        this.userService.getUserById(this.user._id)
+            .subscribe(function (user) {
+            _this.Picture = user.picture;
+        });
         this.userService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
         });
+        //if the user has no picture uploaded
         if (!this.user.picture || this.user.picture == '') {
             this.Picture.url = '/images/profile.png';
             this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-        }
-        else {
-            this.Picture.url = this.user.picture.url;
-            this.Picture.caption = this.user.picture.caption;
         }
     }
     ProfileComponent.prototype.addPicture = function (event) {
@@ -70,6 +72,8 @@ var ProfileComponent = (function () {
             if (data.success == true) {
                 //redirect to homepage
                 _this.Picture = data.picture;
+                //reload page
+                window.location.reload();
             }
             else {
                 _this.success = data.success;

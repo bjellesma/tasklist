@@ -230,7 +230,7 @@ var UsersService = (function () {
         var user = env_js_1.getEnvVariables().user;
         return user;
     };
-    UsersService.prototype.getUserPictureById = function (userId) {
+    UsersService.prototype.getUserById = function (userId) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         //return the tasks page as json

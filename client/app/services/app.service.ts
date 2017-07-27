@@ -201,7 +201,7 @@ export class UsersService{
     var user = getEnvVariables().user;
     return user;
   }
-  getUserPictureById(userId){
+  getUserById(userId){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     //return the tasks page as json

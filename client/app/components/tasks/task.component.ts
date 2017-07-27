@@ -31,7 +31,12 @@ export class TasksComponent {
         .subscribe(allTasks => {
             this.allTasks = allTasks;
             for(n=0; n < allTasks.length; n++){
-              //allTasks[n].pictureurl = this.userService.getPictureURLbyID(allTasks[n].userid);
+              /*NOTE too performance intensive
+              this.userService.getUserById(allTasks[n].userid)
+                .subscribe(user => {
+                  allTasks[n].pictureurl = user.picture.url
+                });
+                */
             }
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             this.categoryTasks = TasksComponent.categoryTasks;

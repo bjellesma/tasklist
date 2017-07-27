@@ -18,7 +18,7 @@ var UsersComponent = (function () {
         this.UsersService = UsersService;
         this.tabService = tabService;
         this.user = UsersService.getUser();
-        this.UsersService.getUserPictureById(this.user._id)
+        this.UsersService.getUserById(this.user._id)
             .subscribe(function (user) {
             _this.user.picture = user.picture;
         });

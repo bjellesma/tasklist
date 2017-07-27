@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Input  } from '@angular/core';
 import {UsersService} from '../../app/services/app.service';
+import {UsersComponent} from '../users/users.component'
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
 @Component({
@@ -24,17 +25,20 @@ export class ProfileComponent {
   };
   constructor(private userService:UsersService, private el: ElementRef){
     this.user = userService.getUser();
+    //used to get updated picture if needed
+    this.userService.getUserById(this.user._id)
+      .subscribe(user => {
+        this.Picture = user.picture;
+      });
     this.userService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;
 
         });
+      //if the user has no picture uploaded
       if(!this.user.picture || this.user.picture == ''){
         this.Picture.url = '/images/profile.png';
         this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-      }else{
-        this.Picture.url = this.user.picture.url;
-        this.Picture.caption = this.user.picture.caption;
       }
     }
     addPicture(event){
@@ -63,6 +67,8 @@ export class ProfileComponent {
           if(data.success == true){
             //redirect to homepage
             this.Picture = data.picture
+            //reload page
+            window.location.reload();
           }else{
             this.success = data.success
             this.errors.addPicture = data.errors
