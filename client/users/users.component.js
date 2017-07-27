@@ -21,6 +21,9 @@ var UsersComponent = (function () {
         this.UsersService.getUserById(this.user._id)
             .subscribe(function (user) {
             _this.user.picture = user.picture;
+            if (!_this.user.picture || _this.user.picture.url == '') {
+                _this.user.picture.url = 'images/profile.png';
+            }
         });
     }
     return UsersComponent;

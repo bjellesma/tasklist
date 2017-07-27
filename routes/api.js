@@ -145,7 +145,6 @@ router.post('/addPicture', function(req, res, next) {
           if(user.picture && user.picture.url != ''){
             fs.unlink('client/'+user.picture.url, (err) => {
               if (err) throw err;
-              console.log('successfully deleted ' + user.picture.url);
             });
           }
         });

@@ -16,6 +16,10 @@ export class UsersComponent {
     this.UsersService.getUserById(this.user._id)
       .subscribe(user => {
         this.user.picture = user.picture;
+        if(!this.user.picture || this.user.picture.url == ''){
+          this.user.picture.url = 'images/profile.png';
+        }
       });
+
   }
 }

@@ -36,8 +36,8 @@ export class ProfileComponent {
 
         });
       //if the user has no picture uploaded
-      if(!this.user.picture || this.user.picture == ''){
-        this.Picture.url = '/images/profile.png';
+      if(!this.user.picture || this.user.picture.url == ''){
+        this.Picture.url = 'images/profile.png';
         this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
       }
     }
