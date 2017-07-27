@@ -78,12 +78,26 @@ router.get('/task/:id', requireLogin, function(req, res, next){
 * :id make id a parameter
 * req is the way we get requests
 */
-router.get('/user/:id', function(req, res, next){
+router.post('/user/:id', function(req, res, next){
   db.collection("users").findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
     if(err){
       res.send(err);
     }
     res.json(user);
+  });
+});
+
+/*
+* function to get picture of single user
+* :id make id a parameter
+* req is the way we get requests
+*/
+router.get('/user/:id/picture', function(req, res, next){
+  db.collection("users").findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
+    if(err){
+      res.send(err);
+    }
+    res.json(user.picture);
   });
 });
 

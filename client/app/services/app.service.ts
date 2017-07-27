@@ -201,9 +201,17 @@ export class UsersService{
     var user = getEnvVariables().user;
     return user;
   }
-  getPictureURLbyID(id){
-    var url = getEnvVariables().user.picture.url;
-    return url;
+  getUserPictureById(userId){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //return the tasks page as json
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/api/user/'+userId)
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/user/'+userId)
+        .map(res => res.json());
+      }
   }
   addUser(newUser){
     var headers = new Headers();

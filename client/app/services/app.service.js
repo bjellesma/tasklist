@@ -230,9 +230,18 @@ var UsersService = (function () {
         var user = env_js_1.getEnvVariables().user;
         return user;
     };
-    UsersService.prototype.getPictureURLbyID = function (id) {
-        var url = env_js_1.getEnvVariables().user.picture.url;
-        return url;
+    UsersService.prototype.getUserPictureById = function (userId) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        //return the tasks page as json
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + this.APIIP + '/api/user/' + userId)
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/user/' + userId)
+                .map(function (res) { return res.json(); });
+        }
     };
     UsersService.prototype.addUser = function (newUser) {
         var headers = new http_1.Headers();

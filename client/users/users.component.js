@@ -14,9 +14,14 @@ var app_service_1 = require("../app/services/app.service");
 //task service is needed because we are connecting to a database
 var UsersComponent = (function () {
     function UsersComponent(UsersService, tabService) {
+        var _this = this;
         this.UsersService = UsersService;
         this.tabService = tabService;
         this.user = UsersService.getUser();
+        this.UsersService.getUserPictureById(this.user._id)
+            .subscribe(function (user) {
+            _this.user.picture = user.picture;
+        });
     }
     return UsersComponent;
 }());

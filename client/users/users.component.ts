@@ -13,5 +13,9 @@ export class UsersComponent {
   static user:Users[];
   constructor(private UsersService:UsersService, private tabService:TabService){
     this.user = UsersService.getUser();
+    this.UsersService.getUserPictureById(this.user._id)
+      .subscribe(user => {
+        this.user.picture = user.picture;
+      });
   }
 }
