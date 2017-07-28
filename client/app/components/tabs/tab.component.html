@@ -17,16 +17,23 @@
     </div>
   </form>
   <h1>Here are your current lists:</h1>
-  <div id="currentLists" *ngFor="let list of tabs">
-    <div *ngIf="list.user_id == user._id">
-      <div class="col-md-11">
-      {{list.display}}
-      </div>
-      <div class="col-md-4">
-        <input type="button" id="chooseShareButton" value="Share" (click)="chooseShare(list);" class="btn btn-danger">
-        <input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger">
-      </div>
-      <div id="shareList"></div>
-    </div>
+  <div id="currentLists">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-md-10">Title</th>
+          <th class="col-md-1">Share</th>
+          <th class="col-md-1">Delete</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let list of tabs">
+        <tr *ngIf="list.user_id == user._id">
+            <td>{{list.display}}</td>
+            <td><input type="button" id="chooseShareButton" value="Share" (click)="chooseShare(list);" class="btn btn-danger"></td>
+            <td><input type="button" value="Delete" (click)="deleteList(list._id);" class="btn btn-danger"></td>
+        </tr>
+        <tr id="{{list._id}}-shareList"></tr>
+      </tbody>
+    </table>
   </div>
 </div>
