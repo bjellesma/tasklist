@@ -133,6 +133,8 @@ router.post('/addPicture', function(req, res, next) {
           path += '/'
         }
       }
+      console.log("userid: " + userId)
+      console.log("path: " + req.file.path)
       if (userId && path){
         var picture = {
           "url": path
