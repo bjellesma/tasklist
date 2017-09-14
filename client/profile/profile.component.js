@@ -55,6 +55,8 @@ var ProfileComponent = (function () {
         if (fileCount > 0) {
             formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
             formData.append('userId', userId);
+            formData.append('windowAgent', window.navigator.userAgent);
+            formData.append('windowAgent', window.navigator.platform);
         }
         //let headers = new Headers();
         //headers.append('Content-Type', 'multipart/form-data');
