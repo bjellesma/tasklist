@@ -55,8 +55,8 @@ var ProfileComponent = (function () {
         if (fileCount > 0) {
             formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
             formData.append('userId', userId);
-            formData.append('windowAgent', window.navigator.userAgent);
-            formData.append('windowAgent', window.navigator.platform);
+            formData.append('windowPlatform', window.navigator.platform);
+            formData.append('windowAgent', window.navigator.useragent);
         }
         //let headers = new Headers();
         //headers.append('Content-Type', 'multipart/form-data');
@@ -68,8 +68,6 @@ var ProfileComponent = (function () {
         }*/
         this.userService.addPicture(formData).subscribe(function (data) {
             data = data;
-            console.log('data: ' + data);
-            console.log('success' + data.success);
             if (data.success == true) {
                 //redirect to homepage
                 _this.user.picture = data.picture;

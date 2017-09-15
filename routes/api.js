@@ -114,11 +114,8 @@ router.post('/addPicture', function(req, res, next) {
   var path = ''
   var userId = '';
   var formData = req.file
-
   var success = false, response = {}, errors = [], picture = '';
-
   upload(req, res, function (err) {
-
 	    if (err) {
 	      // An error occurred when uploading
 	      return res.status(422).send("an Error has occured with uploading: " + err)
@@ -127,24 +124,24 @@ router.post('/addPicture', function(req, res, next) {
       var filePath = req.file.path
       var windowAgent = req.body.windowAgent
       var windowPlatform = req.body.windowPlatform
-      console.log("platform" + windowPlatform)
       //detect os https://stackoverflow.com/questions/38241480/detect-macos-ios-windows-android-and-linux-os-with-js
-      var userAgent = windowAgent, platform = windowPlatform, macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'], windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'], iosPlatforms = ['iPhone', 'iPad', 'iPod']
-      if (windowsPlatforms.indexOf(platform) !== -1) {
+      var macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'], windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'], iosPlatforms = ['iPhone', 'iPad', 'iPod']
+      if (windowsPlatforms.indexOf(windowPlatform) !== -1) {
         var pathArray = filePath.split('\\');
-      }else {
-      //} else if (/Android/.test(userAgent) || /Linux/.test(platform) || macosPlatforms.indexOf(platform) !== -1 || iosPlatforms.indexOf(platform) !== -1) {
+      } else if (/Android/.test(windowAgent) || /Linux/.test(windowPlatform) || macosPlatforms.indexOf(windowPlatform) !== -1 || iosPlatforms.indexOf(windowPlatform) !== -1) {
         var pathArray = filePath.split('/');
-      }
-      //skip first word in url
-      for(var i=1; i < pathArray.length; i++){
-        path += pathArray[i]
-        if(i+1 < pathArray.length){
-          path += '/'
+      } if(pathArray) {
+        //skip first word in url
+        for(var i=1; i < pathArray.length; i++){
+          path += pathArray[i]
+          if(i+1 < pathArray.length){
+            path += '/'
+          }
         }
+      }else{
+        success = false;
+        errors.push("Sorry, the device you are on is not supported")
       }
-      console.log("userid: " + userId)
-      console.log("path: " + path)
       if (userId && path){
         var picture = {
           "url": path
@@ -160,7 +157,6 @@ router.post('/addPicture', function(req, res, next) {
             });
           }
         });
-
         //insert new image
         db.collection("users").update(
           {_id: mongojs.ObjectId(req.body.userId)},
