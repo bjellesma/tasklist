@@ -14,11 +14,12 @@
     map: {
       // our app is within the app folder
       app: 'app',
-      Users: 'users',
+      users: '/users',
       profile: 'profile',
       login: '',
       register: '',
       forgotPassword: '',
+      chat: '',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -39,7 +40,7 @@
         defaultExtension: 'js'
       },
       users: {
-        main: './main.js',
+        main: 'main.js',
         defaultExtension: 'js'
       },
       profile: {
@@ -56,6 +57,10 @@
       },
       forgotPassword: {
         main: './main.js',
+        defaultExtension: 'js'
+      },
+      chat: {
+        main: 'main.js',
         defaultExtension: 'js'
       },
       rxjs: {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UsersService, TabService} from '../app/services/app.service';
+import {UsersService, TabService} from '../app/services/app.service.js';
 //task service is needed because we are connecting to a database
 
 @Component({

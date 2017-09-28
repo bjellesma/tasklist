@@ -225,3 +225,6 @@ export class UsersService{
       }
   }
 }
+@Injectable()
+export class ChatService{
+}

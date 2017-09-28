@@ -262,4 +262,13 @@ UsersService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], UsersService);
 exports.UsersService = UsersService;
+var ChatService = (function () {
+    function ChatService() {
+    }
+    return ChatService;
+}());
+ChatService = __decorate([
+    core_1.Injectable()
+], ChatService);
+exports.ChatService = ChatService;
 //# sourceMappingURL=app.service.js.map
