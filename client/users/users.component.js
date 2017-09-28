@@ -10,13 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var app_service_1 = require("../app/services/app.service");
+var app_service_js_1 = require("../app/services/app.service.js");
 //task service is needed because we are connecting to a database
 var UsersComponent = (function () {
     function UsersComponent(UsersService, tabService) {
+        var _this = this;
         this.UsersService = UsersService;
         this.tabService = tabService;
         this.user = UsersService.getUser();
+        this.UsersService.getUserById(this.user._id)
+            .subscribe(function (user) {
+            _this.user.picture = user.picture;
+            if (!_this.user.picture || _this.user.picture.url == '') {
+                _this.user.picture.url = 'images/profile.png';
+            }
+        });
     }
     return UsersComponent;
 }());
@@ -25,9 +33,9 @@ UsersComponent = __decorate([
         moduleId: module.id,
         selector: 'users',
         templateUrl: 'users.component.html',
-        providers: [app_service_1.UsersService, app_service_1.TabService]
+        providers: [app_service_js_1.UsersService, app_service_js_1.TabService]
     }),
-    __metadata("design:paramtypes", [app_service_1.UsersService, app_service_1.TabService])
+    __metadata("design:paramtypes", [app_service_js_1.UsersService, app_service_js_1.TabService])
 ], UsersComponent);
 exports.UsersComponent = UsersComponent;
 //# sourceMappingURL=users.component.js.map

@@ -11,56 +11,91 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_1 = require("../../app/services/app.service");
-//task service is needed because we are connecting to a database
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/map");
 var ProfileComponent = (function () {
-    function ProfileComponent(userService) {
+    function ProfileComponent(userService, el) {
         var _this = this;
         this.userService = userService;
+        this.el = el;
         this.success = null;
         this.errors = {
             changePassword: [],
             addPicture: []
         };
         this.successMessage = {
-            changePassword: ''
-        };
-        this.Picture = {
-            url: '',
-            caption: ''
+            changePassword: '',
+            addPicture: ''
         };
         this.user = userService.getUser();
+        //used to get updated picture if needed
+        this.userService.getUserById(this.user._id)
+            .subscribe(function (user) {
+            _this.user.picture = user.picture;
+            //if the user has no picture uploaded
+            if (!user.picture || user.picture.url == '') {
+                _this.user.picture = {
+                    url: 'images/profile.png',
+                    caption: 'Hmm, our guess is that you do not look like this.'
+                };
+            }
+        });
         this.userService.getUsers()
             .subscribe(function (allUsers) {
             _this.allUsers = allUsers;
         });
-        if (!this.user.picture || this.user.picture == '') {
-            this.Picture.url = '/images/profile.png';
-            this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-        }
-        else {
-            this.Picture.url = this.user.picture.url;
-            this.Picture.caption = this.user.picture.caption;
-        }
     }
     ProfileComponent.prototype.addPicture = function (event) {
         var _this = this;
-        var picture = {
-            userid: this.user._id,
-            url: '/images/profile2.png',
-            caption: 'Hmm, our guess is that you do not look like this.'
-        };
-        //save task to database
-        this.userService.addPicture(picture).subscribe(function (data) {
-            data = JSON.parse(data);
+        var userId = $("#userId").val();
+        var inputEl = this.el.nativeElement.querySelector('#changeProfilePictureFileInput');
+        //get the total amount of files attached to the file input.
+        var fileCount = inputEl.files.length;
+        var formData = new FormData();
+        if (fileCount > 0) {
+            formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
+            formData.append('userId', userId);
+            formData.append('windowPlatform', window.navigator.platform);
+            formData.append('windowAgent', window.navigator.useragent);
+        }
+        //let headers = new Headers();
+        //headers.append('Content-Type', 'multipart/form-data');
+        //headers.append('Accept', 'application/json');
+        //let options = new RequestOptions({ headers: headers });
+        /*var pictureData = {
+          formData: formData,
+          userId: userId
+        }*/
+        this.userService.addPicture(formData).subscribe(function (data) {
+            data = data;
             if (data.success == true) {
                 //redirect to homepage
-                _this.Picture = data.picture;
+                _this.user.picture = data.picture;
+                //reload page
+                window.location.reload();
             }
             else {
                 _this.success = data.success;
                 _this.errors.addPicture = data.errors;
             }
         });
+        /*var picture = {
+          userid:this.user._id,
+          //TODO this will be the url of the new profile picture
+          url:'/images/profile2.png',
+          caption:'Hmm, our guess is that you do not look like this.'
+        };
+        //save task to database
+        this.userService.addPicture(picture).subscribe(data => {
+          data = JSON.parse(data);
+          if(data.success == true){
+            //redirect to homepage
+            this.Picture = data.picture
+          }else{
+            this.success = data.success
+            this.errors.addPicture = data.errors
+          }
+        });*/
     };
     ProfileComponent.prototype.changePassword = function (event) {
         var _this = this;
@@ -83,6 +118,8 @@ var ProfileComponent = (function () {
             else {
                 _this.success = data.success;
                 _this.errors.changePassword = data.errors;
+                $("#change-password-text-entry").val('');
+                $("#verify-password-text-entry").val('');
             }
         });
     };
@@ -95,7 +132,7 @@ ProfileComponent = __decorate([
         templateUrl: 'profile.component.html',
         providers: [app_service_1.UsersService]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.UsersService !== "undefined" && app_service_1.UsersService) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.UsersService !== "undefined" && app_service_1.UsersService) === "function" && _a || Object, core_1.ElementRef])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 var _a;

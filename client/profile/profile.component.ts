@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, Input  } from '@angular/core';
 import {UsersService} from '../../app/services/app.service';
-//task service is needed because we are connecting to a database
-
+import {UsersComponent} from '../users/users.component'
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/map";
 @Component({
   moduleId: module.id,
   selector: 'user-profile',
@@ -16,30 +17,68 @@ export class ProfileComponent {
     addPicture[]
   };
   successMessage = {
-    changePassword:''
+    changePassword:'',
+    addPicture:''
   };
-  Picture = {
-    url:'',
-    caption:''
-  };
-  constructor(private userService:UsersService){
+  constructor(private userService:UsersService, private el: ElementRef){
     this.user = userService.getUser();
+    //used to get updated picture if needed
+    this.userService.getUserById(this.user._id)
+      .subscribe(user => {
+        this.user.picture = user.picture;
+        //if the user has no picture uploaded
+        if(!user.picture || user.picture.url == ''){
+          this.user.picture = {
+            url: 'images/profile.png',
+            caption: 'Hmm, our guess is that you do not look like this.'
+          }
+
+        }
+      });
     this.userService.getUsers()
       .subscribe(allUsers => {
           this.allUsers = allUsers;
 
         });
-      if(!this.user.picture || this.user.picture == ''){
-        this.Picture.url = '/images/profile.png';
-        this.Picture.caption = 'Hmm, our guess is that you do not look like this.';
-      }else{
-        this.Picture.url = this.user.picture.url;
-        this.Picture.caption = this.user.picture.caption;
-      }
+
     }
     addPicture(event){
-      var picture = {
+      var userId = $("#userId").val();
+      let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#changeProfilePictureFileInput');
+    //get the total amount of files attached to the file input.
+    let fileCount: number = inputEl.files.length;
+        let formData = new FormData();
+        if(fileCount > 0){
+          formData.append('changeProfilePictureFileInput', inputEl.files.item(0));
+          formData.append('userId', userId);
+          formData.append('windowPlatform', window.navigator.platform);
+          formData.append('windowAgent', window.navigator.useragent);
+        }
+
+        //let headers = new Headers();
+        //headers.append('Content-Type', 'multipart/form-data');
+        //headers.append('Accept', 'application/json');
+        //let options = new RequestOptions({ headers: headers });
+        /*var pictureData = {
+          formData: formData,
+          userId: userId
+        }*/
+        this.userService.addPicture(formData).subscribe(data => {
+          data = data;
+          if(data.success == true){
+            //redirect to homepage
+            this.user.picture = data.picture
+            //reload page
+            window.location.reload();
+          }else{
+            this.success = data.success
+            this.errors.addPicture = data.errors
+          }
+        }
+
+      /*var picture = {
         userid:this.user._id,
+        //TODO this will be the url of the new profile picture
         url:'/images/profile2.png',
         caption:'Hmm, our guess is that you do not look like this.'
       };
@@ -53,7 +92,7 @@ export class ProfileComponent {
           this.success = data.success
           this.errors.addPicture = data.errors
         }
-      });
+      });*/
     }
     changePassword(event){
       event.preventDefault();
@@ -74,6 +113,8 @@ export class ProfileComponent {
         }else{
           this.success = data.success;
           this.errors.changePassword = data.errors;
+          $("#change-password-text-entry").val('')
+          $("#verify-password-text-entry").val('');
         }
       });
     }

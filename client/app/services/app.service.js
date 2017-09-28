@@ -202,15 +202,13 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
-    UsersService.prototype.addPicture = function (picture) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
+    UsersService.prototype.addPicture = function (formData) {
         if (this.MODE == 'openshift') {
-            return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(picture), { headers: headers })
+            return this.http.post('http://' + this.APIIP + '/api/addPicture', formData)
                 .map(function (res) { return res.json(); });
         }
         else {
-            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(picture), { headers: headers })
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
                 .map(function (res) { return res.json(); });
         }
     };
@@ -232,9 +230,18 @@ var UsersService = (function () {
         var user = env_js_1.getEnvVariables().user;
         return user;
     };
-    UsersService.prototype.getPictureURLbyID = function (id) {
-        var url = env_js_1.getEnvVariables().user.picture.url;
-        return url;
+    UsersService.prototype.getUserById = function (userId) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        //return the tasks page as json
+        if (env_js_1.getEnvVariables().MODE == 'openshift') {
+            return this.http.post('http://' + this.APIIP + '/api/user/' + userId)
+                .map(function (res) { return res.json(); });
+        }
+        else {
+            return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/user/' + userId)
+                .map(function (res) { return res.json(); });
+        }
     };
     UsersService.prototype.addUser = function (newUser) {
         var headers = new http_1.Headers();
@@ -255,4 +262,13 @@ UsersService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], UsersService);
 exports.UsersService = UsersService;
+var ChatService = (function () {
+    function ChatService() {
+    }
+    return ChatService;
+}());
+ChatService = __decorate([
+    core_1.Injectable()
+], ChatService);
+exports.ChatService = ChatService;
 //# sourceMappingURL=app.service.js.map

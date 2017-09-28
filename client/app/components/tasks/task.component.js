@@ -27,7 +27,12 @@ var TasksComponent = TasksComponent_1 = (function () {
             .subscribe(function (allTasks) {
             _this.allTasks = allTasks;
             for (n = 0; n < allTasks.length; n++) {
-                allTasks[n].pictureurl = _this.userService.getPictureURLbyID(allTasks[n].userid);
+                /*NOTE too performance intensive
+                this.userService.getUserById(allTasks[n].userid)
+                  .subscribe(user => {
+                    allTasks[n].pictureurl = user.picture.url
+                  });
+                  */
             }
             //TasksComponent.categoryTasks is the variable with the information held by tab.component
             _this.categoryTasks = TasksComponent_1.categoryTasks;

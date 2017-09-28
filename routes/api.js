@@ -6,6 +6,11 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
+var fs = require('fs');
+var multer  = require('multer')
+    var upload = multer({ //multer settings
+                    dest: 'client/images/'
+                }).single('changeProfilePictureFileInput');
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['tasks'], ['tabs'], ['users']);
 require('dotenv').config();
 //for sessions
@@ -74,7 +79,7 @@ router.get('/task/:id', requireLogin, function(req, res, next){
 * :id make id a parameter
 * req is the way we get requests
 */
-router.get('/user/:id', function(req, res, next){
+router.post('/user/:id', function(req, res, next){
   db.collection("users").findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user){
     if(err){
       res.send(err);
@@ -104,23 +109,57 @@ router.post('/new-user', function(req, res, next){
   }
 });
 
-router.post('/addPicture', function(req, res) {
-  var success = false, response = {}, errors = [];
-  db.collection("users").findOne({ name: req.body._id}, function(err, user) {
-    if (!user) {
-      success = false;
-      errors.push("Your ID was not found in the database. Please alert support")
-    }else {
-      if (req.body.userid && req.body.url && req.body.caption){
-        var userid = req.body.userid;
-        var url = req.body.url;
-        var caption = req.body.caption;
-        var picture = {
-          "url": url,
-          "caption": caption
+router.post('/addPicture', function(req, res, next) {
+  //req.file is now the file
+  var path = ''
+  var userId = '';
+  var formData = req.file
+  var success = false, response = {}, errors = [], picture = '';
+  upload(req, res, function (err) {
+	    if (err) {
+	      // An error occurred when uploading
+	      return res.status(422).send("an Error has occured with uploading: " + err)
+	    }
+      userId = req.body.userId;
+      var filePath = req.file.path
+      var windowAgent = req.body.windowAgent
+      var windowPlatform = req.body.windowPlatform
+      //detect os https://stackoverflow.com/questions/38241480/detect-macos-ios-windows-android-and-linux-os-with-js
+      var macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'], windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'], iosPlatforms = ['iPhone', 'iPad', 'iPod']
+      if (windowsPlatforms.indexOf(windowPlatform) !== -1) {
+        var pathArray = filePath.split('\\');
+      } else if (/Android/.test(windowAgent) || /Linux/.test(windowPlatform) || macosPlatforms.indexOf(windowPlatform) !== -1 || iosPlatforms.indexOf(windowPlatform) !== -1) {
+        var pathArray = filePath.split('/');
+      } if(pathArray) {
+        //skip first word in url
+        for(var i=1; i < pathArray.length; i++){
+          path += pathArray[i]
+          if(i+1 < pathArray.length){
+            path += '/'
+          }
         }
+      }else{
+        success = false;
+        errors.push("Sorry, the device you are on is not supported")
+      }
+      if (userId && path){
+        var picture = {
+          "url": path
+        }
+        //delete old profile picture
+        db.collection("users").findOne({_id: mongojs.ObjectId(req.body.userId)}, function(err, user){
+          if(err){
+            res.send(err);
+          }
+          if(user.picture && user.picture.url != ''){
+            fs.unlink('client/'+user.picture.url, (err) => {
+              if (err) throw err;
+            });
+          }
+        });
+        //insert new image
         db.collection("users").update(
-          {_id: mongojs.ObjectId(userid)},
+          {_id: mongojs.ObjectId(req.body.userId)},
           {
             $set: {
               picture: picture
@@ -132,17 +171,18 @@ router.post('/addPicture', function(req, res) {
               res.send(err);
             }
         });
+        success = true;
+
       } else {
         success = false;
-        errors.push("Sorry, you must fill out every field")
+        errors.push("Sorry, the device you are on is not supported")
       }
-    }
-    response = {
+    dataResponse = {
       "success": success,
       "errors": errors,
       "picture": picture
     }
-    res.json(JSON.stringify(response));
+    res.json(dataResponse);
   });
 });
 

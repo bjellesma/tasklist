@@ -31,6 +31,8 @@ export class RegisterComponent {
       }else{
         this.success = data.success
         this.errors = data.errors
+        $("#password").val('');
+        $("#verifyPassword").val('');
       }
     });
   }

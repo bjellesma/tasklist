@@ -175,15 +175,13 @@ export class UsersService{
         .map(res => res.json());
       }
   }
-  addPicture(picture){
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+  addPicture(formData){
     if(this.MODE == 'openshift'){
-      return this.http.post('http://' + this.APIIP + '/api/addPicture', JSON.stringify(picture), {headers: headers})
+      return this.http.post('http://' + this.APIIP + '/api/addPicture', formData)
         .map(res => res.json());
     }else{
-      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', JSON.stringify(picture), {headers: headers})
-        .map(res => res.json());
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/addPicture', formData)
+        .map((res) => res.json());
       }
   }
   //this route is mapped out in routes/tasks.js
@@ -203,9 +201,17 @@ export class UsersService{
     var user = getEnvVariables().user;
     return user;
   }
-  getPictureURLbyID(id){
-    var url = getEnvVariables().user.picture.url;
-    return url;
+  getUserById(userId){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //return the tasks page as json
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.post('http://' + this.APIIP + '/api/user/'+userId)
+        .map(res => res.json());
+    }else{
+      return this.http.post('http://' + this.APIIP + ':' + this.APIPORT + '/api/user/'+userId)
+        .map(res => res.json());
+      }
   }
   addUser(newUser){
     var headers = new Headers();
@@ -218,4 +224,7 @@ export class UsersService{
         .map(res => res.json());
       }
   }
+}
+@Injectable()
+export class ChatService{
 }

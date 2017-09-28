@@ -66,6 +66,7 @@ var TabComponent = (function () {
         });
     };
     TabComponent.prototype.chooseShare = function (list) {
+        console.log("list: " + JSON.stringify(list));
         var shareList = "<select size='20'>";
         var n = 0;
         var curTab = list._id;
@@ -78,10 +79,10 @@ var TabComponent = (function () {
             shareList += "<option value='" + users[n]._id + "'>" + users[n].name + "</option>";
         }
         shareList += "</select>";
-        $("#shareList").html(shareList + "<button id='shareListButton'>Share</button>");
+        $("#" + curTab + "-shareList").html(shareList + "<button class='btn btn-danger' id='shareListButton'>Share</button>");
         $("#shareListButton").click(function () {
-            var user_id = $("#shareList").find(":selected").val();
-            var userName = $("#shareList").find(":selected").text();
+            var user_id = $("#" + curTab + "-shareList").find(":selected").val();
+            var userName = $("#" + curTab + "-shareList").find(":selected").text();
             tabService.updateTab(list, { share: [user_id] }).subscribe(function (data) {
                 alert("This list has been shared with " + userName);
             });

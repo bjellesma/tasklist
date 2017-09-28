@@ -145,6 +145,9 @@ router.get('/logout', requireLogin, function(req, res) {
 router.get('/user-profile', requireLogin, function(req, res, next){
   res.render('profile.html'); //res.send with send anything to the browser while res.render will show a file
 });
+router.get('/chat', requireLogin, function(req, res, next){
+  res.render('chat.html'); //res.send with send anything to the browser while res.render will show a file
+});
 router.get('/env', function(req, res, next){
   res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: req.session.user, mode: process.env.MODE});
 });
