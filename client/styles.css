@@ -154,3 +154,14 @@ th:hover {
 .success {
   color:green;
 }
+/* Chat */
+#chat_messages {
+  width:100%;
+  height:300px;
+  overflow-y: scroll;
+  padding:10px;
+  border:1px solid #000;
+}
+#chat_status {
+  color:#bbb;
+}
