@@ -14,36 +14,11 @@ var app_service_js_1 = require("../app/services/app.service.js");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/map");
 var ChatComponent = (function () {
-    function ChatComponent(userService) {
-        this.userService = userService;
+    function ChatComponent(chatService) {
+        this.chatService = chatService;
         this.success = null;
         this.errors = null;
     }
-    ChatComponent.prototype.resetPassword = function (event) {
-        var _this = this;
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var verifyPassword = $("#verifyPassword").val();
-        var resetPassword = {
-            username: username,
-            password: password,
-            verifyPassword: verifyPassword
-        };
-        //save task to database
-        this.userService.resetPassword(resetPassword).subscribe(function (data) {
-            data = JSON.parse(data);
-            if (data.success == true) {
-                //redirect to homepage
-                window.location.replace('/');
-            }
-            else {
-                _this.success = data.success;
-                _this.errors = data.errors;
-                $("#password").val('');
-                $("#verifyPassword").val('');
-            }
-        });
-    };
     return ChatComponent;
 }());
 ChatComponent = __decorate([
@@ -53,7 +28,7 @@ ChatComponent = __decorate([
         templateUrl: 'chat.component.html',
         providers: [app_service_js_1.UsersService]
     }),
-    __metadata("design:paramtypes", [app_service_js_1.UsersService])
+    __metadata("design:paramtypes", [app_service_js_1.ChatService])
 ], ChatComponent);
 exports.ChatComponent = ChatComponent;
 //# sourceMappingURL=chat.component.js.map

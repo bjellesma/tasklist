@@ -12,10 +12,8 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 
 var port = process.env.APIPORT;
-var socketClient = require('socket.io').listen(8080).sockets;
-socketClient.on('connection', function(socket){
-  console.log('Connection initialized')
-})
+
+
 var ip = process.env.APIIP;
 var mode = process.env.MODE;
 var app = express(); //main variable

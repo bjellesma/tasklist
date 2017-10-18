@@ -263,12 +263,17 @@ UsersService = __decorate([
 ], UsersService);
 exports.UsersService = UsersService;
 var ChatService = (function () {
-    function ChatService() {
+    function ChatService(http) {
+        this.http = http;
+        if (env_js_1.getEnvVariables().MODE == 'development') {
+            console.log('Chat Service Initialized...');
+        }
     }
     return ChatService;
 }());
 ChatService = __decorate([
-    core_1.Injectable()
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
 ], ChatService);
 exports.ChatService = ChatService;
 //# sourceMappingURL=app.service.js.map

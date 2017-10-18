@@ -12,6 +12,7 @@ function envCall(){
        apiport = data.apiport;
        user = data.user;
        mode = data.mode;
+       socketClient = data.socketClient;
        //return apiip.apiip;
      }
   });
@@ -20,7 +21,7 @@ module.exports = {
   getEnvVariables: function () {
     envCall();
     var vars = {
-      
+      SOCKET: socketClient,
       APIIP: apiip,
       APIPORT: apiport,
       user: user,
