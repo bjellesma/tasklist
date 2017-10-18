@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UsersService} from '../app/services/app.service.js';
+import {ChatService, UsersService} from '../app/services/app.service.js';
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
 
@@ -12,30 +12,8 @@ import "rxjs/add/operator/map";
 export class ChatComponent {
   success = null;
   errors = null;
-  constructor(private userService:UsersService){
+  constructor(private chatService:ChatService){
 
-      }
-  resetPassword(event){
-    var username = $("#username").val();
-    var password = $("#password").val();
-    var verifyPassword = $("#verifyPassword").val();
-    var resetPassword = {
-      username:username,
-      password:password,
-      verifyPassword:verifyPassword
-    };
-    //save task to database
-    this.userService.resetPassword(resetPassword).subscribe(data => {
-      data = JSON.parse(data);
-      if(data.success == true){
-        //redirect to homepage
-        window.location.replace('/');
-      }else{
-        this.success = data.success
-        this.errors = data.errors
-        $("#password").val('');
-        $("#verifyPassword").val('');
-      }
-    });
   }
+
 }

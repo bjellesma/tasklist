@@ -227,4 +227,9 @@ export class UsersService{
 }
 @Injectable()
 export class ChatService{
+  constructor(private http:Http){
+    if(getEnvVariables().MODE == 'development'){
+      console.log('Chat Service Initialized...');
+    }
+  }
 }

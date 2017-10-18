@@ -3,6 +3,7 @@ var app = express();
 var mongojs = require('mongojs');
 require('dotenv').config();
 var router = express.Router();
+
 var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPASSWORD + '@' + process.env.DBHOST + ':' + process.env.DBPORT + '/' + process.env.DBNAME, ['users']);
 
 function requireLogin (req, res, next) {
@@ -149,7 +150,12 @@ router.get('/chat', requireLogin, function(req, res, next){
   res.render('chat.html'); //res.send with send anything to the browser while res.render will show a file
 });
 router.get('/env', function(req, res, next){
-  res.json({apiip: process.env.APIIP, apiport: process.env.APIPORT, user: req.session.user, mode: process.env.MODE});
+  res.json({
+    socketClient: JSON.stringify(socketClient),
+    apiip: process.env.APIIP,
+    apiport: process.env.APIPORT,
+    user: req.session.user,
+    mode: process.env.MODE});
 });
 
 module.exports = router; //so that we can access the router from different files
