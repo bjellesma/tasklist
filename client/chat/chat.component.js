@@ -26,7 +26,7 @@ ChatComponent = __decorate([
         moduleId: module.id,
         selector: 'task-chat',
         templateUrl: 'chat.component.html',
-        providers: [app_service_js_1.UsersService]
+        providers: [app_service_js_1.UsersService, app_service_js_1.ChatService]
     }),
     __metadata("design:paramtypes", [app_service_js_1.ChatService])
 ], ChatComponent);

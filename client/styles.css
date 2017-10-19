@@ -165,3 +165,7 @@ th:hover {
 #chat_status {
   color:#bbb;
 }
+#chat textarea {
+  width:80%;
+  overflow-y:scroll;
+}

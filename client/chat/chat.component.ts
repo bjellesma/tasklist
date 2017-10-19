@@ -7,7 +7,7 @@ import "rxjs/add/operator/map";
   moduleId: module.id,
   selector: 'task-chat',
   templateUrl: 'chat.component.html',
-  providers: [UsersService]
+  providers: [UsersService, ChatService]
 })
 export class ChatComponent {
   success = null;

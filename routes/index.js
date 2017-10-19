@@ -151,7 +151,6 @@ router.get('/chat', requireLogin, function(req, res, next){
 });
 router.get('/env', function(req, res, next){
   res.json({
-    socketClient: JSON.stringify(socketClient),
     apiip: process.env.APIIP,
     apiport: process.env.APIPORT,
     user: req.session.user,
