@@ -14,10 +14,14 @@ var app_service_js_1 = require("../app/services/app.service.js");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/map");
 var ChatComponent = (function () {
-    function ChatComponent(chatService) {
+    function ChatComponent(userService, chatService) {
+        this.userService = userService;
         this.chatService = chatService;
         this.success = null;
         this.errors = null;
+        this.user = userService.getUser();
+        var socket = io.connect('http://127.0.0.1:8080/');
+        socket.emit('input', { 'name': this.user.name, 'message': 'hello' });
     }
     return ChatComponent;
 }());
@@ -28,7 +32,7 @@ ChatComponent = __decorate([
         templateUrl: 'chat.component.html',
         providers: [app_service_js_1.UsersService, app_service_js_1.ChatService]
     }),
-    __metadata("design:paramtypes", [app_service_js_1.ChatService])
+    __metadata("design:paramtypes", [app_service_js_1.UsersService, app_service_js_1.ChatService])
 ], ChatComponent);
 exports.ChatComponent = ChatComponent;
 //# sourceMappingURL=chat.component.js.map

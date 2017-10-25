@@ -21,9 +21,10 @@ var session = require('client-sessions');
 socketClient.on('connection', function(socket){
   console.log('A chat connection has been established')
   socket.on('input', function(data){
+    console.log("name: " + data.name)
     db.collection("chats").insert({
-      name: name,
-      message: message
+      name: data.name,
+      message: data.message
     }, function(){
       console.log("The chat has been inserted")
     })

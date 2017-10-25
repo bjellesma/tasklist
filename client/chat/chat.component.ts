@@ -12,8 +12,10 @@ import "rxjs/add/operator/map";
 export class ChatComponent {
   success = null;
   errors = null;
-  constructor(private chatService:ChatService){
-
+  constructor(private userService:UsersService, private chatService:ChatService){
+    this.user = userService.getUser()
+    var socket = io.connect('http://127.0.0.1:8080/')
+    socket.emit('input': {'name': this.user.name, 'message': 'hello'})
   }
 
 }
