@@ -21,13 +21,22 @@ var session = require('client-sessions');
 socketClient.on('connection', function(socket){
   console.log('A chat connection has been established')
   socket.on('input', function(data){
-    console.log("name: " + data.name)
-    db.collection("chats").insert({
-      name: data.name,
-      message: data.message
-    }, function(){
-      console.log("The chat has been inserted")
-    })
+    var whitespacePattern = /^\s*$/,
+        message = data.message,
+        name = data.name;
+        //check for invalid data
+        //if whitepace
+        if(whitespacePattern.test(name) || whitespacePattern.test(message)){
+          console.log("The data received was invalid")
+        }else{
+          db.collection("chats").insert({
+            name: data.name,
+            message: data.message
+          }, function(){
+            console.log("The chat has been inserted")
+          })
+        }
+
   })
 })
 
