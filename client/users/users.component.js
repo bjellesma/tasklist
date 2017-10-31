@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_js_1 = require("../app/services/app.service.js");
 //task service is needed because we are connecting to a database
-var UsersComponent = (function () {
+var UsersComponent = /** @class */ (function () {
     function UsersComponent(UsersService, tabService) {
         var _this = this;
         this.UsersService = UsersService;
@@ -26,16 +26,16 @@ var UsersComponent = (function () {
             }
         });
     }
+    UsersComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'users',
+            templateUrl: 'users.component.html',
+            providers: [app_service_js_1.UsersService, app_service_js_1.TabService]
+        }),
+        __metadata("design:paramtypes", [app_service_js_1.UsersService, app_service_js_1.TabService])
+    ], UsersComponent);
     return UsersComponent;
 }());
-UsersComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'users',
-        templateUrl: 'users.component.html',
-        providers: [app_service_js_1.UsersService, app_service_js_1.TabService]
-    }),
-    __metadata("design:paramtypes", [app_service_js_1.UsersService, app_service_js_1.TabService])
-], UsersComponent);
 exports.UsersComponent = UsersComponent;
 //# sourceMappingURL=users.component.js.map

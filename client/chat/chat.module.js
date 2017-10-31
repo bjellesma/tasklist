@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var chat_component_1 = require("./chat.component");
-var ChatModule = (function () {
+var ChatModule = /** @class */ (function () {
     function ChatModule() {
     }
+    ChatModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [chat_component_1.ChatComponent],
+            bootstrap: [chat_component_1.ChatComponent]
+        })
+    ], ChatModule);
     return ChatModule;
 }());
-ChatModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [chat_component_1.ChatComponent],
-        bootstrap: [chat_component_1.ChatComponent]
-    })
-], ChatModule);
 exports.ChatModule = ChatModule;
 //# sourceMappingURL=chat.module.js.map

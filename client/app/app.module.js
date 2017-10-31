@@ -14,17 +14,17 @@ var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var app_component_1 = require("./app.component");
 var tab_component_1 = require("./components/tabs/tab.component");
 var task_component_1 = require("./components/tasks/task.component");
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [app_component_1.AppComponent, task_component_1.TasksComponent, tab_component_1.TabComponent],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, task_component_1.TasksComponent, tab_component_1.TabComponent],
-        bootstrap: [app_component_1.AppComponent]
-    })
-], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

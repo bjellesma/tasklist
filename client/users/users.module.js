@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var users_component_1 = require("./users.component");
-var UsersModule = (function () {
+var UsersModule = /** @class */ (function () {
     function UsersModule() {
     }
+    UsersModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [users_component_1.UsersComponent],
+            bootstrap: [users_component_1.UsersComponent]
+        })
+    ], UsersModule);
     return UsersModule;
 }());
-UsersModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [users_component_1.UsersComponent],
-        bootstrap: [users_component_1.UsersComponent]
-    })
-], UsersModule);
 exports.UsersModule = UsersModule;
 //# sourceMappingURL=users.module.js.map

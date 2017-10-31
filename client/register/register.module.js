@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var register_component_1 = require("./register.component");
-var RegisterModule = (function () {
+var RegisterModule = /** @class */ (function () {
     function RegisterModule() {
     }
+    RegisterModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [register_component_1.RegisterComponent],
+            bootstrap: [register_component_1.RegisterComponent]
+        })
+    ], RegisterModule);
     return RegisterModule;
 }());
-RegisterModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [register_component_1.RegisterComponent],
-        bootstrap: [register_component_1.RegisterComponent]
-    })
-], RegisterModule);
 exports.RegisterModule = RegisterModule;
 //# sourceMappingURL=register.module.js.map

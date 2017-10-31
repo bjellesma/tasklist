@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_js_1 = require("../app/services/app.service.js");
-var LoginComponent = (function () {
+var LoginComponent = /** @class */ (function () {
     function LoginComponent(userService) {
         this.userService = userService;
         this.success = null;
@@ -40,16 +40,16 @@ var LoginComponent = (function () {
             }
         });
     };
+    LoginComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'task-login',
+            templateUrl: 'login.component.html',
+            providers: [app_service_js_1.UsersService]
+        }),
+        __metadata("design:paramtypes", [app_service_js_1.UsersService])
+    ], LoginComponent);
     return LoginComponent;
 }());
-LoginComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'task-login',
-        templateUrl: 'login.component.html',
-        providers: [app_service_js_1.UsersService]
-    }),
-    __metadata("design:paramtypes", [app_service_js_1.UsersService])
-], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

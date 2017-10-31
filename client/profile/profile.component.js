@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var app_service_1 = require("../../app/services/app.service");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/map");
-var ProfileComponent = (function () {
+var ProfileComponent = /** @class */ (function () {
     function ProfileComponent(userService, el) {
         var _this = this;
         this.userService = userService;
@@ -123,17 +123,17 @@ var ProfileComponent = (function () {
             }
         });
     };
+    ProfileComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'user-profile',
+            templateUrl: 'profile.component.html',
+            providers: [app_service_1.UsersService]
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.UsersService !== "undefined" && app_service_1.UsersService) === "function" && _a || Object, core_1.ElementRef])
+    ], ProfileComponent);
     return ProfileComponent;
+    var _a;
 }());
-ProfileComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'user-profile',
-        templateUrl: 'profile.component.html',
-        providers: [app_service_1.UsersService]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.UsersService !== "undefined" && app_service_1.UsersService) === "function" && _a || Object, core_1.ElementRef])
-], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
-var _a;
 //# sourceMappingURL=profile.component.js.map

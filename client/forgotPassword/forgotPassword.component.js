@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_js_1 = require("../app/services/app.service.js");
-var forgotPasswordComponent = (function () {
+var forgotPasswordComponent = /** @class */ (function () {
     function forgotPasswordComponent(userService) {
         this.userService = userService;
         this.success = null;
@@ -42,16 +42,16 @@ var forgotPasswordComponent = (function () {
             }
         });
     };
+    forgotPasswordComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'task-forgotPassword',
+            templateUrl: 'forgotPassword.component.html',
+            providers: [app_service_js_1.UsersService]
+        }),
+        __metadata("design:paramtypes", [app_service_js_1.UsersService])
+    ], forgotPasswordComponent);
     return forgotPasswordComponent;
 }());
-forgotPasswordComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'task-forgotPassword',
-        templateUrl: 'forgotPassword.component.html',
-        providers: [app_service_js_1.UsersService]
-    }),
-    __metadata("design:paramtypes", [app_service_js_1.UsersService])
-], forgotPasswordComponent);
 exports.forgotPasswordComponent = forgotPasswordComponent;
 //# sourceMappingURL=forgotPassword.component.js.map

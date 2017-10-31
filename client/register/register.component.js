@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_js_1 = require("../app/services/app.service.js");
-var RegisterComponent = (function () {
+var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(userService) {
         this.userService = userService;
         this.success = null;
@@ -42,16 +42,16 @@ var RegisterComponent = (function () {
             }
         });
     };
+    RegisterComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'task-register',
+            templateUrl: 'register.component.html',
+            providers: [app_service_js_1.UsersService]
+        }),
+        __metadata("design:paramtypes", [app_service_js_1.UsersService])
+    ], RegisterComponent);
     return RegisterComponent;
 }());
-RegisterComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'task-register',
-        templateUrl: 'register.component.html',
-        providers: [app_service_js_1.UsersService]
-    }),
-    __metadata("design:paramtypes", [app_service_js_1.UsersService])
-], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

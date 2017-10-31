@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http"); //to manipulate headers
 require("rxjs/add/operator/map"); //get our requests and then map them
 var env_js_1 = require("/env.js");
-var TaskService = (function () {
+var TaskService = /** @class */ (function () {
     function TaskService(http) {
         this.http = http;
         if (env_js_1.getEnvVariables().MODE == 'development') {
@@ -78,14 +78,14 @@ var TaskService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    TaskService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], TaskService);
     return TaskService;
 }());
-TaskService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], TaskService);
 exports.TaskService = TaskService;
-var TabService = (function () {
+var TabService = /** @class */ (function () {
     function TabService(http) {
         this.http = http;
         if (env_js_1.getEnvVariables().MODE == 'development') {
@@ -149,14 +149,14 @@ var TabService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    TabService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], TabService);
     return TabService;
 }());
-TabService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], TabService);
 exports.TabService = TabService;
-var UsersService = (function () {
+var UsersService = /** @class */ (function () {
     function UsersService(http) {
         this.http = http;
         this.APIIP = env_js_1.getEnvVariables().APIIP;
@@ -255,25 +255,25 @@ var UsersService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    UsersService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], UsersService);
     return UsersService;
 }());
-UsersService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], UsersService);
 exports.UsersService = UsersService;
-var ChatService = (function () {
+var ChatService = /** @class */ (function () {
     function ChatService(http) {
         this.http = http;
         if (env_js_1.getEnvVariables().MODE == 'development') {
             console.log('Chat Service Initialized...');
         }
     }
+    ChatService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], ChatService);
     return ChatService;
 }());
-ChatService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], ChatService);
 exports.ChatService = ChatService;
 //# sourceMappingURL=app.service.js.map

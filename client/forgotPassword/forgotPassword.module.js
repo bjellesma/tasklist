@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var forgotPassword_component_1 = require("./forgotPassword.component");
-var forgotPasswordModule = (function () {
+var forgotPasswordModule = /** @class */ (function () {
     function forgotPasswordModule() {
     }
+    forgotPasswordModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [forgotPassword_component_1.forgotPasswordComponent],
+            bootstrap: [forgotPassword_component_1.forgotPasswordComponent]
+        })
+    ], forgotPasswordModule);
     return forgotPasswordModule;
 }());
-forgotPasswordModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [forgotPassword_component_1.forgotPasswordComponent],
-        bootstrap: [forgotPassword_component_1.forgotPasswordComponent]
-    })
-], forgotPasswordModule);
 exports.forgotPasswordModule = forgotPasswordModule;
 //# sourceMappingURL=forgotPassword.module.js.map

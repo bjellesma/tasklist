@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var login_component_1 = require("./login.component");
-var LoginModule = (function () {
+var LoginModule = /** @class */ (function () {
     function LoginModule() {
     }
+    LoginModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [login_component_1.LoginComponent],
+            bootstrap: [login_component_1.LoginComponent]
+        })
+    ], LoginModule);
     return LoginModule;
 }());
-LoginModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [login_component_1.LoginComponent],
-        bootstrap: [login_component_1.LoginComponent]
-    })
-], LoginModule);
 exports.LoginModule = LoginModule;
 //# sourceMappingURL=login.module.js.map

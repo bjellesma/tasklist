@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var app_service_1 = require("../../services/app.service");
-var TasksComponent = TasksComponent_1 = (function () {
+var TasksComponent = /** @class */ (function () {
     //this refers to the task service dependancy
     //the params in these functions must be declare as providers in app.module.ts
     function TasksComponent(taskService, userService, tabService) {
@@ -38,6 +38,7 @@ var TasksComponent = TasksComponent_1 = (function () {
             _this.categoryTasks = TasksComponent_1.categoryTasks;
         });
     }
+    TasksComponent_1 = TasksComponent;
     TasksComponent.prototype.addTask = function (event) {
         var _this = this;
         //console.log(document.getElementsByClassName("active"));
@@ -159,17 +160,17 @@ var TasksComponent = TasksComponent_1 = (function () {
             }
         });
     };
+    TasksComponent = TasksComponent_1 = __decorate([
+        core_1.Component({
+            //in order to use the relative path, we need to include the following line
+            moduleId: module.id,
+            selector: 'all-tasks',
+            templateUrl: 'task.component.html'
+        }),
+        __metadata("design:paramtypes", [app_service_1.TaskService, app_service_1.UsersService, app_service_1.TabService])
+    ], TasksComponent);
     return TasksComponent;
+    var TasksComponent_1;
 }());
-TasksComponent = TasksComponent_1 = __decorate([
-    core_1.Component({
-        //in order to use the relative path, we need to include the following line
-        moduleId: module.id,
-        selector: 'all-tasks',
-        templateUrl: 'task.component.html'
-    }),
-    __metadata("design:paramtypes", [app_service_1.TaskService, app_service_1.UsersService, app_service_1.TabService])
-], TasksComponent);
 exports.TasksComponent = TasksComponent;
-var TasksComponent_1;
 //# sourceMappingURL=task.component.js.map

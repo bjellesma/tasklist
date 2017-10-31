@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var task_component_1 = require("../tasks/task.component");
 var app_service_1 = require("../../services/app.service");
-var TabComponent = (function () {
+var TabComponent = /** @class */ (function () {
     function TabComponent(tabService, userService) {
         var _this = this;
         this.tabService = tabService;
@@ -115,15 +115,15 @@ var TabComponent = (function () {
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     };
+    TabComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'task-tabs',
+            templateUrl: 'tab.component.html'
+        }),
+        __metadata("design:paramtypes", [app_service_1.TabService, app_service_1.UsersService])
+    ], TabComponent);
     return TabComponent;
 }());
-TabComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'task-tabs',
-        templateUrl: 'tab.component.html'
-    }),
-    __metadata("design:paramtypes", [app_service_1.TabService, app_service_1.UsersService])
-], TabComponent);
 exports.TabComponent = TabComponent;
 //# sourceMappingURL=tab.component.js.map

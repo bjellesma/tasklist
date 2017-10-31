@@ -12,17 +12,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); //needed to add forms in angular2
 var profile_component_1 = require("./profile.component");
-var ProfileModule = (function () {
+var ProfileModule = /** @class */ (function () {
     function ProfileModule() {
     }
+    ProfileModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+            declarations: [profile_component_1.ProfileComponent],
+            bootstrap: [profile_component_1.ProfileComponent]
+        })
+    ], ProfileModule);
     return ProfileModule;
 }());
-ProfileModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [profile_component_1.ProfileComponent],
-        bootstrap: [profile_component_1.ProfileComponent]
-    })
-], ProfileModule);
 exports.ProfileModule = ProfileModule;
 //# sourceMappingURL=profile.module.js.map
