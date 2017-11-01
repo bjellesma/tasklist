@@ -85,6 +85,18 @@ router.get('/users', requireLogin, function(req, res, next){
 });
 
 /*
+* function to get all chats
+*/
+router.get('/chats', function(req, res, next){
+  db.collection("chats").find(function(err, chats){
+    if(err){
+      res.send(err);
+    }
+    res.json(chats);
+  });
+});
+
+/*
 * function to get single task
 * :id make id a parameter
 * req is the way we get requests

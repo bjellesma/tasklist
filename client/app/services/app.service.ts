@@ -232,4 +232,13 @@ export class ChatService{
       console.log('Chat Service Initialized...');
     }
   }
+  getChats(){
+    if(getEnvVariables().MODE == 'openshift'){
+      return this.http.get('http://' + getEnvVariables().APIIP + '/api/chats')
+        .map(res => res.json());
+    }else{
+      return this.http.get('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().APIPORT + '/api/chats')
+        .map(res => res.json());
+    }
+  }
 }
