@@ -154,7 +154,9 @@ router.get('/env', function(req, res, next){
     apiip: process.env.APIIP,
     apiport: process.env.APIPORT,
     user: req.session.user,
-    mode: process.env.MODE});
+    mode: process.env.MODE,
+    chatport: process.env.CHATPORT
+  });
 });
 
 module.exports = router; //so that we can access the router from different files

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ChatService, UsersService} from '../app/services/app.service.js';
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
+import {getEnvVariables} from '/env.js';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,7 @@ export class ChatComponent {
   constructor(private userService:UsersService, private chatService:ChatService){
     this.user = userService.getUser()
     try{
-      this.socket = io.connect('http://127.0.0.1:8080/')
+      this.socket = io.connect('http://' + getEnvVariables().APIIP + ':' + getEnvVariables().CHATPORT + '/')
     }catch(e){
       //set status to warn user
     }

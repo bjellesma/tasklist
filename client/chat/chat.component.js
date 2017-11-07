@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var app_service_js_1 = require("../app/services/app.service.js");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/map");
+var env_js_1 = require("/env.js");
 var ChatComponent = (function () {
     function ChatComponent(userService, chatService) {
         var _this = this;
@@ -23,7 +24,7 @@ var ChatComponent = (function () {
         this.errors = null;
         this.user = userService.getUser();
         try {
-            this.socket = io.connect('http://127.0.0.1:8080/');
+            this.socket = io.connect('http://' + env_js_1.getEnvVariables().APIIP + ':' + env_js_1.getEnvVariables().CHATPORT + '/');
         }
         catch (e) {
             //set status to warn user

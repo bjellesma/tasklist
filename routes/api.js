@@ -8,7 +8,7 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var fs = require('fs');
 var multer  = require('multer')
-var socketClient = require('socket.io').listen(8080).sockets;
+var socketClient = require('socket.io').listen(process.env.CHATPORT).sockets;
     var upload = multer({ //multer settings
                     dest: 'client/images/'
                 }).single('changeProfilePictureFileInput');
@@ -16,7 +16,9 @@ var db = mongojs('mongodb://' + process.env.DBUSERNAME + ':' + process.env.DBPAS
 require('dotenv').config();
 //for sessions
 var session = require('client-sessions');
-
+var sendStatus = function(s) {
+  socket.emit('status', s)
+}
 //sockets
 socketClient.on('connection', function(socket){
   console.log('A chat connection has been established')

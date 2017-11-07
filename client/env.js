@@ -13,6 +13,7 @@ function envCall(){
        user = data.user;
        mode = data.mode;
        socketClient = data.socketClient;
+       chatport = data.chatport;
        //return apiip.apiip;
      }
   });
@@ -25,7 +26,8 @@ module.exports = {
       APIIP: apiip,
       APIPORT: apiport,
       user: user,
-      MODE: mode
+      MODE: mode,
+      CHATPORT: chatport
     }
     return vars;
   },
