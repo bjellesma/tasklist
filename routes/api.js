@@ -95,7 +95,9 @@ router.get('/chats', function(req, res, next){
       res.send(err);
     }
     res.json(chats);
-  });
+    //TODO working on sort
+  //}).sort({_id:1});
+})
 });
 
 /*
